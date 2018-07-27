@@ -18,15 +18,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.Locale;
-
 import com.ranok.R;
 import com.ranok.RanokApp;
 import com.ranok.oracle.ConnectOra;
 import com.ranok.ui.main.MainActivity;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Locale;
 
 public class LoginActivity extends AppCompatActivity  {
 
