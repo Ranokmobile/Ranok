@@ -21,15 +21,13 @@ import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode;
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetector;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
-
-
-import java.io.IOException;
-import java.util.List;
-
 import com.ranok.mlkit.BarcodeScanCallback;
 import com.ranok.mlkit.FrameMetadata;
 import com.ranok.mlkit.GraphicOverlay;
 import com.ranok.mlkit.VisionProcessorBase;
+
+import java.io.IOException;
+import java.util.List;
 
 /** Barcode Detector Demo. */
 public class BarcodeScanningProcessor extends VisionProcessorBase<List<FirebaseVisionBarcode>> {
@@ -38,7 +36,7 @@ public class BarcodeScanningProcessor extends VisionProcessorBase<List<FirebaseV
 
   private final FirebaseVisionBarcodeDetector detector;
 
-  BarcodeScanCallback barcodeScanCallback;
+  private BarcodeScanCallback barcodeScanCallback;
 
   public BarcodeScanningProcessor(BarcodeScanCallback callback) {
     // Note that if you know which format of barcode your app is dealing with, detection will be
@@ -47,7 +45,12 @@ public class BarcodeScanningProcessor extends VisionProcessorBase<List<FirebaseV
     //     .setBarcodeFormats(FirebaseVisionBarcode.FORMAT_QR_CODE)
     //     .build();
     barcodeScanCallback = callback;
-    detector = FirebaseVision.getInstance().getVisionBarcodeDetector();
+    detector = FirebaseVision.getInstance().getVisionBarcodeDetector(
+//            new FirebaseVisionBarcodeDetectorOptions.Builder()
+//            .setBarcodeFormats(FirebaseVisionBarcode.FORMAT_UPC_A)
+//            .build()
+    );
+
   }
 
   @Override
@@ -74,7 +77,7 @@ public class BarcodeScanningProcessor extends VisionProcessorBase<List<FirebaseV
       FirebaseVisionBarcode barcode = barcodes.get(i);
       BarcodeGraphic barcodeGraphic = new BarcodeGraphic(graphicOverlay, barcode);
       graphicOverlay.add(barcodeGraphic);
-      Log.d("BARCODE = ", barcode.getDisplayValue());
+      Log.d("BARCODE = ", barcode.getFormat()+"");
       barcodeScanCallback.gotBarcode(barcode.getDisplayValue());
     }
   }

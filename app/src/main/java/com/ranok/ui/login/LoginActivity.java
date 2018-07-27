@@ -6,75 +6,70 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.RanokApp;
+import com.ranok.databinding.ActivityLoginBinding;
 import com.ranok.oracle.ConnectOra;
+import com.ranok.ui.base.BaseActivity;
 import com.ranok.ui.main.MainActivity;
+import com.ranok.ui.main.MainActivityIView;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Locale;
 
-public class LoginActivity extends AppCompatActivity  {
+import ranok.mvvm.binding.ViewModelBindingConfig;
 
-    private AutoCompleteTextView mEmailView;
+public class LoginActivity extends BaseActivity<LoginActivityIView, LoginActivityVM, ActivityLoginBinding>
+        implements MainActivityIView  {
+
+    private EditText mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
     Intent arguments;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public ViewModelBindingConfig getViewModelBindingConfig() {
+        return new ViewModelBindingConfig(R.layout.activity_login, BR.viewModel, this);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         arguments = getIntent();
 
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mEmailView = findViewById(R.id.email);
 
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        mPasswordView = findViewById(R.id.password);
+        mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
+            if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
                 attemptLogin();
+                return true;
             }
+            return false;
         });
+
+        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton.setOnClickListener(view -> attemptLogin());
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
-
-
-
-
-
-
 
     /**
      * Attempts to sign in or register the account specified by the login form.
