@@ -56,14 +56,15 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
     implementation 'com.android.support:multidex:1.0.3'
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') {
-        transitive = true;
+        transitive = true
     }
+    implementation 'com.google.android:flexbox:1.0.0'
 
     // ML Kit dependencies
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-ml-vision:16.0.0'
-    implementation 'com.google.firebase:firebase-ml-vision-image-label-model:15.0.0'
-    implementation 'com.google.firebase:firebase-ml-model-interpreter:16.0.0'
+//    implementation 'com.google.firebase:firebase-ml-vision-image-label-model:15.0.0'
+//    implementation 'com.google.firebase:firebase-ml-model-interpreter:16.0.0'
 
     implementation project(':Annotation')
     implementation 'com.google.firebase:firebase-messaging:17.1.0'
