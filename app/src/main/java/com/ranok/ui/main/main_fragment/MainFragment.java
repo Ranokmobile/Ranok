@@ -61,7 +61,6 @@ public class MainFragment extends BaseFragment<MainIView, MainVM, MainFragmentBi
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             mActivity.addFragment(new ScanFragment());
-            //Toast.makeText(TestApp.getApp(), data.getStringExtra("barcode"), Toast.LENGTH_LONG).show();
         }
     }
 
