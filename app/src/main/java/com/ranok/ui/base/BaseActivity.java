@@ -3,9 +3,14 @@ package com.ranok.ui.base;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseArray;
+
+import com.ranok.ui.dialogs.LoaderDialog;
+
 import ranok.mvvm.base.ViewModelBaseActivity;
 
 
@@ -15,6 +20,21 @@ public abstract class BaseActivity<T extends BaseIView, R extends BaseViewModel<
     protected B binding;
     protected R viewModel;
 
+    protected SparseArray<LoaderDialog> loaderDialogs = new SparseArray<>();
+
+    @Override
+    public void showLoader(int hashCode) {
+        loaderDialogs.put(hashCode, new LoaderDialog(this));
+        loaderDialogs.get(hashCode).show();
+    }
+
+    @Override
+    public void hideLoader(int hash) {
+        if (loaderDialogs.get(hash) != null && loaderDialogs.get(hash).isShowing()) {
+            loaderDialogs.get(hash).dismiss();
+            loaderDialogs.remove(hash);
+        }
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,6 +69,17 @@ public abstract class BaseActivity<T extends BaseIView, R extends BaseViewModel<
         }
     }
 
+    @Override
+    public void showSnakeBar(String s) {
+        Snackbar snackbar = Snackbar
+                    .make(getBinding().getRoot(), s, Snackbar.LENGTH_LONG);
+            snackbar.show();
+    }
+
+    @Override
+    public void showSnakeBar(int i) {
+        showSnakeBar(getString(i));
+    }
 
     @SuppressWarnings("unused")
     public B getBinding() {

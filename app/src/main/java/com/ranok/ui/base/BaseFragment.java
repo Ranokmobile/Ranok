@@ -5,6 +5,7 @@ import android.databinding.OnRebindCallback;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.transition.TransitionManager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -77,6 +78,15 @@ public abstract class BaseFragment<T extends BaseIView, R extends BaseViewModel<
         return null;
     }
 
+    @Override
+    public void showLoader(int hashCode) {
+        mActivity.showLoader(hashCode);
+    }
+
+    @Override
+    public void hideLoader(int hash) {
+        mActivity.hideLoader(hash);
+    }
 
     @SuppressWarnings("unused")
     public B getBinding() {
@@ -96,4 +106,17 @@ public abstract class BaseFragment<T extends BaseIView, R extends BaseViewModel<
             mActivity.activateToolbarNoDrawer (toolbar);
         }
     }
+
+    @Override
+    public void showSnakeBar(String s) {
+        Snackbar snackbar = Snackbar
+                .make(getBinding().getRoot(), s, Snackbar.LENGTH_LONG);
+        snackbar.show();
+    }
+
+    @Override
+    public void showSnakeBar(int i) {
+        showSnakeBar(getString(i));
+    }
+
 }

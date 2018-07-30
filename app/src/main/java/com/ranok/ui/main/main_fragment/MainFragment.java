@@ -9,19 +9,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import ranok.mvvm.binding.ViewModelBindingConfig;
 import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.databinding.MainFragmentBinding;
 import com.ranok.mlkit.LivePreviewActivity;
+import com.ranok.ui.base.BaseActivity;
 import com.ranok.ui.base.BaseFragment;
 import com.ranok.ui.main.scan_packages.ScanFragment;
+import com.ranok.ui.scan_rfid.ScanRFIDFragment;
+
+import ranok.mvvm.binding.ViewModelBindingConfig;
 
 
 public class MainFragment extends BaseFragment<MainIView, MainVM, MainFragmentBinding> implements MainIView {
-
-
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,7 +43,11 @@ public class MainFragment extends BaseFragment<MainIView, MainVM, MainFragmentBi
         inflater.inflate(R.menu.mainmenu, menu);
     }
 
-
+    @Override
+    public void showRFIDScan() {
+        BaseActivity activity = ((BaseActivity)getActivity());
+        if (activity!=null) activity.addFragment(new ScanRFIDFragment());
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

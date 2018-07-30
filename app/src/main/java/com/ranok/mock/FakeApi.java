@@ -1,10 +1,16 @@
 package com.ranok.mock;
 
 import com.ranok.network.NetApi;
+import com.ranok.network.request.LoginRequest;
+
+import io.reactivex.Single;
 
 public class FakeApi  implements NetApi {
-
-//    @Override
+    @Override
+    public Single<String> login(LoginRequest loginRequest) {
+        return null;
+    }
+    //    @Override
 //    public Single<List<NewsHeader>> getNewsList(long time) {
 //        List<NewsHeader> list = new ArrayList<>();
 //        final Random random = new Random();

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wang.avi.AVLoadingIndicatorView
+    android:layout_width="150dip"
+    android:layout_height="150dip"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:indicatorName="BallScaleMultipleIndicator"
+    android:layout_gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+</com.wang.avi.AVLoadingIndicatorView>

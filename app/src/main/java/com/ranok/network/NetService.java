@@ -1,6 +1,7 @@
 package com.ranok.network;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.concurrent.TimeUnit;
 
@@ -10,8 +11,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import com.ranok.BuildConfig;
-import com.ranok.mock.FakeApi;
 
 public class NetService {
 
@@ -33,10 +32,12 @@ public class NetService {
         httpClient.readTimeout(20, TimeUnit.SECONDS);
 
 
-        Gson gson = new Gson();
-        if (BuildConfig.DEBUG) {
-            return new FakeApi();
-        } else {
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+//        if (BuildConfig.DEBUG) {
+//            return new FakeApi();
+//        } else {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(NetApi.URL)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -44,7 +45,7 @@ public class NetService {
                     .client(httpClient.build())
                     .build();
             return retrofit.create(NetApi.class);
-        }
+//        }
     }
 }
 

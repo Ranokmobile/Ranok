@@ -9,22 +9,21 @@ import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.MenuItem;
 
-import ranok.mvvm.binding.ViewModelBindingConfig;
 import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.RanokApp;
-import com.ranok.ui.base.BaseActivity;
 import com.ranok.databinding.ActivityMainBinding;
 import com.ranok.nfc.factory.NDEFRecordFactory;
 import com.ranok.nfc.nfc_models.BaseRecord;
+import com.ranok.rx_bus.RxRFIDEvent;
+import com.ranok.ui.base.BaseActivity;
 import com.ranok.ui.login.LoginActivity;
 import com.ranok.ui.main.main_fragment.MainFragment;
-import com.ranok.ui.main.scan_packages.ScanFragment;
+
+import ranok.mvvm.binding.ViewModelBindingConfig;
 
 public class MainActivity  extends BaseActivity<MainActivityIView, MainActivityVM, ActivityMainBinding>
         implements MainActivityIView {
@@ -95,16 +94,22 @@ public class MainActivity  extends BaseActivity<MainActivityIView, MainActivityV
     private void getTag(Intent i) {
         if (i == null)
             return;
-        Parcelable[] parcs1 = i.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-        for (Parcelable p : parcs1) {
-            NdefMessage msg = (NdefMessage) p;
-            NdefRecord[] records = msg.getRecords();
-            for (NdefRecord record : records) {
-                BaseRecord result = NDEFRecordFactory.createRecord(record);
-                if (result != null) {
-                    setNfcData(result);
+
+        try {
+            Parcelable[] parcs1 = i.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+            for (Parcelable p : parcs1) {
+                NdefMessage msg = (NdefMessage) p;
+                NdefRecord[] records = msg.getRecords();
+                for (NdefRecord record : records) {
+                    BaseRecord result = NDEFRecordFactory.createRecord(record);
+                    if (result != null) {
+                        RxRFIDEvent.getInstance().sendRFIDData(result.payload);
+                        //setNfcData(result);
+                    }
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
 /*
@@ -133,27 +138,26 @@ public class MainActivity  extends BaseActivity<MainActivityIView, MainActivityV
 
     }
 
-    void setNfcData(BaseRecord result) {
-        String tag = result.payload;
-        Log.d("nfcRec", tag);
-        if (tag.equals("Ранок")) {
-            Fragment f = getSupportFragmentManager().findFragmentById(R.id.container);
-            if (f instanceof ScanFragment) {
-                Log.d("NFC", "do nothing");
-            } else {
-                addFragment(new ScanFragment());
-            }
-        } else {
-            Snackbar snackbar = Snackbar
-                    .make(getBinding().getRoot(), "Метка неправильная", Snackbar.LENGTH_LONG);
-            snackbar.show();
-        }
-    }
+//    void setNfcData(BaseRecord result) {
+//        String tag = result.payload;
+//        Log.d("nfcRec", tag);
+//        if (tag.equals("Посылки")) {
+//            Fragment f = getSupportFragmentManager().findFragmentById(R.id.container);
+//            if (f instanceof ScanFragment) {
+//                Log.d("NFC", "do nothing");
+//            } else {
+//                addFragment(new ScanFragment());
+//            }
+//        } else {
+//            Snackbar snackbar = Snackbar
+//                    .make(getBinding().getRoot(), "Метка неправильная", Snackbar.LENGTH_LONG);
+//            snackbar.show();
+//        }
+//    }
 
     @Override
     public void onStop() {
         super.onStop();
-        RanokApp.getApp().setLoggedIn();
     }
 
     @Override
