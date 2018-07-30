@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.ranok.ui.dialogs.LoaderDialog;
 
@@ -71,6 +73,7 @@ public abstract class BaseActivity<T extends BaseIView, R extends BaseViewModel<
 
     @Override
     public void showSnakeBar(String s) {
+        hideKeyboard();
         Snackbar snackbar = Snackbar
                     .make(getBinding().getRoot(), s, Snackbar.LENGTH_LONG);
             snackbar.show();
@@ -79,6 +82,15 @@ public abstract class BaseActivity<T extends BaseIView, R extends BaseViewModel<
     @Override
     public void showSnakeBar(int i) {
         showSnakeBar(getString(i));
+    }
+
+    public void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(INPUT_METHOD_SERVICE);
+        View view = this.getCurrentFocus();
+        if (view == null) {
+            view = new View(this);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     @SuppressWarnings("unused")

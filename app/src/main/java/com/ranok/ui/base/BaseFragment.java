@@ -109,6 +109,7 @@ public abstract class BaseFragment<T extends BaseIView, R extends BaseViewModel<
 
     @Override
     public void showSnakeBar(String s) {
+        mActivity.hideKeyboard();
         Snackbar snackbar = Snackbar
                 .make(getBinding().getRoot(), s, Snackbar.LENGTH_LONG);
         snackbar.show();
