@@ -12,6 +12,7 @@
     </data>
 
     <com.google.android.flexbox.FlexboxLayout
+        android:background="@android:color/black"
         app:flexWrap="wrap_reverse"
         app:alignItems="center"
         app:alignContent="space_around"
@@ -22,6 +23,7 @@
 
 
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/scan_package"
             android:layout_width="@dimen/menu_panel_width"
             android:layout_height="@dimen/menu_panel_height"
             android:elevation="4dp"
@@ -30,7 +32,7 @@
             >
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imageView1"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginEnd="8dp"
@@ -49,14 +51,51 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="Сдача посылок"
+                android:text="@string/package_scan"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-
+                app:layout_constraintTop_toBottomOf="@+id/imageView1" />
         </android.support.constraint.ConstraintLayout>
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/logout"
+            android:layout_width="@dimen/menu_panel_width"
+            android:layout_height="@dimen/menu_panel_height"
+            android:elevation="4dp"
+            android:background="@drawable/gray_btn_selector"
+            android:onClick="@{viewModel::onClick}"
+            >
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_arrow_left"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="@string/exit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        </android.support.constraint.ConstraintLayout>
+
+
 
     </com.google.android.flexbox.FlexboxLayout>
 </layout>

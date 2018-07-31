@@ -9,13 +9,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
-import ranok.mvvm.binding.ViewModelBindingConfig;
+
 import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.RanokApp;
-import com.ranok.ui.base.BaseFragment;
 import com.ranok.databinding.ScanFragmentBinding;
-import com.ranok.mlkit.LivePreviewActivity;
+import com.ranok.ui.base.BaseFragment;
+import com.ranok.ui.scan_barcode.BaseScanFragment;
+
+import ranok.mvvm.binding.ViewModelBindingConfig;
 
 
 public class ScanFragment extends BaseFragment<ScanIView, ScanVM, ScanFragmentBinding> implements ScanIView {
@@ -44,9 +46,6 @@ public class ScanFragment extends BaseFragment<ScanIView, ScanVM, ScanFragmentBi
         rv.setLayoutManager(manager);
         if (adapter != null) rv.setAdapter(adapter);
     }
-
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -77,7 +76,8 @@ public class ScanFragment extends BaseFragment<ScanIView, ScanVM, ScanFragmentBi
 
     @Override
     public void scan() {
-        startActivityForResult(new Intent(getActivity(), LivePreviewActivity.class), 1);
+        mActivity.addFragment(new BaseScanFragment());
+        //startActivityForResult(new Intent(getActivity(), LivePreviewActivity.class), 1);
     }
 
 

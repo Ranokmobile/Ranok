@@ -8,7 +8,9 @@ import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -26,7 +28,7 @@ import com.ranok.ui.main.main_fragment.MainFragment;
 import ranok.mvvm.binding.ViewModelBindingConfig;
 
 public class MainActivity  extends BaseActivity<MainActivityIView, MainActivityVM, ActivityMainBinding>
-        implements MainActivityIView {
+        implements MainActivityIView, ActivityCompat.OnRequestPermissionsResultCallback {
 
     private IntentFilter[] intentFiltersArray;
     private NfcAdapter nfcAdapter;
@@ -38,9 +40,7 @@ public class MainActivity  extends BaseActivity<MainActivityIView, MainActivityV
         super.onCreate(savedInstanceState);
         Bundle arguments = getIntent().getExtras();
         if (!RanokApp.getApp().isLoggedIn()) {
-            Intent loginIntent = new Intent(this, LoginActivity.class);
-            if (arguments != null) loginIntent.putExtras(getIntent());
-            startActivity(loginIntent);
+            startLoginActivity();
             finish();
             return;
         }
@@ -69,6 +69,16 @@ public class MainActivity  extends BaseActivity<MainActivityIView, MainActivityV
         }
     }
 
+    public void startLoginActivity() {
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        startActivity(loginIntent);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+    }
 
     @Override
     protected void onNewIntent(Intent intent) {

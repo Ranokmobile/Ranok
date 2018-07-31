@@ -16,4 +16,5 @@
     <string name="default_notification_channel_id">1</string>
     <string name="put_phone_to_rfid">Приложите телефон к метке</string>
     <string name="cant_connect_to_server">Не удается подключиться к серверу</string>
+    <string name="package_scan">Сдача посылок</string>
 </resources>

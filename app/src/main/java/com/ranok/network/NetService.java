@@ -2,6 +2,8 @@ package com.ranok.network;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.orhanobut.hawk.Hawk;
+import com.ranok.utils.Consts;
 
 import java.util.concurrent.TimeUnit;
 
@@ -26,10 +28,15 @@ public class NetService {
             Request original = chain.request();
             Request.Builder request = original.newBuilder();
             request.header("Content-Type", "application/json");
+
+            if (Hawk.contains(Consts.TOKEN)) {
+                request.header("Token",  Hawk.get(Consts.TOKEN));
+            }
+
             return chain.proceed(request.build());
         });
 
-        httpClient.readTimeout(20, TimeUnit.SECONDS);
+        httpClient.readTimeout(10, TimeUnit.SECONDS);
 
 
         Gson gson = new GsonBuilder()

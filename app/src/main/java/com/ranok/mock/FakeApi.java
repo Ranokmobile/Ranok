@@ -1,15 +1,14 @@
 package com.ranok.mock;
 
-import com.ranok.network.NetApi;
-import com.ranok.network.request.LoginRequest;
+public class FakeApi {
+// implements NetApi {
+//    @Override
+//    public Single<String> login(LoginRequest loginRequest) {
+//        return null;
+//    }
 
-import io.reactivex.Single;
 
-public class FakeApi  implements NetApi {
-    @Override
-    public Single<String> login(LoginRequest loginRequest) {
-        return null;
-    }
+
     //    @Override
 //    public Single<List<NewsHeader>> getNewsList(long time) {
 //        List<NewsHeader> list = new ArrayList<>();
@@ -44,4 +43,6 @@ public class FakeApi  implements NetApi {
 //
 //        return Single.just(new NewsContent(id, content)).delay(2000, TimeUnit.MILLISECONDS);
 //    }
+
+
 }

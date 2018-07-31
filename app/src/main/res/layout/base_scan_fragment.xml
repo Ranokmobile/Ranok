@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.ranok.ui.scan_barcode.BaseScanVM" />
+
+    </data>
+
+
+    <LinearLayout
+        android:id="@+id/fireTopLayout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000"
+        android:keepScreenOn="true">
+
+        <com.ranok.mlkit.CameraSourcePreview
+            android:id="@+id/firePreview"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <com.ranok.mlkit.GraphicOverlay
+                android:id="@+id/fireFaceOverlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.ranok.mlkit.CameraSourcePreview>
+
+        <LinearLayout
+            android:id="@+id/control"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#FFF">
+            <ImageButton
+                android:id="@+id/exit"
+                android:layout_marginStart="20dp"
+                android:elevation="4dp"
+                android:src="@drawable/ic_arrow_left"
+                android:background="@drawable/gray_btn_selector"
+                android:onClick="@{viewModel::onClick}"
+                android:layout_width="44dp"
+                android:layout_height="44dp" />
+            <TextView
+                android:layout_marginStart="20dp"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="@{viewModel.cnt}"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

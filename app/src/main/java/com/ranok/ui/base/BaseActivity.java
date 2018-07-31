@@ -23,19 +23,30 @@ public abstract class BaseActivity<T extends BaseIView, R extends BaseViewModel<
     protected R viewModel;
 
     protected SparseArray<LoaderDialog> loaderDialogs = new SparseArray<>();
+    protected LoaderDialog loaderDialog;
 
     @Override
     public void showLoader(int hashCode) {
-        loaderDialogs.put(hashCode, new LoaderDialog(this));
-        loaderDialogs.get(hashCode).show();
+//            loaderDialogs.put(hashCode, new LoaderDialog(this));
+//            loaderDialogs.get(hashCode).show();
+        if (loaderDialog == null){
+            loaderDialog  = new LoaderDialog(this);
+            loaderDialog.show();
+        }
     }
 
     @Override
     public void hideLoader(int hash) {
-        if (loaderDialogs.get(hash) != null && loaderDialogs.get(hash).isShowing()) {
-            loaderDialogs.get(hash).dismiss();
-            loaderDialogs.remove(hash);
+        if (loaderDialog != null) {
+            if (loaderDialog.isShowing()) {
+                loaderDialog.dismiss();
+            }
+            loaderDialog = null;
         }
+//        if (loaderDialogs.get(hash) != null && loaderDialogs.get(hash).isShowing()) {
+//            loaderDialogs.get(hash).dismiss();
+//            loaderDialogs.remove(hash);
+//        }
     }
 
     @Override

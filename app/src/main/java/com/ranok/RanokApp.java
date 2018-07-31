@@ -4,16 +4,17 @@ import android.app.Application;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.FirebaseApp;
-
-import io.fabric.sdk.android.Fabric;
+import com.orhanobut.hawk.Hawk;
 import com.ranok.network.NetApi;
 import com.ranok.network.NetService;
+import com.ranok.utils.Consts;
+
+import io.fabric.sdk.android.Fabric;
 
 public class RanokApp extends Application {
 
     private NetApi netApi;
     private static RanokApp app;
-    private boolean loggedIn = false;
 
 
     @Override
@@ -23,6 +24,7 @@ public class RanokApp extends Application {
         FirebaseApp.initializeApp(this);
         app = this;
         netApi = NetService.getNetApi();
+        Hawk.init(this).build();
     }
 
     public static RanokApp getApp() {
@@ -34,13 +36,10 @@ public class RanokApp extends Application {
     }
 
     public boolean isLoggedIn() {
-        return loggedIn;
+        return Hawk.contains(Consts.TOKEN);
     }
 
-    public void setLoggedIn() {
-        this.loggedIn = true;
-    }
     public void setLoggedOut() {
-        this.loggedIn = false;
+        Hawk.delete(Consts.TOKEN);
     }
 }

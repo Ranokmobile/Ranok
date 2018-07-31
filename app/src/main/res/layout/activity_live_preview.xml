@@ -50,15 +50,16 @@
           <!--android:layout_height="wrap_content"-->
           <!--android:layout_gravity="center" />-->
 
-      <!--<ToggleButton-->
-          <!--android:id="@+id/facingswitch"-->
-          <!--android:layout_width="48dp"-->
-          <!--android:layout_height="48dp"-->
-          <!--android:layout_gravity="center_vertical"-->
-          <!--android:background="@layout/toggle_style"-->
-          <!--android:textOff=""-->
-          <!--android:textOn=""-->
-          <!--android:checked="false" />-->
+      <!--android:background="@layout/toggle_style"-->
+
+      <ToggleButton
+          android:id="@+id/facingswitch"
+          android:layout_width="48dp"
+          android:layout_height="48dp"
+          android:layout_gravity="center_vertical"
+          android:textOff=""
+          android:textOn=""
+          android:checked="false" />
 
   </FrameLayout>
 

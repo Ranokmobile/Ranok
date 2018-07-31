@@ -15,6 +15,7 @@ import com.ranok.databinding.MainFragmentBinding;
 import com.ranok.mlkit.LivePreviewActivity;
 import com.ranok.ui.base.BaseActivity;
 import com.ranok.ui.base.BaseFragment;
+import com.ranok.ui.main.MainActivity;
 import com.ranok.ui.main.scan_packages.ScanFragment;
 import com.ranok.ui.scan_rfid.ScanRFIDFragment;
 
@@ -47,6 +48,15 @@ public class MainFragment extends BaseFragment<MainIView, MainVM, MainFragmentBi
     public void showRFIDScan() {
         BaseActivity activity = ((BaseActivity)getActivity());
         if (activity!=null) activity.addFragment(new ScanRFIDFragment());
+    }
+
+    @Override
+    public void startLoginActivity() {
+        MainActivity activity = (MainActivity)mActivity;
+        if (activity != null) {
+            activity.startLoginActivity();
+            activity.finish();
+        }
     }
 
     @Override

@@ -22,7 +22,7 @@
 
   <FrameLayout
       android:id="@+id/control"
-      android:layout_width="220dp"
+      android:layout_width="100dp"
       android:layout_height="match_parent"
       android:layout_alignParentRight="true"
       android:layout_alignParentTop="true"
@@ -42,15 +42,14 @@
           <!--android:textSize="20sp"-->
           <!--android:textStyle="bold" />-->
 
-      <!--<ToggleButton-->
-          <!--android:id="@+id/facingswitch"-->
-          <!--android:layout_width="48dp"-->
-          <!--android:layout_height="48dp"-->
-          <!--android:layout_gravity="bottom|end"-->
-          <!--android:background="@layout/toggle_style"-->
-          <!--android:textOff=""-->
-          <!--android:textOn=""-->
-          <!--android:checked="false" />-->
+      <ToggleButton
+          android:id="@+id/facingswitch"
+          android:layout_width="48dp"
+          android:layout_height="48dp"
+          android:layout_gravity="bottom|end"
+          android:textOff=""
+          android:textOn=""
+          android:checked="false" />
 
   </FrameLayout>
 

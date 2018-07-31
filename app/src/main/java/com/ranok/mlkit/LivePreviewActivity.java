@@ -24,29 +24,21 @@ import android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.CompoundButton;
 
 import com.google.android.gms.common.annotation.KeepName;
-
+import com.ranok.R;
+import com.ranok.mlkit.barcodescanning.BarcodeScanningProcessor;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ranok.R;
-import com.ranok.mlkit.barcodescanning.BarcodeScanningProcessor;
-
 /** Demo app showing the various features of ML Kit for Firebase. This class is used to
  * set up continuous frame processing on frames from a camera source. */
 @KeepName
 public final class LivePreviewActivity extends AppCompatActivity
-    implements OnRequestPermissionsResultCallback,
-        CompoundButton.OnCheckedChangeListener, BarcodeScanCallback {
-  private static final String FACE_DETECTION = "Face Detection";
-  private static final String TEXT_DETECTION = "Text Detection";
+    implements OnRequestPermissionsResultCallback, BarcodeScanCallback {
   private static final String BARCODE_DETECTION = "Barcode Detection";
-  private static final String IMAGE_LABEL_DETECTION = "Label Detection";
-  private static final String CLASSIFICATION = "Classification";
   private static final String TAG = "LivePreviewActivity";
   private static final int PERMISSION_REQUESTS = 1;
 
@@ -71,8 +63,6 @@ public final class LivePreviewActivity extends AppCompatActivity
       Log.d(TAG, "graphicOverlay is null");
     }
 
-
-
     if (allPermissionsGranted()) {
       createCameraSource(selectedModel);
     } else {
@@ -89,76 +79,26 @@ public final class LivePreviewActivity extends AppCompatActivity
         finish();
     }
 
-    //  @Override
-//  public synchronized void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-//    // An item was selected. You can retrieve the selected item using
-//    // parent.getItemAtPosition(pos)
-//    selectedModel = parent.getItemAtPosition(pos).toString();
-//    Log.d(TAG, "Selected model: " + selectedModel);
-//    preview.stop();
-//    if (allPermissionsGranted()) {
-//      createCameraSource(selectedModel);
-//      startCameraSource();
-//    } else {
-//      getRuntimePermissions();
-//    }
-//  }
-//
 //  @Override
-//  public void onNothingSelected(AdapterView<?> parent) {
-//    // Do nothing.
+//  public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//    Log.d(TAG, "Set facing");
+//    if (cameraSource != null) {
+//      if (isChecked) {
+//        cameraSource.setFacing(CameraSource.CAMERA_FACING_FRONT);
+//      } else {
+//        cameraSource.setFacing(CameraSource.CAMERA_FACING_BACK);
+//      }
+//    }
+//    preview.stop();
+//    startCameraSource();
 //  }
-//
-//
-  @Override
-  public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-    Log.d(TAG, "Set facing");
-    if (cameraSource != null) {
-      if (isChecked) {
-        cameraSource.setFacing(CameraSource.CAMERA_FACING_FRONT);
-      } else {
-        cameraSource.setFacing(CameraSource.CAMERA_FACING_BACK);
-      }
-    }
-    preview.stop();
-    startCameraSource();
-  }
 
   private void createCameraSource(String model) {
-    // If there's no existing cameraSource, create one.
     if (cameraSource == null) {
       cameraSource = new CameraSource(this, graphicOverlay);
     }
 
       cameraSource.setMachineLearningFrameProcessor(new BarcodeScanningProcessor(this));
-//    try {
-//      switch (model) {
-//        case CLASSIFICATION:
-//          Log.i(TAG, "Using Custom Image Classifier Processor");
-//          cameraSource.setMachineLearningFrameProcessor(new CustomImageClassifierProcessor(this));
-//          break;
-//        case TEXT_DETECTION:
-//          Log.i(TAG, "Using Text Detector Processor");
-//          cameraSource.setMachineLearningFrameProcessor(new TextRecognitionProcessor());
-//          break;
-//        case FACE_DETECTION:
-//          Log.i(TAG, "Using Face Detector Processor");
-//          cameraSource.setMachineLearningFrameProcessor(new FaceDetectionProcessor());
-//          break;
-//        case BARCODE_DETECTION:
-//          Log.i(TAG, "Using Barcode Detector Processor");
-//          cameraSource.setMachineLearningFrameProcessor(new BarcodeScanningProcessor());
-//          break;
-//        case IMAGE_LABEL_DETECTION:
-//          Log.i(TAG, "Using Image Label Detector Processor");
-//          cameraSource.setMachineLearningFrameProcessor(new ImageLabelingProcessor());
-//          break;
-//        default:
-//          Log.e(TAG, "Unknown model: " + model);
-//      }
-//    } catch (FirebaseMLException e) {
-//      Log.e(TAG, "can not create camera source: " + model);
-//    }
   }
 
   /**

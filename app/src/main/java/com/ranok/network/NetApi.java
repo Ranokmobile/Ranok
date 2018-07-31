@@ -1,6 +1,7 @@
 package com.ranok.network;
 
 import com.ranok.network.request.LoginRequest;
+import com.ranok.network.response.LoginResponse;
 
 import io.reactivex.Single;
 import retrofit2.http.Body;
@@ -13,5 +14,5 @@ public interface NetApi {
 
 
     @POST("trylogin")
-    Single<String> login(@Body LoginRequest loginRequest);
+    Single<LoginResponse> login(@Body LoginRequest loginRequest);
 }

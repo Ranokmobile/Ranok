@@ -8,11 +8,9 @@
     <item  android:drawable="@color/light_gray"/>
 
     <item>
-
         <bitmap
             android:gravity="center"
             android:src="@drawable/logo_new"/>
-
     </item>
 
 
