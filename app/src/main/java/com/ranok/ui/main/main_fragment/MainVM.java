@@ -7,9 +7,12 @@ import android.view.View;
 
 import com.orhanobut.hawk.Hawk;
 import com.ranok.R;
+import com.ranok.network.response.BaseResponse;
 import com.ranok.ui.base.BaseViewModel;
 import com.ranok.utils.Consts;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import ranok.annotation.State;
 
 
@@ -37,12 +40,25 @@ public class MainVM extends BaseViewModel<MainIView>  {
                 getViewOptional().showRFIDScan();
                 break;
             case R.id.logout :
-                Hawk.delete(Consts.TOKEN);
-                getViewOptional().startLoginActivity();
+                logOut();
                 break;
         }
 
 
+    }
+
+    private void logOut() {
+        compositeDisposable.add(
+        netApi.logout()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::processLogout,this::processError)
+        );
+    }
+
+    private void processLogout(BaseResponse object) {
+        Hawk.delete(Consts.TOKEN);
+        getViewOptional().startLoginActivity();
     }
 }
 

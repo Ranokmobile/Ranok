@@ -1,8 +1,8 @@
 package com.ranok.network.response;
 
-import com.google.gson.annotations.SerializedName;
+public class LoginResponse extends BaseResponse<LoginData>{
 
-public class LoginResponse extends BaseResponse{
-    @SerializedName("token")
-    public String token;
+    public LoginResponse(LoginData data) {
+        super(data);
+    }
 }
