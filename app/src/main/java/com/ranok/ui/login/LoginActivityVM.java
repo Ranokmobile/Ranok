@@ -18,9 +18,9 @@ import ranok.annotation.State;
 public class LoginActivityVM extends BaseViewModel<LoginActivityIView> {
 
     @State
-    String login = "azhuk";
+    String login = "trainee01";
 
-    private String password = "bug1979";
+    private String password = "123456";
 
     public String getLogin() {
         return login;
@@ -61,7 +61,6 @@ public class LoginActivityVM extends BaseViewModel<LoginActivityIView> {
 
     private void onLoginSuccess(LoginResponse s) {
         Hawk.put(Consts.TOKEN, s.data.token);
-        //Hawk.put(Consts.TOKEN, "tttt");
         hideLoader();
         getViewOptional().startMainActivity();
     }

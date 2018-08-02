@@ -8,11 +8,10 @@ import android.view.View;
 
 import com.ranok.BR;
 import com.ranok.mlkit.BarcodeScanCallback;
+import com.ranok.network.request.BarcodeRequest;
+import com.ranok.network.response.BaseResponse;
 import com.ranok.ui.base.BaseViewModel;
 
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import ranok.annotation.State;
@@ -65,21 +64,22 @@ public class BaseScanVM extends BaseViewModel<BaseScanIView> implements BarcodeS
         getViewOptional().pauseScan();
         showLoader();
         compositeDisposable.add(
-                Single.just(1).delay(2000, TimeUnit.MILLISECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::processAddedBarcode, this::processFail)
+                netApi.packagebarcode(new BarcodeRequest(barcode))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(this::processAddedBarcode,this::processError)
         );
     }
 
-    private void processFail(Throwable throwable) {
+    private void processAddedBarcode(BaseResponse baseResponse) {
         hideLoader();
+        setCnt(String.valueOf(Integer.parseInt(cnt)+1));
         getViewOptional().resumeScan();
     }
 
-    private void processAddedBarcode(Integer integer) {
-        hideLoader();
-        setCnt(String.valueOf(Integer.parseInt(cnt)+1));
+    @Override
+    protected void processError(Throwable throwable) {
+        super.processError(throwable);
         getViewOptional().resumeScan();
     }
 }

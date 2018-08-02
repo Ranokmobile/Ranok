@@ -38,7 +38,7 @@ public abstract class BaseViewModel<T extends BaseIView> extends AbstractViewMod
     }
 
     protected void processError(Throwable throwable) {
-        getViewOptional().hideLoader(hashCode());
+        hideLoader();
         int errorCode;
         String errorBody;
 

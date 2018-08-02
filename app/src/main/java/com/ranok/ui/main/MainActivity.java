@@ -93,12 +93,20 @@ public class MainActivity  extends BaseActivity<MainActivityIView, MainActivityV
     @Override
     protected void onResume() {
         super.onResume();
-        nfcAdapter.enableForegroundDispatch(this, pendingIntent , intentFiltersArray, null);
+        try {
+            nfcAdapter.enableForegroundDispatch(this, pendingIntent , intentFiltersArray, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void onPause() {
         super.onPause();
-        nfcAdapter.disableForegroundDispatch(this);
+        try {
+            nfcAdapter.disableForegroundDispatch(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void getTag(Intent i) {
