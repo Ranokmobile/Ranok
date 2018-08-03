@@ -1,5 +1,6 @@
 package com.ranok.ui.base;
 
+import android.content.Intent;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.ranok.ui.dialogs.LoaderDialog;
+import com.ranok.ui.login.LoginActivity;
 
 import ranok.mvvm.base.ViewModelBaseActivity;
 
@@ -88,6 +90,13 @@ public abstract class BaseActivity<T extends BaseIView, R extends BaseViewModel<
         Snackbar snackbar = Snackbar
                     .make(getBinding().getRoot(), s, Snackbar.LENGTH_LONG);
             snackbar.show();
+    }
+
+    @Override
+    public void gotoLogin() {
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        startActivity(loginIntent);
+        finish();
     }
 
     @Override

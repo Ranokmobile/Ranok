@@ -5,6 +5,7 @@ import com.ranok.network.request.LoginRequest;
 import com.ranok.network.request.RfidRequest;
 import com.ranok.network.response.BaseResponse;
 import com.ranok.network.response.LoginResponse;
+import com.ranok.network.response.PackageBarcodeResponse;
 
 import io.reactivex.Single;
 import retrofit2.http.Body;
@@ -14,7 +15,7 @@ public interface NetApi {
     //String URL = "http://ebs-dev.localdomain:8008/Conveyor/api/parcelScan/";
     //String URL = "http://dreadnought:8080/Conveyor/api/parcelScan/";
     //String URL = "http://192.168.15.168:8080/Conveyor/api/parcelScan/";
-    String URL = "http://192.168.15.237:8080/Conveyor/api/parcelScan/";
+    String URL = "http://192.168.15.133:8080/Conveyor/api/parcelScan/";
 
 
 
@@ -28,6 +29,6 @@ public interface NetApi {
     Single<BaseResponse> rfid(@Body RfidRequest rfidRequest);
 
     @POST("packagebarcode")
-    Single<BaseResponse> packagebarcode(@Body BarcodeRequest barcodeRequest);
+    Single<PackageBarcodeResponse> packagebarcode(@Body BarcodeRequest barcodeRequest);
 
 }

@@ -7,8 +7,8 @@ import android.view.View;
 import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.databinding.ScanRfidFragmentBinding;
-import com.ranok.ui.base.BaseActivity;
 import com.ranok.ui.base.BaseFragment;
+import com.ranok.ui.main.MainActivity;
 import com.ranok.ui.main.scan_packages.ScanFragment;
 
 import ranok.mvvm.binding.ViewModelBindingConfig;
@@ -24,8 +24,9 @@ public class ScanRFIDFragment extends BaseFragment<ScanRFIDIView, ScanRFIDVM, Sc
 
     @Override
     public void startScanPackages() {
-        BaseActivity activity = ((BaseActivity)getActivity());
+        MainActivity activity = ((MainActivity)getActivity());
         if (activity!=null) {
+            activity.getScanPackagesResults().clear();
             activity.getSupportFragmentManager().popBackStack();
             activity.addFragment(new ScanFragment());
         }

@@ -2,6 +2,7 @@ package com.ranok.ui.scan_rfid;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.ranok.network.request.RfidRequest;
 import com.ranok.network.response.BaseResponse;
@@ -26,10 +27,13 @@ public class ScanRFIDVM extends BaseViewModel<ScanRFIDIView> {
 //                });
 
         compositeDisposable.add(RxRFIDEvent.getInstance().getEvents()
+                .filter(s -> !s.isEmpty())
                 .subscribe(this::gotRFID));
     }
 
     private void gotRFID(String s) {
+        Log.d("ranok ScanRFIDVM", "gotRfid");
+        RxRFIDEvent.getInstance().sendRFIDData("");
         compositeDisposable.add(
                 netApi.rfid(new RfidRequest(s))
                         .subscribeOn(Schedulers.io())

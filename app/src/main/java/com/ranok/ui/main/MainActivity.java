@@ -18,12 +18,15 @@ import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.RanokApp;
 import com.ranok.databinding.ActivityMainBinding;
+import com.ranok.network.response.PackageBarcodeResponseData;
 import com.ranok.nfc.factory.NDEFRecordFactory;
 import com.ranok.nfc.nfc_models.BaseRecord;
 import com.ranok.rx_bus.RxRFIDEvent;
 import com.ranok.ui.base.BaseActivity;
 import com.ranok.ui.login.LoginActivity;
 import com.ranok.ui.main.main_fragment.MainFragment;
+
+import java.util.ArrayList;
 
 import ranok.mvvm.binding.ViewModelBindingConfig;
 
@@ -33,6 +36,9 @@ public class MainActivity  extends BaseActivity<MainActivityIView, MainActivityV
     private IntentFilter[] intentFiltersArray;
     private NfcAdapter nfcAdapter;
     private PendingIntent pendingIntent;
+    public boolean isNfcAvailabe(){
+        return nfcAdapter != null;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,8 +50,8 @@ public class MainActivity  extends BaseActivity<MainActivityIView, MainActivityV
             finish();
             return;
         }
-
         setModelView(this);
+
         if (getSupportFragmentManager().getFragments().size() == 0) {
             showFragment(new MainFragment());
         }
@@ -199,5 +205,9 @@ public class MainActivity  extends BaseActivity<MainActivityIView, MainActivityV
     @Override
     public ViewModelBindingConfig getViewModelBindingConfig() {
         return new ViewModelBindingConfig(R.layout.activity_main, BR.mainActivityVM, this);
+    }
+
+    public ArrayList<PackageBarcodeResponseData> getScanPackagesResults(){
+        return getViewModel().packageScanResults;
     }
 }

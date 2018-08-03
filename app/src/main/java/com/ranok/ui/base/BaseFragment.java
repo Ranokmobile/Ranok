@@ -88,6 +88,11 @@ public abstract class BaseFragment<T extends BaseIView, R extends BaseViewModel<
         mActivity.hideLoader(hash);
     }
 
+    @Override
+    public void gotoLogin() {
+        mActivity.gotoLogin();
+    }
+
     @SuppressWarnings("unused")
     public B getBinding() {
         try {

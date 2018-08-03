@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode;
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetector;
+import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetectorOptions;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.ranok.mlkit.BarcodeScanCallback;
 import com.ranok.mlkit.FrameMetadata;
@@ -33,6 +34,7 @@ import java.util.List;
 public class BarcodeScanningProcessor extends VisionProcessorBase<List<FirebaseVisionBarcode>> {
 
   private static final String TAG = "BarcodeScanProc";
+  long time = System.currentTimeMillis();
 
   private final FirebaseVisionBarcodeDetector detector;
 
@@ -46,9 +48,9 @@ public class BarcodeScanningProcessor extends VisionProcessorBase<List<FirebaseV
     //     .build();
     barcodeScanCallback = callback;
     detector = FirebaseVision.getInstance().getVisionBarcodeDetector(
-//            new FirebaseVisionBarcodeDetectorOptions.Builder()
-//            .setBarcodeFormats(FirebaseVisionBarcode.FORMAT_UPC_A)
-//            .build()
+            new FirebaseVisionBarcodeDetectorOptions.Builder()
+            .setBarcodeFormats(FirebaseVisionBarcode.FORMAT_EAN_13)
+            .build()
     );
 
   }
@@ -78,7 +80,10 @@ public class BarcodeScanningProcessor extends VisionProcessorBase<List<FirebaseV
       BarcodeGraphic barcodeGraphic = new BarcodeGraphic(graphicOverlay, barcode);
       graphicOverlay.add(barcodeGraphic);
       Log.d("BARCODE = ", barcode.getFormat()+"");
-      barcodeScanCallback.gotBarcode(barcode.getDisplayValue());
+      if (System.currentTimeMillis() > time+100) {
+        time = System.currentTimeMillis();
+        barcodeScanCallback.gotBarcode(barcode.getDisplayValue());
+      }
     }
   }
 

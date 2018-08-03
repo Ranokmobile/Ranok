@@ -8,4 +8,5 @@ public interface BaseIView extends IView {
     void hideLoader(int hash);
     void showSnakeBar(String s);
     void showSnakeBar(int i);
+    void gotoLogin();
 }

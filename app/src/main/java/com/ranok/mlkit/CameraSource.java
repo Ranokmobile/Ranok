@@ -704,7 +704,6 @@ public class CameraSource {
 
         try {
           synchronized (processorLock) {
-            Log.d(TAG, "Process an image");
             frameProcessor.process(
                 data,
                 new FrameMetadata.Builder()

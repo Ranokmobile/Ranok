@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content" />
             <Button
                 android:id="@+id/btnstop"
-                android:text="@string/exit"
+                android:text="@string/commit_scan_packages"
                 android:onClick="@{viewModel::stopClick}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

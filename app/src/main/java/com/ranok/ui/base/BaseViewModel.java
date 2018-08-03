@@ -55,6 +55,12 @@ public abstract class BaseViewModel<T extends BaseIView> extends AbstractViewMod
             if (httpException.response() != null) {
                 errorCode = httpException.response().code();
 
+                if (errorCode == 401) {
+                    showToast(RanokApp.getApp().getString(R.string.session_expired));
+                    getViewOptional().gotoLogin();
+                    return;
+                }
+
                 if (httpException.response().errorBody() != null && errorCode != 500) {
                     try {
                         ResponseBody responseBody = httpException.response().errorBody();

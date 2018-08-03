@@ -17,4 +17,10 @@
     <string name="put_phone_to_rfid">Приложите телефон к метке</string>
     <string name="cant_connect_to_server">Не удается подключиться к серверу</string>
     <string name="package_scan">Сдача посылок</string>
+    <string name="session_expired">Время сессии истекло</string>
+    <string name="nfc_not_available">NFC адаптер недоступен</string>
+    <string name="package_not_found">Посылка ненайдена</string>
+    <string name="package_already_exists">Посылка уже отсканирована</string>
+    <string name="server_error">Ошибка на сервере</string>
+    <string name="commit_scan_packages">Завершить сканирование</string>
 </resources>

@@ -13,7 +13,6 @@ import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.databinding.MainFragmentBinding;
 import com.ranok.mlkit.LivePreviewActivity;
-import com.ranok.ui.base.BaseActivity;
 import com.ranok.ui.base.BaseFragment;
 import com.ranok.ui.main.MainActivity;
 import com.ranok.ui.main.scan_packages.ScanFragment;
@@ -46,8 +45,14 @@ public class MainFragment extends BaseFragment<MainIView, MainVM, MainFragmentBi
 
     @Override
     public void showRFIDScan() {
-        BaseActivity activity = ((BaseActivity)getActivity());
-        if (activity!=null) activity.addFragment(new ScanRFIDFragment());
+        MainActivity activity = ((MainActivity)mActivity);
+        if (activity!=null) {
+            if (activity.isNfcAvailabe()) {
+                activity.addFragment(new ScanRFIDFragment());
+            } else {
+                showSnakeBar(getString(R.string.nfc_not_available));
+            }
+        }
     }
 
     @Override
