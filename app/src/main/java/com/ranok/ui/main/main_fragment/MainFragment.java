@@ -14,6 +14,7 @@ import com.ranok.R;
 import com.ranok.databinding.MainFragmentBinding;
 import com.ranok.mlkit.LivePreviewActivity;
 import com.ranok.ui.base.BaseFragment;
+import com.ranok.ui.info_position.InfoPositionFragment;
 import com.ranok.ui.main.MainActivity;
 import com.ranok.ui.main.scan_packages.ScanFragment;
 import com.ranok.ui.scan_rfid.ScanRFIDFragment;
@@ -52,6 +53,14 @@ public class MainFragment extends BaseFragment<MainIView, MainVM, MainFragmentBi
             } else {
                 showSnakeBar(getString(R.string.nfc_not_available));
             }
+        }
+    }
+
+    @Override
+    public void showInfoPosition() {
+        MainActivity activity = ((MainActivity)mActivity);
+        if (activity!=null) {
+            activity.addFragment(new InfoPositionFragment());
         }
     }
 

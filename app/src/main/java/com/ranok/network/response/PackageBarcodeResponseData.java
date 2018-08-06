@@ -25,6 +25,10 @@ public class PackageBarcodeResponseData implements Parcelable {
         return 0;
     }
 
+    public int getColor(){
+        return code == 0 ? android.R.color.holo_red_dark : android.R.color.holo_green_dark;
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(this.code);

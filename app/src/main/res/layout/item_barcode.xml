@@ -26,7 +26,8 @@
             android:id="@+id/tvNpp"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:text="1"
+            android:text=""
+            android:textColor="@android:color/holo_red_dark"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,16 +38,18 @@
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:text="@{viewModel.barcode}"
+            android:textColor="@{viewModel.color}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tvStatus"
             app:layout_constraintStart_toEndOf="@+id/tvNpp"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <ImageView
+            android:scaleType="fitCenter"
             android:id="@+id/tvStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:text="@{viewModel.code}"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@{viewModel.code == 0 ? @drawable/ok_appproval_acceptance : @drawable/close}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

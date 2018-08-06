@@ -42,6 +42,9 @@ public class MainVM extends BaseViewModel<MainIView>  {
             case R.id.logout :
                 logOut();
                 break;
+            case R.id.position_info :
+                getViewOptional().showInfoPosition();
+                break;
         }
 
 

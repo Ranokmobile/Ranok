@@ -6,5 +6,5 @@ import com.ranok.ui.base.BaseIView;
 interface MainIView extends BaseIView {
     void showRFIDScan();
     void startLoginActivity();
-
+    void showInfoPosition();
 }

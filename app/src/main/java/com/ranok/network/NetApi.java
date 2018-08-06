@@ -6,6 +6,7 @@ import com.ranok.network.request.RfidRequest;
 import com.ranok.network.response.BaseResponse;
 import com.ranok.network.response.LoginResponse;
 import com.ranok.network.response.PackageBarcodeResponse;
+import com.ranok.network.response.PackageBarcodeResponseData;
 
 import io.reactivex.Single;
 import retrofit2.http.Body;
@@ -30,5 +31,8 @@ public interface NetApi {
 
     @POST("packagebarcode")
     Single<PackageBarcodeResponse> packagebarcode(@Body BarcodeRequest barcodeRequest);
+
+    @POST("add_movement")
+    Single<PackageBarcodeResponseData> addMovement();
 
 }

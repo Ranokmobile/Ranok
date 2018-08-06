@@ -3,6 +3,7 @@ package com.ranok.ui.main.scan_packages;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -77,5 +78,15 @@ public class ScanFragment extends BaseFragment<ScanIView, ScanVM, ScanFragmentBi
         //startActivityForResult(new Intent(getActivity(), LivePreviewActivity.class), 1);
     }
 
+    @Override
+    public void createDialog() {
+        AlertDialog.Builder ad = new AlertDialog.Builder(getContext());
+        ad.setCancelable(false);
+        ad.setTitle("");
+        ad.setMessage("Вы уверенны что хотите завершить сканирование?");
+        ad.setPositiveButton("Да",  (dialog, arg1) -> getViewModel().commitScan());
+        ad.setNegativeButton("Нет", (dialogInterface, i) -> dialogInterface.cancel());
+        ad.show();
+    }
 
 }

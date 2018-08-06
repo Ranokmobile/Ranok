@@ -7,7 +7,7 @@ interface ScanIView extends BaseIView {
 
     void exit();
     void scan();
-
+    void createDialog();
 //    void setRecyclerViewAdapter();
 //    void showFullNews(NewsItem item);
 

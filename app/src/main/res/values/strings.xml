@@ -23,4 +23,8 @@
     <string name="package_already_exists">Посылка уже отсканирована</string>
     <string name="server_error">Ошибка на сервере</string>
     <string name="commit_scan_packages">Завершить сканирование</string>
+    <string name="about_position">О позиции</string>
+    <string name="scan_packages_complete">Сканирование завершено</string>
+    <string name="position_info">Информация о позиции</string>
+    <string name="search_position_coming">Поиск позиции в поступлении</string>
 </resources>
