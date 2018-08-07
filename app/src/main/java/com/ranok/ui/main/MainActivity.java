@@ -24,7 +24,7 @@ import com.ranok.nfc.nfc_models.BaseRecord;
 import com.ranok.rx_bus.RxRFIDEvent;
 import com.ranok.ui.base.BaseActivity;
 import com.ranok.ui.login.LoginActivity;
-import com.ranok.ui.main.main_fragment.MainFragment;
+import com.ranok.ui.main_menu.MainFragment;
 
 import java.util.ArrayList;
 

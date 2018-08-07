@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.ranok.ui.main.main_fragment.MainVM" />
+            type="com.ranok.ui.main_menu.MainVM" />
 
     </data>
 

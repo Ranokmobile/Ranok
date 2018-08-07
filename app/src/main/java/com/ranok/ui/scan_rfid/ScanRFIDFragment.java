@@ -9,7 +9,7 @@ import com.ranok.R;
 import com.ranok.databinding.ScanRfidFragmentBinding;
 import com.ranok.ui.base.BaseFragment;
 import com.ranok.ui.main.MainActivity;
-import com.ranok.ui.main.scan_packages.ScanFragment;
+import com.ranok.ui.scan_packages.ScanFragment;
 
 import ranok.mvvm.binding.ViewModelBindingConfig;
 

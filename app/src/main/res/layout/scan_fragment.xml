@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.ranok.ui.main.scan_packages.ScanVM" />
+            type="com.ranok.ui.scan_packages.ScanVM" />
 
     </data>
 
@@ -16,7 +16,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.ranok.ui.main.scan_packages.ScanFragment">
+        tools:context=".ui.scan_packages.ScanFragment">
         <include
             android:id="@+id/toolbarPanel"
             layout="@layout/toolbar"

@@ -1,4 +1,4 @@
-package com.ranok.ui.main.main_fragment;
+package com.ranok.ui.main_menu;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,7 +16,7 @@ import com.ranok.mlkit.LivePreviewActivity;
 import com.ranok.ui.base.BaseFragment;
 import com.ranok.ui.info_position.InfoPositionFragment;
 import com.ranok.ui.main.MainActivity;
-import com.ranok.ui.main.scan_packages.ScanFragment;
+import com.ranok.ui.scan_packages.ScanFragment;
 import com.ranok.ui.scan_rfid.ScanRFIDFragment;
 
 import ranok.mvvm.binding.ViewModelBindingConfig;

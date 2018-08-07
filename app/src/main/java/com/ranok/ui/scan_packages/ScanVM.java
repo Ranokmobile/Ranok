@@ -1,4 +1,4 @@
-package com.ranok.ui.main.scan_packages;
+package com.ranok.ui.scan_packages;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
