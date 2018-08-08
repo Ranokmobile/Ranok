@@ -1,15 +1,19 @@
 package com.ranok.ui.info_position;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.databinding.InfoPositionFragmentBinding;
+import com.ranok.mlkit.LivePreviewActivity;
 import com.ranok.ui.base.BaseFragment;
 
 import ranok.mvvm.binding.ViewModelBindingConfig;
@@ -33,6 +37,9 @@ public class InfoPositionFragment extends BaseFragment<InfoPositionIView, InfoPo
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setModelView(this);
+        EditText et = getBinding().searchItem.etCode;
+        et.requestFocus();
+        mActivity.showKeyboard();
     }
 
     @Override
@@ -43,6 +50,20 @@ public class InfoPositionFragment extends BaseFragment<InfoPositionIView, InfoPo
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void startScanBarcode() {
+        startActivityForResult(new Intent(getActivity(), LivePreviewActivity.class), 1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            String barcode = data.getStringExtra("barcode");
+            getViewModel().gotBarcode(barcode);
+        }
     }
 
     @Nullable

@@ -4,5 +4,5 @@ import com.ranok.ui.base.BaseIView;
 
 
 public interface InfoPositionIView extends BaseIView {
-
+    void startScanBarcode();
 }

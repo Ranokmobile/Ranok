@@ -1,5 +1,6 @@
 package com.ranok.ui.base;
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -111,6 +112,15 @@ public abstract class BaseActivity<T extends BaseIView, R extends BaseViewModel<
             view = new View(this);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public void showKeyboard(){
+        try {
+            InputMethodManager imgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imgr.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @SuppressWarnings("unused")
