@@ -5,7 +5,10 @@ import java.util.regex.Pattern;
 public class SearchPositionWidgetVM extends BaseSearchWidgetVM {
 
     private ItemType itemType = ItemType.UNKNOWN;
-    private String screenTag;
+
+    public ItemType getItemType() {
+        return itemType;
+    }
 
     public SearchPositionWidgetVM(String screenTag, SearchWidgetCallbacks callbacks) {
         super(13, screenTag, callbacks);
@@ -32,18 +35,18 @@ public class SearchPositionWidgetVM extends BaseSearchWidgetVM {
     }
 
     public enum ItemType {
-        ITEM_CODE("^[1-2]{1,1}\\d{5,5}$")
-        , PIECE_BARCODE("^[1-9]{1,1}\\d{12,12}$")
-        , PACK_BARCODE("^[1]{1,1}\\d{7,7}$")
-        , ITEM_BARCODE("^[2]{1,1}\\d{7,7}$")
-        , UNKNOWN("");
+        ITEM_CODE("^[1-2]{1,1}\\d{5,5}$", "")
+        , PIECE_BARCODE("^[1-9]{1,1}\\d{12,12}$", "GTIN")
+        , PACK_BARCODE("^[1]{1,1}\\d{7,7}$", "GTIN_BOX")
+        , ITEM_BARCODE("^[2]{1,1}\\d{7,7}$", "GTIN_ITEM")
+        , UNKNOWN("","");
 
         public final String type;
         public final Pattern pattern;
 
-        ItemType(String type) {
+        ItemType(String patternStr, String type) {
             this.type = type;
-            this.pattern = Pattern.compile(type);
+            this.pattern = Pattern.compile(patternStr);
         }
     }
 }

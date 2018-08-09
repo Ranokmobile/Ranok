@@ -57,6 +57,10 @@ dependencies {
 //    implementation 'com.google.firebase:firebase-ml-vision-image-label-model:15.0.0'
 //    implementation 'com.google.firebase:firebase-ml-model-interpreter:16.0.0'
 
+    // Room
+    implementation 'android.arch.persistence.room:rxjava2:' + rootProject.archRoomVersion
+    annotationProcessor 'android.arch.lifecycle:common-java8:1.0.0:'
+
     implementation project(':Annotation')
     implementation 'com.google.firebase:firebase-messaging:17.1.0'
     annotationProcessor project(':AnnotationProcessing')

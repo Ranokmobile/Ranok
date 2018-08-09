@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+        <import type="com.ranok.R" />
+        <variable
+            name="viewModel"
+            type="com.ranok.ui.dialogs.SelectDialogFragment.Selectable" />
+
+        <variable
+            name="isChecked"
+            type="Boolean" />
+
+
+    </data>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--android:layout_marginTop="1dp"-->
+        <!--android:layout_marginBottom="1dp"-->
+        <!--android:background="@{isChecked ? @color/light_gray :@color/colorWhite }"        -->
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.name}"
+            android:textColor="@{isChecked ? @color/text_black : @color/gray }"
+            android:typeface='@{isChecked ? "bold" : "normal" }'
+            android:layout_margin="3dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:textSize="14sp" />
+
+
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:layout_marginEnd="10dp"
+            android:checked="@{isChecked}"
+            android:clickable="false"
+            android:button="@drawable/abc_btn_check_material"
+            android:buttonTint="@color/gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</layout>

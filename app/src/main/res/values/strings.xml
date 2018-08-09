@@ -27,4 +27,5 @@
     <string name="scan_packages_complete">Сканирование завершено</string>
     <string name="position_info">Информация о позиции</string>
     <string name="search_position_coming">Поиск позиции в поступлении</string>
+    <string name="search">Поиск</string>
 </resources>

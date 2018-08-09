@@ -3,7 +3,9 @@ package com.ranok.ui.info_position;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -16,11 +18,16 @@ import com.ranok.databinding.InfoPositionFragmentBinding;
 import com.ranok.mlkit.LivePreviewActivity;
 import com.ranok.ui.base.BaseFragment;
 
+import java.util.ArrayList;
+
 import ranok.mvvm.binding.ViewModelBindingConfig;
+
 
 
 public class InfoPositionFragment extends BaseFragment<InfoPositionIView, InfoPositionVM, InfoPositionFragmentBinding>
         implements InfoPositionIView, TextView.OnEditorActionListener {
+
+    private static final int REQUEST_CODE_SERVICE = 99;
 
     @Override
     protected String getScreenTitle() {
@@ -64,6 +71,14 @@ public class InfoPositionFragment extends BaseFragment<InfoPositionIView, InfoPo
             String barcode = data.getStringExtra("barcode");
             getViewModel().gotBarcode(barcode);
         }
+    }
+
+    @Override
+    public void showSelectPositionDialog(ArrayList<? extends Parcelable> sourceList) {
+        SelectPositionFragment.Builder builder = new SelectPositionFragment.Builder();
+        DialogFragment fragment = builder.setSourceList(sourceList)
+                .setItemLayout(R.layout.item_select)
+                .build(this, REQUEST_CODE_SERVICE);
     }
 
     @Nullable

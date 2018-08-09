@@ -2,11 +2,13 @@ package com.ranok.network;
 
 import com.ranok.network.request.BarcodeRequest;
 import com.ranok.network.request.LoginRequest;
+import com.ranok.network.request.PositionCodeRequest;
 import com.ranok.network.request.RfidRequest;
 import com.ranok.network.response.BaseResponse;
 import com.ranok.network.response.LoginResponse;
 import com.ranok.network.response.PackageBarcodeResponse;
 import com.ranok.network.response.PackageBarcodeResponseData;
+import com.ranok.network.response.PositionInfoByBarcodeResponse;
 
 import io.reactivex.Single;
 import retrofit2.http.Body;
@@ -35,4 +37,9 @@ public interface NetApi {
     @POST("add_movement")
     Single<PackageBarcodeResponseData> addMovement();
 
+    @POST("get_position_info_by_barcode")
+    Single<PositionInfoByBarcodeResponse> getPositionsByBarcode(@Body BarcodeRequest barcodeRequest);
+
+    @POST("get_position_info_by_code")
+    Single<PositionInfoByBarcodeResponse> getPositionsByCode(@Body PositionCodeRequest positionCodeRequest);
 }
