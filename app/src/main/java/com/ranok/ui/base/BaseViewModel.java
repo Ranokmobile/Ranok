@@ -83,7 +83,9 @@ public abstract class BaseViewModel<T extends BaseIView> extends AbstractViewMod
         Toast.makeText(RanokApp.getApp(), s, Toast.LENGTH_SHORT).show();
     }
 
-
+    protected void hideKeyboard(){
+        getViewOptional().hideKeyboard();
+    }
 
     @Override
     public void onDestroy() {

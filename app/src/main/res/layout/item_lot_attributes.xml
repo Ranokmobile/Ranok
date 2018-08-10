@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.ranok.network.models.PositionLotAttributesModel " />
+
+    </data>
+
+    <LinearLayout
+        android:gravity="center"
+        android:padding="8dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:text="@{viewModel.lotNumber}"
+            android:background="@color/light_gray"
+            android:textColor="@color/text_black"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="32dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+            <TextView
+                android:text="Длина штуки"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+            <TextView
+                android:text="@{viewModel.posLength}"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+            <TextView
+                android:text="Ширина штуки"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+            <TextView
+                android:text="@{viewModel.posWidth}"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+            <TextView
+                android:text="Высота штуки"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+            <TextView
+                android:text="@{viewModel.posHeight}"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+            <TextView
+                android:text="Вес штуки"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+            <TextView
+                android:text="@{viewModel.posWeight}"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+            <TextView
+                android:text="Твердость штуки"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+            <TextView
+                android:text="@{viewModel.posHardness}"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+            <TextView
+                android:text="Длина упак."
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+            <TextView
+                android:text="@{viewModel.packLength}"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+            <TextView
+                android:text="Ширина упак."
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+            <TextView
+                android:text="@{viewModel.packWidth}"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+            <TextView
+                android:text="Высота упак."
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+            <TextView
+                android:text="@{viewModel.packHeight}"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+            <TextView
+                android:text="Вес упак."
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+            <TextView
+                android:text="@{viewModel.packWeight}"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+            <TextView
+                android:text="Тип упак."
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+            <TextView
+                android:text="@{viewModel.packType}"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+            <TextView
+                android:text="Твердость упак."
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+            <TextView
+                android:text="@{viewModel.packHardness}"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+            <TextView
+                android:text="Стандарт упак."
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+            <TextView
+                android:text="@{viewModel.packStandart}"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+            <TextView
+                android:text="Создатель"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+            <TextView
+                android:text="@{viewModel.createdBy}"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+            <TextView
+                android:text="Дата создания"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+            <TextView
+                android:text="@{viewModel.creationDate}"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+            <TextView
+                android:text="Изменял"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+            <TextView
+                android:text="@{viewModel.lastUpdatedBy}"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+            <TextView
+                android:text="Дата изменения"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+            <TextView
+                android:text="@{viewModel.lastUpdatedDate}"
+                style="PosInfoLot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="25dp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>

@@ -1,5 +1,6 @@
 package com.ranok.ui.info_position;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,13 +12,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import com.ranok.BR;
 import com.ranok.R;
+import com.ranok.ui.base.BaseActivity;
 import com.ranok.ui.dialogs.DialogBuilder;
 import com.ranok.ui.dialogs.MyDiffUtilsCallback;
 import com.ranok.ui.dialogs.RxSearchObservable;
@@ -88,9 +90,9 @@ public class SelectPositionFragment <T extends SelectDialogFragment.Selectable> 
         decor.setDrawable(ContextCompat.getDrawable(inflater.getContext(),R.drawable.divider_horizontal_gray));
         rv.addItemDecoration(decor);
         binding.setVariable(BR.viewModel, viewModel);
-
         return mRootView;
     }
+
 
 
     private void initSearchView(SearchView searchView) {
@@ -100,17 +102,20 @@ public class SelectPositionFragment <T extends SelectDialogFragment.Selectable> 
         int id = searchView.getContext()
                 .getResources()
                 .getIdentifier("android:id/search_src_text", null, null);
-        TextView textView = searchView.findViewById(id);
+        EditText textView = searchView.findViewById(id);
         textView.setHintTextColor(getResources().getColor(R.color.light_gray));
-        textView.setTextSize(14f);
+        textView.setTextColor(getResources().getColor(R.color.colorWhite));
+        textView.setTextSize(18f);
 
         compositeDisposable.add(RxSearchObservable.fromView(searchView)
-                .debounce(300, TimeUnit.MILLISECONDS)
+                .debounce(50, TimeUnit.MILLISECONDS)
                 .distinctUntilChanged()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> getFilter().filter(result))
         );
+        searchView.setActivated(true);
+        searchView.setIconifiedByDefault(false);
     }
 
 
@@ -153,6 +158,15 @@ public class SelectPositionFragment <T extends SelectDialogFragment.Selectable> 
                 diffResult.dispatchUpdatesTo(adapter);
             }
         };
+    }
+
+    @Override
+    public void onItemClick(int position, T item) {
+        ((BaseActivity)getActivity()).hideKeyboard();
+        Intent intent = new Intent();
+        intent.putExtra("ID",item.getId());
+        getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_CODE, intent);
+        getDialog().dismiss();
     }
 
 

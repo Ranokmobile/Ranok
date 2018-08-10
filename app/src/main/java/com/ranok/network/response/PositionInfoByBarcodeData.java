@@ -10,16 +10,16 @@ import java.util.List;
 
 public class PositionInfoByBarcodeData {
     @SerializedName("positionList")
-    ArrayList<PositionInfoModel> positionList;
+    ArrayList<PositionInfoModel> positionList = new ArrayList<>();
 
     @SerializedName("positionInfo")
     PositionInfoModel positionInfo;
 
     @SerializedName("positionPlaces")
-    List<PositionPlacesModel> positionPlacesList;
+    List<PositionPlacesModel> positionPlacesList = new ArrayList<>();
 
     @SerializedName("positionLotAttributes")
-    List<PositionLotAttributesModel> positionLotAttributesList;
+    List<PositionLotAttributesModel> positionLotAttributesList = new ArrayList<>();
 
     public ArrayList<PositionInfoModel> getPositionList() {
         return positionList;

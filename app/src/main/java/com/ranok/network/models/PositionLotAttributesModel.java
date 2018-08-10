@@ -72,4 +72,72 @@ public class PositionLotAttributesModel {
     @SerializedName("lastUpdatedDate")
     @ColumnInfo(name="lastUpdatedDate")
     String lastUpdatedDate;
+
+    public String getLotNumber() {
+        return lotNumber;
+    }
+
+    public String getPosLength() {
+        return posLength;
+    }
+
+    public String getPosWidth() {
+        return posWidth;
+    }
+
+    public String getPosHeight() {
+        return posHeight;
+    }
+
+    public String getPosWeight() {
+        return posWeight;
+    }
+
+    public String getPosHardness() {
+        return posHardness;
+    }
+
+    public String getPackLength() {
+        return packLength;
+    }
+
+    public String getPackWidth() {
+        return packWidth;
+    }
+
+    public String getPackHeight() {
+        return packHeight;
+    }
+
+    public String getPackWeight() {
+        return packWeight;
+    }
+
+    public String getPackType() {
+        return packType;
+    }
+
+    public String getPackHardness() {
+        return packHardness;
+    }
+
+    public String getPackStandart() {
+        return packStandart;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public String getCreationDate() {
+        return creationDate;
+    }
+
+    public String getLastUpdatedBy() {
+        return lastUpdatedBy;
+    }
+
+    public String getLastUpdatedDate() {
+        return lastUpdatedDate;
+    }
 }

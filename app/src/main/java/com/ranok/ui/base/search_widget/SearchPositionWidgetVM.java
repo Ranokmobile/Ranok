@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public class SearchPositionWidgetVM extends BaseSearchWidgetVM {
 
-    private ItemType itemType = ItemType.UNKNOWN;
+    private ItemType itemType;
 
     public ItemType getItemType() {
         return itemType;

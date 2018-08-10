@@ -37,10 +37,33 @@ public class PositionInfoModel  implements SelectDialogFragment.Selectable {
     @ColumnInfo(name="packStandart")
     String packStandart;
 
+    public String getCode() {
+        return code;
+    }
+
+    public String getProdCode() {
+        return prodCode;
+    }
+
+    public String getProdCodeOld() {
+        return prodCodeOld;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public String getPackStandart() {
+        return packStandart;
+    }
+
+    public String getPosName(){
+        return name;
+    }
 
     @Override
     public String getName() {
-        return code + "-" + name + "-" + prodCode + "-" + prodCodeOld;
+        return code + " - " + name + " - " + prodCode + " - " + prodCodeOld;
     }
 
     @Override

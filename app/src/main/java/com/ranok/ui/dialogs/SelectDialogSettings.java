@@ -9,9 +9,9 @@ public class SelectDialogSettings extends BaseObservable implements Parcelable {
 
     private String header;
 
-//    public String getString(String stringKey) {
-//        return getLocalizedString(stringKey);
-//    }
+    public String getString(String stringKey) {
+        return stringKey;
+    }
 
 
     public String getHeader() {

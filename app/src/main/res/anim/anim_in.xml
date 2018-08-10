@@ -8,7 +8,7 @@
         android:toYScale="1.0"
         android:fillAfter="false"
         android:startOffset="200"
-        android:duration="200"
+        android:duration="150"
         android:pivotX = "50%"
         android:pivotY = "20%"
         />
@@ -19,7 +19,7 @@
         android:fromYDelta="100%"
         android:toYDelta="0"
         android:startOffset="200"
-        android:duration="400"
+        android:duration="150"
         />
 
 </set>

@@ -125,4 +125,8 @@ public abstract class BaseFragment<T extends BaseIView, R extends BaseViewModel<
         showSnakeBar(getString(i));
     }
 
+    @Override
+    public void hideKeyboard() {
+        mActivity.hideKeyboard();
+    }
 }

@@ -29,4 +29,32 @@ public class PositionPlacesModel  { //t_place
     @ColumnInfo(name="availQuantity")
     int availQuantity;
 
+    public String getQty(){
+        if (sysQuantity==0 && availQuantity==0) return "";
+        return String.valueOf(sysQuantity) + " (" + String.valueOf(availQuantity) + ")";
+    }
+
+    public String getLot() {
+        return lot;
+    }
+
+    public String getSubinventoryCode() {
+        return subinventoryCode;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getLpn() {
+        return lpn;
+    }
+
+    public int getSysQuantity() {
+        return sysQuantity;
+    }
+
+    public int getAvailQuantity() {
+        return availQuantity;
+    }
 }

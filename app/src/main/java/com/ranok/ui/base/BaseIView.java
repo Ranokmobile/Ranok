@@ -9,4 +9,5 @@ public interface BaseIView extends IView {
     void showSnakeBar(String s);
     void showSnakeBar(int i);
     void gotoLogin();
+    void hideKeyboard();
 }

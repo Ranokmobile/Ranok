@@ -17,6 +17,7 @@ import com.ranok.R;
 import com.ranok.databinding.InfoPositionFragmentBinding;
 import com.ranok.mlkit.LivePreviewActivity;
 import com.ranok.ui.base.BaseFragment;
+import com.ranok.ui.dialogs.SelectDialogFragment;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,7 @@ public class InfoPositionFragment extends BaseFragment<InfoPositionIView, InfoPo
         implements InfoPositionIView, TextView.OnEditorActionListener {
 
     private static final int REQUEST_CODE_SERVICE = 99;
+    InfoPositionPagerAdapter pagerAdapter;
 
     @Override
     protected String getScreenTitle() {
@@ -45,8 +47,11 @@ public class InfoPositionFragment extends BaseFragment<InfoPositionIView, InfoPo
         super.onViewCreated(view, savedInstanceState);
         setModelView(this);
         EditText et = getBinding().searchItem.etCode;
+
+        pagerAdapter = new InfoPositionPagerAdapter(getChildFragmentManager());
+        getBinding().vp.setAdapter(pagerAdapter);
+        getBinding().tabLayout.setupWithViewPager(getBinding().vp);
         et.requestFocus();
-        mActivity.showKeyboard();
     }
 
     @Override
@@ -71,6 +76,13 @@ public class InfoPositionFragment extends BaseFragment<InfoPositionIView, InfoPo
             String barcode = data.getStringExtra("barcode");
             getViewModel().gotBarcode(barcode);
         }
+        if (requestCode == REQUEST_CODE_SERVICE) {
+            if (resultCode == SelectDialogFragment.RESULT_CODE) {
+                int id = data.getIntExtra("ID", 0);
+                getViewModel().searchByCode(String.valueOf(id));
+                //getViewModel().serviceAdded(id);
+            }
+        }
     }
 
     @Override
@@ -78,7 +90,9 @@ public class InfoPositionFragment extends BaseFragment<InfoPositionIView, InfoPo
         SelectPositionFragment.Builder builder = new SelectPositionFragment.Builder();
         DialogFragment fragment = builder.setSourceList(sourceList)
                 .setItemLayout(R.layout.item_select)
+                .setHeaderText("Выберите элемент")
                 .build(this, REQUEST_CODE_SERVICE);
+        fragment.show(mActivity.getSupportFragmentManager(), "DIALOG");
     }
 
     @Nullable

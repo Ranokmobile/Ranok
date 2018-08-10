@@ -70,12 +70,12 @@ public abstract class BaseSearchWidgetVM extends BaseObservable {
     }
 
     public void onClick(View v){
+        if (v.getId() ==  R.id.searchItem) Hawk.put(hawkTag, inputText);
         callbacks.onClickWidgetSearch(v);
     }
 
     public void onTextChanged(CharSequence text, int start, int before, int count) {
         setInputText(text.toString());
-        Hawk.put(hawkTag, inputText);
         if (isInputCorrect()) { // && textStatus==INVALID
             setTextStatus(VALID);
         } else if (!isInputCorrect()) { // && textStatus==VALID

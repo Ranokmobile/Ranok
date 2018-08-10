@@ -9,7 +9,7 @@
         android:fillAfter="false"
         android:pivotX = "50%"
         android:pivotY = "20%"
-        android:duration="200"
+        android:duration="150"
         />
     <!--android:pivotX = "50%"-->
     <!--android:pivotY = "-90%"-->
@@ -17,6 +17,6 @@
     <translate
         android:fromYDelta="0"
         android:toYDelta="100%"
-        android:duration="200"
+        android:duration="150"
         />
 </set>
