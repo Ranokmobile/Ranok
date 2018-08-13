@@ -70,7 +70,9 @@ public abstract class BaseSearchWidgetVM extends BaseObservable {
     }
 
     public void onClick(View v){
-        if (v.getId() ==  R.id.searchItem) Hawk.put(hawkTag, inputText);
+        if (v.getId() ==  R.id.ibSearch) {
+            Hawk.put(hawkTag, inputText);
+        }
         callbacks.onClickWidgetSearch(v);
     }
 

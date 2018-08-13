@@ -28,4 +28,5 @@
     <string name="position_info">Информация о позиции</string>
     <string name="search_position_coming">Поиск позиции в поступлении</string>
     <string name="search">Поиск</string>
+    <string name="lpn_info">Информация о НЗ</string>
 </resources>

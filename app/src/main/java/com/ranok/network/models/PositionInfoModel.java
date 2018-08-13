@@ -49,6 +49,12 @@ public class PositionInfoModel  implements SelectDialogFragment.Selectable {
         return prodCodeOld;
     }
 
+    public String getProdCodeAll() {
+        String ret  = prodCode;
+        if (prodCodeOld != null) ret = ret + " / " + prodCodeOld;
+        return ret;
+    }
+
     public String getOwner() {
         return owner;
     }

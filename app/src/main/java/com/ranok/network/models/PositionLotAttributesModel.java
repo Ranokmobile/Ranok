@@ -73,6 +73,16 @@ public class PositionLotAttributesModel {
     @ColumnInfo(name="lastUpdatedDate")
     String lastUpdatedDate;
 
+    private boolean expanded;
+
+    public boolean isExpanded() {
+        return expanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        this.expanded = expanded;
+    }
+
     public String getLotNumber() {
         return lotNumber;
     }

@@ -26,6 +26,7 @@ public abstract class BaseViewModel<T extends BaseIView> extends AbstractViewMod
 
     @BindingAdapter("android:visibility")
     public static void setVisibility(View view, Boolean value) {
+        if (value == null) view.setVisibility(View.GONE);
         view.setVisibility(value ? View.VISIBLE : View.GONE);
     }
 

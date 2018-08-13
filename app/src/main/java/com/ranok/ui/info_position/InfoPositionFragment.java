@@ -18,6 +18,7 @@ import com.ranok.databinding.InfoPositionFragmentBinding;
 import com.ranok.mlkit.LivePreviewActivity;
 import com.ranok.ui.base.BaseFragment;
 import com.ranok.ui.dialogs.SelectDialogFragment;
+import com.ranok.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -51,14 +52,15 @@ public class InfoPositionFragment extends BaseFragment<InfoPositionIView, InfoPo
         pagerAdapter = new InfoPositionPagerAdapter(getChildFragmentManager());
         getBinding().vp.setAdapter(pagerAdapter);
         getBinding().tabLayout.setupWithViewPager(getBinding().vp);
-        et.requestFocus();
+        et.post(() -> Utils.selectText(et));
     }
+
 
     @Override
     public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             mActivity.hideKeyboard();
-            getBinding().searchItem.ibSearch.performClick();
+            getViewModel().startSearch();
             return true;
         }
         return false;

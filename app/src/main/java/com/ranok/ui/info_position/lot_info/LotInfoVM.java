@@ -3,10 +3,6 @@ package com.ranok.ui.info_position.lot_info;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.ranok.BR;
-import com.ranok.R;
-import com.ranok.adapters.RecyclerBindingAdapter;
-import com.ranok.network.models.PositionLotAttributesModel;
 import com.ranok.network.response.PositionInfoByBarcodeData;
 import com.ranok.rx_bus.RxPosInfo;
 import com.ranok.ui.base.BaseViewModel;
@@ -18,11 +14,11 @@ public class LotInfoVM extends BaseViewModel<LotInfoIView> {
 
     private PositionInfoByBarcodeData data = new PositionInfoByBarcodeData();
 
-    private RecyclerBindingAdapter<PositionLotAttributesModel> adapter
-            = new RecyclerBindingAdapter<>(R.layout.item_lot_attributes, BR.viewModel, data.getPositionLotAttributesList());
+    private LotInfoAdapter adapter
+            = new LotInfoAdapter();
 
 
-    public RecyclerBindingAdapter<PositionLotAttributesModel> getAdapter() {
+    public LotInfoAdapter getAdapter() {
         return adapter;
     }
 
@@ -47,6 +43,7 @@ public class LotInfoVM extends BaseViewModel<LotInfoIView> {
         if (data.getPositionLotAttributesList() == null) {
             adapter.setItems( new ArrayList<>());
         } else {
+            if (data.getPositionLotAttributesList().size()==1) data.getPositionLotAttributesList().get(0).setExpanded(true);
             adapter.setItems(data.getPositionLotAttributesList());
         }
     }

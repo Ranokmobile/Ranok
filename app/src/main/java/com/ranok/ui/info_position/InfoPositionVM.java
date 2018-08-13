@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.ranok.R;
 import com.ranok.network.request.BarcodeRequest;
-import com.ranok.network.request.PositionCodeRequest;
+import com.ranok.network.request.CodeRequest;
 import com.ranok.network.response.PositionInfoByBarcodeResponse;
 import com.ranok.rx_bus.RxPosInfo;
 import com.ranok.ui.base.BaseViewModel;
@@ -46,7 +46,7 @@ public class InfoPositionVM extends BaseViewModel<InfoPositionIView> implements 
         }
     }
 
-    private void startSearch() {
+    public void startSearch() {
         SearchPositionWidgetVM.ItemType itemType;
         itemType = searchVM.getItemType();
         switch (itemType) {
@@ -75,7 +75,7 @@ public class InfoPositionVM extends BaseViewModel<InfoPositionIView> implements 
 
     public void searchByCode(String code) {
         compositeDisposable.add(
-                netApi.getPositionsByCode(new PositionCodeRequest(code))
+                netApi.getPositionsByCode(new CodeRequest(code))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::processPositionsByCodeResponse, this::processError)
