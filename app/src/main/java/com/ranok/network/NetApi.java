@@ -3,12 +3,14 @@ package com.ranok.network;
 import com.ranok.network.request.BarcodeRequest;
 import com.ranok.network.request.LoginRequest;
 import com.ranok.network.request.CodeRequest;
+import com.ranok.network.request.PlaceRequest;
 import com.ranok.network.request.RfidRequest;
 import com.ranok.network.response.BaseResponse;
 import com.ranok.network.response.LoginResponse;
 import com.ranok.network.response.LpnInfoResponse;
 import com.ranok.network.response.PackageBarcodeResponse;
 import com.ranok.network.response.PackageBarcodeResponseData;
+import com.ranok.network.response.PlaceInfoResponse;
 import com.ranok.network.response.PositionInfoByBarcodeResponse;
 
 import io.reactivex.Single;
@@ -46,4 +48,7 @@ public interface NetApi {
 
     @POST("get_lpn_info_by_code")
     Single<LpnInfoResponse> getLpnByCode(@Body CodeRequest codeRequest);
+
+    @POST("get_items_by_place")
+    Single<PlaceInfoResponse> getPlaceItemsByCode(@Body PlaceRequest placeRequest);
 }

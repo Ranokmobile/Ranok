@@ -53,6 +53,7 @@ public class InfoPositionFragment extends BaseFragment<InfoPositionIView, InfoPo
         getBinding().vp.setAdapter(pagerAdapter);
         getBinding().tabLayout.setupWithViewPager(getBinding().vp);
         et.post(() -> Utils.selectText(et));
+        et.setOnEditorActionListener(this);
     }
 
 

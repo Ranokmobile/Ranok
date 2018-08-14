@@ -26,6 +26,7 @@
   </com.ranok.mlkit.CameraSourcePreview>
 
   <TextView android:id="@+id/text"
+      android:visibility="gone"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:paddingLeft="80dp"
@@ -35,6 +36,7 @@
 
   <FrameLayout
       android:id="@+id/control"
+      android:visibility="gone"
       android:layout_width="match_parent"
       android:layout_height="60dp"
       android:layout_alignParentBottom="true"

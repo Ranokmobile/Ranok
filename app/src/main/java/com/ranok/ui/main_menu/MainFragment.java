@@ -15,6 +15,7 @@ import com.ranok.databinding.MainFragmentBinding;
 import com.ranok.mlkit.LivePreviewActivity;
 import com.ranok.ui.base.BaseFragment;
 import com.ranok.ui.info_lpn.InfoLpnFragment;
+import com.ranok.ui.info_place.InfoPlaceFragment;
 import com.ranok.ui.info_position.InfoPositionFragment;
 import com.ranok.ui.main.MainActivity;
 import com.ranok.ui.scan_packages.ScanFragment;
@@ -70,6 +71,14 @@ public class MainFragment extends BaseFragment<MainIView, MainVM, MainFragmentBi
         MainActivity activity = ((MainActivity)mActivity);
         if (activity!=null) {
             activity.addFragment(new InfoLpnFragment());
+        }
+    }
+
+    @Override
+    public void showInfoPlace() {
+        MainActivity activity = ((MainActivity)mActivity);
+        if (activity!=null) {
+            activity.addFragment(new InfoPlaceFragment());
         }
     }
 

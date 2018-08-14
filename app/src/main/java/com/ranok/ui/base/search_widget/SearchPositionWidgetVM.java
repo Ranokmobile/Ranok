@@ -11,7 +11,7 @@ public class SearchPositionWidgetVM extends BaseSearchWidgetVM {
     }
 
     public SearchPositionWidgetVM(String screenTag, SearchWidgetCallbacks callbacks) {
-        super(13, screenTag, callbacks);
+        super(13, screenTag, callbacks,"#############");
     }
 
     @Override

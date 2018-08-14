@@ -21,14 +21,28 @@ public abstract class BaseSearchWidgetVM extends BaseObservable {
     private TextStatus textStatus = INVALID;
     private String hawkTag;
     private SearchWidgetCallbacks callbacks;
+    private boolean searching;
+    private String mask;
 
-    BaseSearchWidgetVM(int maxTextLength, String hawkTag, SearchWidgetCallbacks callbacks) {
+    BaseSearchWidgetVM(int maxTextLength, String hawkTag, SearchWidgetCallbacks callbacks, String mask) {
         this.maxTextLength = maxTextLength;
         this.hawkTag = hawkTag;
         this.callbacks = callbacks;
+        this.mask = mask;
         if (Hawk.contains(hawkTag)){
             onTextChanged(Hawk.get(hawkTag), 0,0,0);
         }
+
+    }
+
+    @Bindable
+    public String getMask() {
+        return mask;
+    }
+
+    public void setMask(String mask) {
+        this.mask = mask;
+        notifyPropertyChanged(BR.mask);
     }
 
     @Bindable
@@ -39,6 +53,18 @@ public abstract class BaseSearchWidgetVM extends BaseObservable {
     public void setInputText(String inputText) {
         this.inputText = inputText;
         notifyPropertyChanged(BR.inputText);
+    }
+
+
+
+    @Bindable
+    public boolean isSearching() {
+        return searching;
+      //  notifyPropertyChanged(BR.progress);
+    }
+
+    public void setSearching(boolean searching) {
+        this.searching = searching;
     }
 
     @Bindable

@@ -34,7 +34,8 @@ public class InfoLpnFragment extends BaseFragment<InfoLpnIView, InfoLpnVM, InfoL
         setModelView(this);
         EditText et = getBinding().searchItem.etCode;
         et.post(() -> Utils.selectText(et));
-
+        et.setOnEditorActionListener(this);
+//        et.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
     }
 
 

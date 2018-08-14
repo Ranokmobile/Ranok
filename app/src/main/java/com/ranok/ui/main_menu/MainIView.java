@@ -8,4 +8,5 @@ interface MainIView extends BaseIView {
     void startLoginActivity();
     void showInfoPosition();
     void showInfoLpn();
+    void showInfoPlace();
 }

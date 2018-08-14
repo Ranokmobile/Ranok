@@ -6,7 +6,7 @@ public class SearchLpnWidgetVM extends BaseSearchWidgetVM  {
 
 
     public SearchLpnWidgetVM(String hawkTag, SearchWidgetCallbacks callbacks) {
-        super(9, hawkTag, callbacks);
+        super(9, hawkTag, callbacks, "##########");
     }
 
     @Override
