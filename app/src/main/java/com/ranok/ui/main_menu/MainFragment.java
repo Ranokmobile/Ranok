@@ -18,6 +18,7 @@ import com.ranok.ui.info_lpn.InfoLpnFragment;
 import com.ranok.ui.info_place.InfoPlaceFragment;
 import com.ranok.ui.info_position.InfoPositionFragment;
 import com.ranok.ui.main.MainActivity;
+import com.ranok.ui.move_lpn.MoveLpnFragment;
 import com.ranok.ui.scan_packages.ScanFragment;
 import com.ranok.ui.scan_rfid.ScanRFIDFragment;
 
@@ -79,6 +80,14 @@ public class MainFragment extends BaseFragment<MainIView, MainVM, MainFragmentBi
         MainActivity activity = ((MainActivity)mActivity);
         if (activity!=null) {
             activity.addFragment(new InfoPlaceFragment());
+        }
+    }
+
+    @Override
+    public void moveLpn() {
+        MainActivity activity = ((MainActivity)mActivity);
+        if (activity!=null) {
+            activity.addFragment(new MoveLpnFragment());
         }
     }
 

@@ -6,6 +6,10 @@ public class SearchPlaceWidgetVM extends BaseSearchWidgetVM  {
         super(11, hawkTag, callbacks, "###.###.#.#");
     }
 
+    public SearchPlaceWidgetVM(String hawkTag, SearchWidgetCallbacks callbacks, boolean searchBtnVisibility) {
+        super(11, hawkTag, callbacks, "###.###.#.#", searchBtnVisibility);
+    }
+
     @Override
     protected boolean isInputCorrect() {
         return (getInputText()!=null && getInputText().length()==11);

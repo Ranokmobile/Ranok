@@ -23,6 +23,7 @@ public abstract class BaseSearchWidgetVM extends BaseObservable {
     private SearchWidgetCallbacks callbacks;
     private boolean searching;
     private String mask;
+    private boolean searchBtnVisibility;
 
     BaseSearchWidgetVM(int maxTextLength, String hawkTag, SearchWidgetCallbacks callbacks, String mask) {
         this.maxTextLength = maxTextLength;
@@ -32,8 +33,14 @@ public abstract class BaseSearchWidgetVM extends BaseObservable {
         if (Hawk.contains(hawkTag)){
             onTextChanged(Hawk.get(hawkTag), 0,0,0);
         }
-
     }
+
+    public BaseSearchWidgetVM(int maxTextLength, String hawkTag, SearchWidgetCallbacks callbacks, String mask, boolean searchBtnVisibility) {
+        this(maxTextLength, hawkTag, callbacks, mask);
+        this.searchBtnVisibility = searchBtnVisibility;
+    }
+
+
 
     @Bindable
     public String getMask() {
@@ -43,6 +50,16 @@ public abstract class BaseSearchWidgetVM extends BaseObservable {
     public void setMask(String mask) {
         this.mask = mask;
         notifyPropertyChanged(BR.mask);
+    }
+
+    @Bindable
+    public boolean isSearchBtnVisibility() {
+        return searchBtnVisibility;
+    }
+
+    public void setSearchBtnVisibility(boolean searchBtnVisibility) {
+        this.searchBtnVisibility = searchBtnVisibility;
+        notifyPropertyChanged(BR.searchBtnVisibility);
     }
 
     @Bindable
@@ -99,7 +116,7 @@ public abstract class BaseSearchWidgetVM extends BaseObservable {
         if (v.getId() ==  R.id.ibSearch) {
             Hawk.put(hawkTag, inputText);
         }
-        callbacks.onClickWidgetSearch(v);
+        if (callbacks != null) callbacks.onClickWidgetSearch(v);
     }
 
     public void onTextChanged(CharSequence text, int start, int before, int count) {

@@ -9,4 +9,5 @@ interface MainIView extends BaseIView {
     void showInfoPosition();
     void showInfoLpn();
     void showInfoPlace();
+    void moveLpn();
 }

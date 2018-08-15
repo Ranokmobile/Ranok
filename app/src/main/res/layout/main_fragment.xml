@@ -173,7 +173,44 @@
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/place_info"
+        android:id="@+id/place_info"
+        android:layout_width="@dimen/menu_panel_width"
+        android:layout_height="@dimen/menu_panel_height"
+        android:elevation="4dp"
+        android:background="@drawable/gray_btn_selector"
+        android:onClick="@{viewModel::onClick}"
+        >
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:src="@android:drawable/ic_menu_info_details"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:text="@string/place_info"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+    </android.support.constraint.ConstraintLayout>
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/move_lpn"
             android:layout_width="@dimen/menu_panel_width"
             android:layout_height="@dimen/menu_panel_height"
             android:elevation="4dp"
@@ -182,13 +219,13 @@
             >
 
             <ImageView
-                android:id="@+id/imageView6"
+                android:id="@+id/imageView7"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:src="@android:drawable/ic_menu_info_details"
+                android:src="@drawable/ic_package_variant"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -201,11 +238,11 @@
                 android:layout_marginStart="1dp"
                 android:layout_marginTop="4dp"
                 android:gravity="center"
-                android:text="@string/place_info"
+                android:text="@string/move_lpn"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView7" />
         </android.support.constraint.ConstraintLayout>
 
 

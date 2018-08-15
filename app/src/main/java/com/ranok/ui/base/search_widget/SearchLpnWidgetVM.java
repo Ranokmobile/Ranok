@@ -9,6 +9,10 @@ public class SearchLpnWidgetVM extends BaseSearchWidgetVM  {
         super(9, hawkTag, callbacks, "##########");
     }
 
+    public SearchLpnWidgetVM(String hawkTag, SearchWidgetCallbacks callbacks, boolean searchBtnVisibility) {
+        super(9, hawkTag, callbacks, "##########", searchBtnVisibility);
+    }
+
     @Override
     protected boolean isInputCorrect() {
         return !getInputText().isEmpty();

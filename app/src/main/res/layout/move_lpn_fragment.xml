@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.ranok.ui.move_lpn.MoveLpnVM" />
+
+    </data>
+
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.ranok.ui.move_lpn.MoveLpnFragment">
+
+        <include
+            android:id="@+id/toolbarPanel"
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintBottom_toTopOf="@+id/tvMovableLpn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread_inside"
+            />
+
+
+        <TextView
+            android:id="@+id/tvMovableLpn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Перемещаемый НЗ"
+            android:textColor="@color/text_black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/searchItemMovableLpn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarPanel"/>
+
+        <include
+            android:id="@+id/searchItemMovableLpn"
+            layout="@layout/item_get_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/tvMoveAim"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvMovableLpn"
+            bind:viewModel="@{viewModel.searchSourceLpnVM}" />
+
+        <TextView
+            android:id="@+id/tvMoveAim"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Цель перемещения"
+            android:textColor="@color/text_black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/rGroupAim"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchItemMovableLpn" />
+
+        <RadioGroup
+            android:id="@+id/rGroupAim"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:onCheckedChanged="@{viewModel::onRadioGroupChanged}"
+            android:checkedButton="@{viewModel.model.selectedAimViewId}"
+            app:layout_constraintBottom_toTopOf="@+id/tvTargetAim"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvMoveAim">
+
+            <RadioButton
+                android:id="@+id/rbToLpn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="в номерной знак" />
+
+            <RadioButton
+                android:id="@+id/rbToPlace"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="на адрес ячейки" />
+        </RadioGroup>
+
+
+        <TextView
+            android:id="@+id/tvTargetAim"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.model.aimTargetCaption}"
+            android:textColor="@color/text_black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/flAim"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rGroupAim" />
+
+
+        <FrameLayout
+            android:id="@+id/flAim"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/rGroupType"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTargetAim">
+
+            <include
+                android:id="@+id/searchItemAimLpn"
+                android:visibility="@{viewModel.targetLpnVisible}"
+                layout="@layout/item_get_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                bind:viewModel="@{viewModel.searchAimLpnVM}" />
+
+            <include
+                android:id="@+id/searchItemAimPlace"
+                android:visibility="@{viewModel.targetPlaceVisible}"
+                layout="@layout/item_get_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                bind:viewModel="@{viewModel.searchAimPlaceVM}" />
+
+        </FrameLayout>
+
+        <RadioGroup
+            android:id="@+id/rGroupType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:onCheckedChanged="@{viewModel::onRadioGroupChanged}"
+            android:checkedButton="@{viewModel.model.selectedTypeViewId}"
+            app:layout_constraintBottom_toTopOf="@+id/llButtons"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/flAim">
+
+            <RadioButton
+                android:id="@+id/rbFullLpn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="полный НЗ" />
+
+            <RadioButton
+                android:id="@+id/rbLpnContent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="только содержимое" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/llButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rGroupType">
+
+            <Button
+                android:id="@+id/buttonMove"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Переместить"
+
+                />
+
+            <Button
+                android:id="@+id/buttonDiscard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Сбросить" />
+        </LinearLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>
+

@@ -51,6 +51,9 @@ public class MainVM extends BaseViewModel<MainIView>  {
             case R.id.place_info:
                 getViewOptional().showInfoPlace();
                 break;
+            case R.id.move_lpn:
+                getViewOptional().moveLpn();
+                break;
         }
 
 

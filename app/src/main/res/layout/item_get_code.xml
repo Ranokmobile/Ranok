@@ -85,6 +85,7 @@
             android:minWidth="45dp"
             android:scaleType="centerCrop"
             android:onClick="@{viewModel::onClick}"
+            android:visibility="@{viewModel.searchBtnVisibility}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
