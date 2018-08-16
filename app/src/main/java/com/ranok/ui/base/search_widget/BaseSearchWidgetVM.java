@@ -23,7 +23,7 @@ public abstract class BaseSearchWidgetVM extends BaseObservable {
     private SearchWidgetCallbacks callbacks;
     private boolean searching;
     private String mask;
-    private boolean searchBtnVisibility;
+    private boolean searchBtnVisibility=true;
 
     BaseSearchWidgetVM(int maxTextLength, String hawkTag, SearchWidgetCallbacks callbacks, String mask) {
         this.maxTextLength = maxTextLength;

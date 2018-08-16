@@ -67,6 +67,8 @@ dependencies {
 
     implementation 'ru.egslava:MaskedEditText:1.0.5'  //MaskedEditText
 
+    implementation 'com.github.clans:fab:1.6.4' //FAB Menu
+
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

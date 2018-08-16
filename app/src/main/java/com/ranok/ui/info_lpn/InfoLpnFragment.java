@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -32,10 +36,20 @@ public class InfoLpnFragment extends BaseFragment<InfoLpnIView, InfoLpnVM, InfoL
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setModelView(this);
+        RecyclerView rv = getBinding().rv;
+        RecyclerView.Adapter adapter = getViewModel().getAdapter();
+        LinearLayoutManager manager = new LinearLayoutManager(mActivity);
+        rv.setLayoutManager(manager);
+        DividerItemDecoration decor = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        decor.setDrawable(ContextCompat.getDrawable(getContext(),R.drawable.divider_horizontal_gray));
+        rv.addItemDecoration(decor);
+        if (adapter != null) rv.setAdapter(adapter);
+
+        getBinding().menuRed.setClosedOnTouchOutside(true);
+
         EditText et = getBinding().searchItem.etCode;
         et.post(() -> Utils.selectText(et));
         et.setOnEditorActionListener(this);
-//        et.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
     }
 
 

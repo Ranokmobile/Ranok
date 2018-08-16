@@ -12,6 +12,7 @@ import com.ranok.network.NetApi;
 import com.ranok.network.response.BaseResponse;
 
 import java.net.ConnectException;
+import java.net.SocketTimeoutException;
 
 import io.reactivex.disposables.CompositeDisposable;
 import okhttp3.ResponseBody;
@@ -48,6 +49,10 @@ public abstract class BaseViewModel<T extends BaseIView> extends AbstractViewMod
         }
 
         if (throwable instanceof ConnectException) {
+            getViewOptional().showSnakeBar(R.string.cant_connect_to_server);
+        }
+
+        if (throwable instanceof SocketTimeoutException) {
             getViewOptional().showSnakeBar(R.string.cant_connect_to_server);
         }
 

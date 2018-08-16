@@ -4,13 +4,19 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.ranok.BR;
 import com.ranok.R;
+import com.ranok.adapters.RecyclerBindingAdapter;
 import com.ranok.network.models.LpnInfoModel;
+import com.ranok.network.models.LpnPositionModel;
 import com.ranok.network.request.CodeRequest;
 import com.ranok.network.response.LpnInfoResponse;
 import com.ranok.ui.base.BaseViewModel;
 import com.ranok.ui.base.search_widget.SearchLpnWidgetVM;
 import com.ranok.ui.base.search_widget.SearchWidgetCallbacks;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -20,8 +26,12 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
     private static final String SEARCH_WIDGET_TAG = "InfoLpnVM";
 
     private LpnInfoModel lpnInfoModel;
+    private List<LpnPositionModel> listLpnPositions;
 
     private SearchLpnWidgetVM searchVM;
+
+    private RecyclerBindingAdapter<LpnPositionModel> adapter
+            = new RecyclerBindingAdapter<>(R.layout.item_position_lpn, BR.viewModel, new ArrayList<>());
 
     public LpnInfoModel getLpnInfoModel() {
         return lpnInfoModel;
@@ -29,6 +39,10 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
 
     public SearchLpnWidgetVM getSearchVM() {
         return searchVM;
+    }
+
+    public RecyclerBindingAdapter<LpnPositionModel> getAdapter() {
+        return adapter;
     }
 
     @Override
@@ -75,8 +89,18 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
         return (lpnInfoModel != null);
     }
 
-    private void processResponse(LpnInfoResponse lpnInfoResponse) {
-        this.lpnInfoModel = lpnInfoResponse.data.getLpnInfoModel();
+    public boolean isRvVisible(){
+        return (listLpnPositions != null && listLpnPositions.size()>0);
+    }
+
+    private void processResponse(LpnInfoResponse response) {
+        this.lpnInfoModel = response.data.getLpnInfoModel();
+        this.listLpnPositions = response.data.getListLpnPositions();
+        if(listLpnPositions != null) {
+            adapter.setItems(listLpnPositions);
+        } else {
+            adapter.setItems(new ArrayList<>());
+        }
         notifyChange();
     }
 
