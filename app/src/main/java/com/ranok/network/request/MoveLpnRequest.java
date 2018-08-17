@@ -14,4 +14,11 @@ public class MoveLpnRequest {
 
     @SerializedName("move_type")
     public String moveType;   // 'full_lpn', 'lpn_content'
+
+    public MoveLpnRequest(String sourceLpn, String targetLpn, String targetPlaceAddress, String moveType) {
+        this.sourceLpn = sourceLpn;
+        this.targetLpn = targetLpn;
+        this.targetPlaceAddress = targetPlaceAddress;
+        this.moveType = moveType;
+    }
 }

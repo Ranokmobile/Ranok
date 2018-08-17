@@ -19,6 +19,8 @@ import com.ranok.R;
 import com.ranok.databinding.InfoLpnFragmentBinding;
 import com.ranok.mlkit.LivePreviewActivity;
 import com.ranok.ui.base.BaseFragment;
+import com.ranok.ui.move_lpn.MoveLpnFragment;
+import com.ranok.ui.split_lpn.SplitLpnFragment;
 import com.ranok.utils.Utils;
 
 import ranok.mvvm.binding.ViewModelBindingConfig;
@@ -77,6 +79,16 @@ public class InfoLpnFragment extends BaseFragment<InfoLpnIView, InfoLpnVM, InfoL
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void showMove(String lpn) {
+        mActivity.showFragment(MoveLpnFragment.getInstance(lpn));
+    }
+
+    @Override
+    public void showSplit(String lpn) {
+        mActivity.showFragment(SplitLpnFragment.getInstance(lpn));
     }
 
     @Nullable

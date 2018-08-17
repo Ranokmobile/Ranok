@@ -14,6 +14,7 @@ import com.ranok.network.response.LpnInfoResponse;
 import com.ranok.ui.base.BaseViewModel;
 import com.ranok.ui.base.search_widget.SearchLpnWidgetVM;
 import com.ranok.ui.base.search_widget.SearchWidgetCallbacks;
+import com.ranok.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,10 +65,7 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
 
     public void startSearch() {
         if (searchVM.getInputText() == null) return;
-        String searchStr = "L";
-        int inputLength = searchVM.getInputText().length();
-        for (int i = inputLength; i < 9; i++) searchStr+="0";
-        searchStr = searchStr + searchVM.getInputText();
+        String searchStr = StringUtils.formatToLpn(searchVM.getInputText());
         searchByCode(searchStr);
     }
 
@@ -102,6 +100,14 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
             adapter.setItems(new ArrayList<>());
         }
         notifyChange();
+    }
+
+    public void moveClick(View v){
+        getViewOptional().showMove(searchVM.getInputText());
+    }
+
+    public void splitClick(View v){
+        getViewOptional().showSplit(searchVM.getInputText());
     }
 
 }

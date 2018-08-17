@@ -8,11 +8,20 @@ import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.databinding.SplitLpnFragmentBinding;
 import com.ranok.ui.base.BaseFragment;
+import com.ranok.ui.move_lpn.MoveLpnFragment;
 
 import ranok.mvvm.binding.ViewModelBindingConfig;
 
 
 public class SplitLpnFragment extends BaseFragment<SplitLpnIView, SplitLpnVM, SplitLpnFragmentBinding> implements SplitLpnIView {
+
+    public static SplitLpnFragment getInstance(String sourceLpn){
+        SplitLpnFragment fragment = new SplitLpnFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("lpn", sourceLpn);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

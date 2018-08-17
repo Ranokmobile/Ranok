@@ -174,7 +174,9 @@
             android:paddingBottom="10dp"
             android:paddingLeft="10dp"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            fab:menu_fab_show_animation="@anim/scale_up"
+            fab:menu_fab_hide_animation="@anim/scale_down"
             fab:menu_icon="@drawable/ic_wrench"
             fab:menu_labels_ellipsize="end"
             fab:menu_labels_singleLine="true"
@@ -182,7 +184,8 @@
             fab:menu_fab_label="Отмена">
 
             <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/fab1"
+                android:id="@+id/fabMove"
+                android:onClick="@{viewModel::moveClick}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_folder_move"
@@ -191,6 +194,7 @@
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fabSplit"
+                android:onClick="@{viewModel::splitClick}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_call_split"

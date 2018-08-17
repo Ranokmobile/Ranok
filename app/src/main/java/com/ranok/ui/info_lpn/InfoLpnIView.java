@@ -5,4 +5,6 @@ import com.ranok.ui.base.BaseIView;
 
 public interface InfoLpnIView extends BaseIView {
     void startScanBarcode();
+    void showMove(String lpn);
+    void showSplit(String lpn);
 }

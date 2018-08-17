@@ -6,9 +6,15 @@ import android.view.View;
 import android.widget.RadioGroup;
 
 import com.ranok.R;
+import com.ranok.network.request.MoveLpnRequest;
+import com.ranok.network.response.LpnOperationResponse;
 import com.ranok.ui.base.BaseViewModel;
 import com.ranok.ui.base.search_widget.SearchLpnWidgetVM;
 import com.ranok.ui.base.search_widget.SearchPlaceWidgetVM;
+import com.ranok.utils.StringUtils;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class MoveLpnVM extends BaseViewModel<MoveLpnIView> {
@@ -52,7 +58,13 @@ public class MoveLpnVM extends BaseViewModel<MoveLpnIView> {
             hideKeyboard();
             getViewOptional().startScanBarcode(SearchWidgets.TARGET_PLACE);
         }, false);
-        setupUI();
+        String lpn ="";
+        if (arguments != null) {
+            lpn = arguments.getString("lpn");
+        }
+        if (lpn != null && !lpn.isEmpty()){
+            searchSourceLpnVM.onTextChanged(lpn,0,0,0);
+        }
     }
 
     private void setupUI() {
@@ -94,6 +106,34 @@ public class MoveLpnVM extends BaseViewModel<MoveLpnIView> {
         }
     }
 
+    public void onClick(View v){
+        showLoader();
+        String sourceLpn,targetLpn = null, targetPlaceAddress = null, moveType;
+        sourceLpn = StringUtils.formatToLpn(searchSourceLpnVM.getInputText());
+        if (model.getSelectedAim() == 0 ) {
+            targetLpn = StringUtils.formatToLpn(searchAimLpnVM.getInputText());
+        } else {
+            targetPlaceAddress = searchAimPlaceVM.getInputText();
+        }
+        moveType = model.getSelectedType() == 0 ? "full_lpn" : "lpn_content";
+        compositeDisposable.add( //String sourceLpn, String targetLpn, String targetPlaceAddress, String moveType
+                netApi.moveLpn(new MoveLpnRequest(sourceLpn, targetLpn, targetPlaceAddress, moveType))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(this::processResponse, this::processError)
+        );
+    }
+
+    private void processResponse(LpnOperationResponse response) {
+        hideLoader();
+        if (response.data.resultCode == 0) {
+            showToast("Операция прошла успешно");
+            getViewOptional().closeScreen();
+        } else {
+            getViewOptional().showSnakeBar(response.data.resultMessage);
+        }
+    }
+
 
     enum SearchWidgets {
         SOURCE_LPN(1), TARGET_LPN(2), TARGET_PLACE(3), UNKNOWN(-1);
@@ -112,46 +152,3 @@ public class MoveLpnVM extends BaseViewModel<MoveLpnIView> {
     }
 }
 
-
-/*
-    @Bindable
-    public boolean isIntoLpn() {
-        return intoLpn;
-    }
-
-    public void setIntoLpn(boolean intoLpn) {
-        this.intoLpn = intoLpn;
-        notifyPropertyChanged(BR.intoLpn);
-    }
-
-    @Bindable
-    public boolean isIntoPlace() {
-        return intoPlace;
-    }
-
-    public void setIntoPlace(boolean intoPlace) {
-        this.intoPlace = intoPlace;
-        notifyPropertyChanged(BR.intoPlace);
-    }
-
-    @Bindable
-    public boolean isFullLpn() {
-        return fullLpn;
-    }
-
-    public void setFullLpn(boolean fullLpn) {
-        this.fullLpn = fullLpn;
-        notifyPropertyChanged(BR.fullLpn);
-    }
-
-    @Bindable
-    public boolean isOnlyContent() {
-        return onlyContent;
-    }
-
-    public void setOnlyContent(boolean onlyContent) {
-        this.onlyContent = onlyContent;
-        notifyPropertyChanged(BR.onlyContent);
-    }
-
- */

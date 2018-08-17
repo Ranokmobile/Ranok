@@ -11,11 +11,21 @@ import com.ranok.R;
 import com.ranok.databinding.MoveLpnFragmentBinding;
 import com.ranok.mlkit.LivePreviewActivity;
 import com.ranok.ui.base.BaseFragment;
+import com.ranok.ui.main.MainActivity;
+import com.ranok.ui.scan_packages.ScanFragment;
 
 import ranok.mvvm.binding.ViewModelBindingConfig;
 
 
 public class MoveLpnFragment extends BaseFragment<MoveLpnIView, MoveLpnVM, MoveLpnFragmentBinding> implements MoveLpnIView {
+
+    public static MoveLpnFragment getInstance(String sourceLpn){
+        MoveLpnFragment fragment = new MoveLpnFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("lpn", sourceLpn);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Override
     protected String getScreenTitle() {
@@ -40,6 +50,16 @@ public class MoveLpnFragment extends BaseFragment<MoveLpnIView, MoveLpnVM, MoveL
         if (resItem != MoveLpnVM.SearchWidgets.UNKNOWN && resultCode == Activity.RESULT_OK) {
             String barcode = data.getStringExtra("barcode");
             getViewModel().gotBarcode(barcode, resItem);
+        }
+    }
+
+    @Override
+    public void closeScreen() {
+        MainActivity activity = ((MainActivity)getActivity());
+        if (activity!=null) {
+            activity.getScanPackagesResults().clear();
+            activity.getSupportFragmentManager().popBackStack();
+            activity.addFragment(new ScanFragment());
         }
     }
 
