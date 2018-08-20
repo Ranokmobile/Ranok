@@ -36,7 +36,7 @@ public class NetService {
             return chain.proceed(request.build());
         });
 
-        httpClient.readTimeout(10, TimeUnit.SECONDS);
+        httpClient.readTimeout(15, TimeUnit.SECONDS);
 
 
         Gson gson = new GsonBuilder()

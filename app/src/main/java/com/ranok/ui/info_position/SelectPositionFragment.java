@@ -165,6 +165,7 @@ public class SelectPositionFragment <T extends SelectDialogFragment.Selectable> 
         ((BaseActivity)getActivity()).hideKeyboard();
         Intent intent = new Intent();
         intent.putExtra("ID",item.getId());
+        intent.putExtra("POSITION", position);
         getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_CODE, intent);
         getDialog().dismiss();
     }

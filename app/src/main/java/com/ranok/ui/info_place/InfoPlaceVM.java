@@ -21,7 +21,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class InfoPlaceVM extends BaseViewModel<InfoPlaceIView> implements SearchWidgetCallbacks {
+public class InfoPlaceVM extends BaseViewModel<InfoPlaceIView> implements SearchWidgetCallbacks ,
+        RecyclerBindingAdapter.OnItemClickListener<PlaceInfoModel> {
     private static final String SEARCH_WIDGET_TAG = "InfoPlaceVM";
 
     PlaceInfoData data = new PlaceInfoData();
@@ -43,6 +44,12 @@ public class InfoPlaceVM extends BaseViewModel<InfoPlaceIView> implements Search
     public void onCreate(@Nullable Bundle arguments, @Nullable Bundle savedInstanceState) {
         super.onCreate(arguments, savedInstanceState);
         searchVM = new SearchPlaceWidgetVM(SEARCH_WIDGET_TAG, this);
+        adapter.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onItemClick(int position, PlaceInfoModel item) {
+        getViewOptional().showMenu();
     }
 
     @Override

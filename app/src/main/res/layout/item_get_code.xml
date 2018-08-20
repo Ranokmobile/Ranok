@@ -25,6 +25,7 @@
             android:layout_height="35dp"
             android:layout_marginStart="8dp"
             android:scaleType="fitCenter"
+            android:onClick="@{viewModel::onClearClick}"
             app:imageUrl="@{viewModel.searchStatusResource}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

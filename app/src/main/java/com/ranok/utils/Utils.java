@@ -21,4 +21,10 @@ public class Utils {
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.showSoftInput(et, InputMethodManager.SHOW_IMPLICIT);
     }
+
+    public static void copyToClipboard(Context context, String text){
+        android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", text);
+        if (clipboard != null) clipboard.setPrimaryClip(clip);
+    }
 }

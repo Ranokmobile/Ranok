@@ -27,7 +27,7 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
     private static final String SEARCH_WIDGET_TAG = "InfoLpnVM";
 
     private LpnInfoModel lpnInfoModel;
-    private List<LpnPositionModel> listLpnPositions;
+    private ArrayList<LpnPositionModel> listLpnPositions;
 
     private SearchLpnWidgetVM searchVM;
 
@@ -44,6 +44,10 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
 
     public RecyclerBindingAdapter<LpnPositionModel> getAdapter() {
         return adapter;
+    }
+
+    public List<LpnPositionModel> getListLpnPositions() {
+        return listLpnPositions;
     }
 
     @Override
@@ -91,6 +95,7 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
         return (listLpnPositions != null && listLpnPositions.size()>0);
     }
 
+
     private void processResponse(LpnInfoResponse response) {
         this.lpnInfoModel = response.data.getLpnInfoModel();
         this.listLpnPositions = response.data.getListLpnPositions();
@@ -107,7 +112,7 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
     }
 
     public void splitClick(View v){
-        getViewOptional().showSplit(searchVM.getInputText());
+        getViewOptional().showSplit(searchVM.getInputText(),listLpnPositions );
     }
 
 }

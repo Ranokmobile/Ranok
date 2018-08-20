@@ -34,8 +34,7 @@
         </include>
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:fillViewport="true">
         <LinearLayout
             android:visibility="@{viewModel.infoVisible, default = gone}"
@@ -115,7 +114,11 @@
                 android:layout_height="wrap_content" />
 
             <LinearLayout
+                android:orientation="vertical"
                 android:visibility="@{viewModel.rvVisible}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <LinearLayout
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -150,16 +153,16 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <View
-                android:visibility="@{viewModel.rvVisible}"
                 android:background="@color/gray"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp"/>
+            </LinearLayout>
         </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
 

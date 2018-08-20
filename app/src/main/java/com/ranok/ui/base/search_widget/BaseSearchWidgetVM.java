@@ -41,6 +41,10 @@ public abstract class BaseSearchWidgetVM extends BaseObservable {
     }
 
 
+    public void onClearClick(View v){
+        onTextChanged("", 0, 0, 0);
+    }
+
 
     @Bindable
     public String getMask() {

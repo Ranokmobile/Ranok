@@ -19,6 +19,7 @@ import com.ranok.R;
 import com.ranok.databinding.InfoPlaceFragmentBinding;
 import com.ranok.mlkit.LivePreviewActivity;
 import com.ranok.ui.base.BaseFragment;
+import com.ranok.ui.dialogs.ActionsDialog;
 import com.ranok.utils.Utils;
 
 import ranok.mvvm.binding.ViewModelBindingConfig;
@@ -26,6 +27,7 @@ import ranok.mvvm.binding.ViewModelBindingConfig;
 
 public class InfoPlaceFragment extends BaseFragment<InfoPlaceIView, InfoPlaceVM, InfoPlaceFragmentBinding>
         implements InfoPlaceIView, TextView.OnEditorActionListener {
+    private final static int ACTION_DIALOG_CODE = 3;
 
     @Override
     protected String getScreenTitle() {
@@ -50,6 +52,13 @@ public class InfoPlaceFragment extends BaseFragment<InfoPlaceIView, InfoPlaceVM,
     }
 
     @Override
+    public void showMenu() {
+        ActionsDialog dialog = new ActionsDialog();
+        dialog.setTargetFragment(this, ACTION_DIALOG_CODE);
+        dialog.show(mActivity.getSupportFragmentManager(), "dlg");
+    }
+
+    @Override
     public void startScanBarcode() {
         startActivityForResult(new Intent(getActivity(), LivePreviewActivity.class), 1);
     }
@@ -60,6 +69,10 @@ public class InfoPlaceFragment extends BaseFragment<InfoPlaceIView, InfoPlaceVM,
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             String barcode = data.getStringExtra("barcode");
             getViewModel().gotBarcode(barcode);
+        }
+        if (requestCode == ACTION_DIALOG_CODE && resultCode == Activity.RESULT_OK) {
+            //String barcode = data.getStringExtra("barcode");
+            //getViewModel().gotBarcode(barcode);
         }
     }
 

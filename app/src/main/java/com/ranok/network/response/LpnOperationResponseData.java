@@ -9,6 +9,9 @@ public class LpnOperationResponseData {
     @SerializedName("resultMessage")
     public String resultMessage;
 
+    @SerializedName("newLpnCode")
+    public String newLpnCode;
+
     public LpnOperationResponseData(int resultCode, String resultMessage) {
         this.resultCode = resultCode;
         this.resultMessage = resultMessage;
