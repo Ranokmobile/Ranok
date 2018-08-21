@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -83,7 +84,7 @@ public class ActionsDialog extends DialogFragment  {
 
         TextView tv = new TextView(getContext());
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         //params.setMargins(16, 24, 16, 24);
         params.gravity= Gravity.CENTER;
         tv.setLayoutParams(params);
@@ -97,7 +98,10 @@ public class ActionsDialog extends DialogFragment  {
         tv.setId(actionModel.getId());
         tv.setEnabled(actionModel.isEnabled());
         tv.setOnClickListener(clickListener);
-        tv.setCompoundDrawablesRelative(null, null, getResources().getDrawable(actionModel.getDrawableId()), null );
+        Drawable icon = getResources().getDrawable(actionModel.getDrawableId());
+        icon.setBounds(0, 0, icon.getIntrinsicWidth(), icon.getIntrinsicHeight());
+        tv.setCompoundDrawablesRelative(icon, null, null, null );
+        tv.setCompoundDrawablePadding(16);
         llParent.addView(tv);
     }
 
