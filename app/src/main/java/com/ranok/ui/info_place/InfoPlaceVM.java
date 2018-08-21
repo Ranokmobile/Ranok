@@ -25,7 +25,7 @@ public class InfoPlaceVM extends BaseViewModel<InfoPlaceIView> implements Search
         RecyclerBindingAdapter.OnItemClickListener<PlaceInfoModel> {
     private static final String SEARCH_WIDGET_TAG = "InfoPlaceVM";
 
-    PlaceInfoData data = new PlaceInfoData();
+    private PlaceInfoData data = new PlaceInfoData();
 
     private RecyclerBindingAdapter<PlaceInfoModel> adapter
             = new RecyclerBindingAdapter<>(R.layout.item_place_items, BR.viewModel, new ArrayList<>());
@@ -49,7 +49,7 @@ public class InfoPlaceVM extends BaseViewModel<InfoPlaceIView> implements Search
 
     @Override
     public void onItemClick(int position, PlaceInfoModel item) {
-        getViewOptional().showMenu();
+        getViewOptional().showMenu(item);
     }
 
     @Override

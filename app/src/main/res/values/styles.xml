@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-
+        <item name="popupMenuStyle">@style/MyPopupStyle</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -23,6 +23,14 @@
         <item name="android:windowBackground">@drawable/back_splash</item>
         <item name="toolbarStyle">@style/Widget.AppCompat.Toolbar</item>
     </style>
+
+    <style name="MyPopupStyle" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:popupBackground">@android:color/white</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
 
 
     <style name="ScanTheme" parent="Theme.AppCompat.Light.NoActionBar">

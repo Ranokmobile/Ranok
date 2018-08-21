@@ -1,35 +1,104 @@
 package com.ranok.ui.dialogs;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.ranok.R;
 import com.ranok.databinding.ActionsDialogFragmentBinding;
+import com.ranok.models.ActionModel;
 
-public class ActionsDialog extends DialogFragment implements View.OnClickListener {
+import java.util.ArrayList;
+
+import ranok.annotation.State;
+
+public class ActionsDialog extends DialogFragment  {
+
+    @State
+    ArrayList<ActionModel> actions;
+
+    @State
+    String header;
+
+    View.OnClickListener clickListener = view -> processClick(view.getId());
+
+    public static ActionsDialog getInstance(ArrayList<ActionModel> actions, String header){
+        ActionsDialog actionsDialog = new ActionsDialog();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("LIST", actions);
+        bundle.putString("HEADER", header);
+        actionsDialog.setArguments(bundle);
+        return actionsDialog;
+    }
+
+    public void processClick(int id){
+        if (getTargetFragment() != null) {
+            Intent intent = new Intent();
+            intent.putExtra("id", id);
+            intent.putExtra("HEADER", header);
+            getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+        }
+        dismiss();
+    }
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getDialog().setTitle("Действия");
-        ActionsDialogFragmentBinding binding = DataBindingUtil.inflate(inflater, R.layout.actions_dialog_fragment, null, false);
-        binding.tvMove.setOnClickListener(this);
-        binding.tvSplit.setOnClickListener(this);
-        binding.tvSplitAndMove.setOnClickListener(this);
-        binding.tvUnPack.setOnClickListener(this);
-        return binding.getRoot();
+        Bundle args = getArguments();
+        if (args != null && args.getParcelableArrayList("LIST") != null) {
+            actions = args.getParcelableArrayList("LIST");
+            header = args.getString("HEADER");
+        }
+        if (savedInstanceState != null){
+            StateHelperActionsDialog.onRestoreInstanceState(this,savedInstanceState);
+        }
 
+        ActionsDialogFragmentBinding binding = DataBindingUtil.inflate(inflater, R.layout.actions_dialog_fragment, null, false);
+        binding.header.setText(header);
+        for (ActionModel model : actions) addActionView(model, binding.llRoot);
+        return binding.getRoot();
     }
 
     @Override
-    public void onClick(View view) {
-
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        StateHelperActionsDialog.onSaveInstanceState(this, outState);
     }
+
+    private void addActionView(ActionModel actionModel, LinearLayout llParent){
+        if (!actionModel.isVisible()) return;
+
+        TextView tv = new TextView(getContext());
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        //params.setMargins(16, 24, 16, 24);
+        params.gravity= Gravity.CENTER;
+        tv.setLayoutParams(params);
+        tv.setPadding(24,24,24,16);
+        tv.setText(actionModel.getText());
+        tv.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
+        tv.setTypeface(tv.getTypeface(), Typeface.BOLD);
+
+        tv.setLayoutParams(params);
+        tv.setId(actionModel.getId());
+        tv.setEnabled(actionModel.isEnabled());
+        tv.setOnClickListener(clickListener);
+        tv.setCompoundDrawablesRelative(null, null, getResources().getDrawable(actionModel.getDrawableId()), null );
+        llParent.addView(tv);
+    }
+
 }

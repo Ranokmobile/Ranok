@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/moveLpn"
+        android:enabled="true"
+        android:icon="@drawable/ic_folder_move"
+        android:title="Переместить НЗ"
+        android:visible="true" />
+    <item
+        android:id="@+id/splitLpn"
+        android:enabled="true"
+        android:icon="@drawable/ic_call_split"
+        android:title="Разбить НЗ"
+        android:visible="true" />
+    <item
+        android:id="@+id/unpackLpn"
+        android:enabled="true"
+        android:icon="@drawable/ic_package_up"
+        android:title="Распаковать НЗ"
+        android:visible="true" />
+    <item
+        android:id="@+id/printLpn"
+        android:enabled="true"
+        android:icon="@drawable/ic_printer"
+        android:title="Печать НЗ"
+        android:visible="true" />
+    <item
+        android:id="@+id/packLpn"
+        android:enabled="true"
+        android:icon="@drawable/ic_package_down"
+        android:title="Упаковать в НЗ"
+        android:visible="true" />
+</menu>

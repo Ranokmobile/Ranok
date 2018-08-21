@@ -12,15 +12,23 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.databinding.InfoPlaceFragmentBinding;
+import com.ranok.enums.Actions;
 import com.ranok.mlkit.LivePreviewActivity;
+import com.ranok.models.ActionModel;
+import com.ranok.network.models.PlaceInfoModel;
 import com.ranok.ui.base.BaseFragment;
 import com.ranok.ui.dialogs.ActionsDialog;
+import com.ranok.ui.move_lpn.MoveLpnFragment;
+import com.ranok.utils.LpnUtils;
 import com.ranok.utils.Utils;
+
+import java.util.ArrayList;
 
 import ranok.mvvm.binding.ViewModelBindingConfig;
 
@@ -28,6 +36,8 @@ import ranok.mvvm.binding.ViewModelBindingConfig;
 public class InfoPlaceFragment extends BaseFragment<InfoPlaceIView, InfoPlaceVM, InfoPlaceFragmentBinding>
         implements InfoPlaceIView, TextView.OnEditorActionListener {
     private final static int ACTION_DIALOG_CODE = 3;
+
+    private PopupMenu popupActions;
 
     @Override
     protected String getScreenTitle() {
@@ -52,10 +62,22 @@ public class InfoPlaceFragment extends BaseFragment<InfoPlaceIView, InfoPlaceVM,
     }
 
     @Override
-    public void showMenu() {
-        ActionsDialog dialog = new ActionsDialog();
-        dialog.setTargetFragment(this, ACTION_DIALOG_CODE);
-        dialog.show(mActivity.getSupportFragmentManager(), "dlg");
+    public void showMenu(PlaceInfoModel item) {
+        ArrayList<ActionModel> list = new ArrayList<>();
+
+        if (LpnUtils.isMoveEnabled(item)) list.add(new ActionModel(Actions.MOVE));
+        if (LpnUtils.isSplitEnabled(item)) list.add(new ActionModel(Actions.SPLIT));
+        if (LpnUtils.isPrintEnabled(item)) list.add(new ActionModel(Actions.PRINT));
+        if (LpnUtils.isUnpackEnabled(item)) list.add(new ActionModel(Actions.UNPACK));
+        if (LpnUtils.isPackEnabled(item)) list.add(new ActionModel(Actions.PACK));
+
+
+        String header = (item.getLpn() == null || item.getLpn().isEmpty()) ? item.getItemCode() : item.getLpn();
+
+        ActionsDialog actionsDialog = ActionsDialog.getInstance(list, item.getLpn());
+        actionsDialog.setTargetFragment(this, ACTION_DIALOG_CODE);
+        actionsDialog.show(mActivity.getSupportFragmentManager(), "DLG");
+
     }
 
     @Override
@@ -71,8 +93,30 @@ public class InfoPlaceFragment extends BaseFragment<InfoPlaceIView, InfoPlaceVM,
             getViewModel().gotBarcode(barcode);
         }
         if (requestCode == ACTION_DIALOG_CODE && resultCode == Activity.RESULT_OK) {
+            int id = data.getIntExtra("id", 0);
+            String header = data.getStringExtra("HEADER");
+            processAction(id, header);
+            //showSnakeBar("n = " + id);
             //String barcode = data.getStringExtra("barcode");
             //getViewModel().gotBarcode(barcode);
+        }
+    }
+
+    private void processAction(int id, String header) {
+        Actions action = Actions.getById(id);
+        switch (action) {
+            case MOVE:
+                mActivity.addFragment(MoveLpnFragment.getInstance(header));
+                break;
+            case PACK:
+                break;
+            case PRINT:
+                break;
+            case SPLIT:
+                break;
+            case UNPACK:
+                break;
+
         }
     }
 
