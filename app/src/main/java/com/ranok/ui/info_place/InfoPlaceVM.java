@@ -3,7 +3,6 @@ package com.ranok.ui.info_place;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-
 import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.adapters.RecyclerBindingAdapter;
@@ -14,9 +13,7 @@ import com.ranok.network.response.PlaceInfoResponse;
 import com.ranok.ui.base.BaseViewModel;
 import com.ranok.ui.base.search_widget.SearchPlaceWidgetVM;
 import com.ranok.ui.base.search_widget.SearchWidgetCallbacks;
-
 import java.util.ArrayList;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -77,6 +74,7 @@ public class InfoPlaceVM extends BaseViewModel<InfoPlaceIView> implements Search
     }
 
     public void searchByCode(String rack, String space, String floor, String block) {
+        showLoader();
         compositeDisposable.add(
                 netApi.getPlaceItemsByCode(new PlaceRequest(rack, space, floor, block))
                         .subscribeOn(Schedulers.io())
@@ -92,6 +90,7 @@ public class InfoPlaceVM extends BaseViewModel<InfoPlaceIView> implements Search
     }
 
     private void processResponse(PlaceInfoResponse placeInfoResponse) {
+        hideLoader();
         data = placeInfoResponse.data;
         notifyChange();
         if(data.getPlaceInfoList() == null) {

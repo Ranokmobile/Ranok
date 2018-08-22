@@ -8,7 +8,7 @@ import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.adapters.RecyclerBindingAdapter;
 import com.ranok.network.models.LpnInfoModel;
-import com.ranok.network.models.LpnPositionModel;
+import com.ranok.network.models.PlaceInfoModel;
 import com.ranok.network.request.CodeRequest;
 import com.ranok.network.response.LpnInfoResponse;
 import com.ranok.ui.base.BaseViewModel;
@@ -27,11 +27,11 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
     private static final String SEARCH_WIDGET_TAG = "InfoLpnVM";
 
     private LpnInfoModel lpnInfoModel;
-    private ArrayList<LpnPositionModel> listLpnPositions;
+    private ArrayList<PlaceInfoModel> listLpnPositions;
 
     private SearchLpnWidgetVM searchVM;
 
-    private RecyclerBindingAdapter<LpnPositionModel> adapter
+    private RecyclerBindingAdapter<PlaceInfoModel> adapter
             = new RecyclerBindingAdapter<>(R.layout.item_position_lpn, BR.viewModel, new ArrayList<>());
 
     public LpnInfoModel getLpnInfoModel() {
@@ -42,11 +42,11 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
         return searchVM;
     }
 
-    public RecyclerBindingAdapter<LpnPositionModel> getAdapter() {
+    public RecyclerBindingAdapter<PlaceInfoModel> getAdapter() {
         return adapter;
     }
 
-    public List<LpnPositionModel> getListLpnPositions() {
+    public List<PlaceInfoModel> getListLpnPositions() {
         return listLpnPositions;
     }
 
@@ -73,7 +73,8 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
         searchByCode(searchStr);
     }
 
-    public void searchByCode(String code) {
+    private void searchByCode(String code) {
+        showLoader();
         compositeDisposable.add(
                 netApi.getLpnByCode(new CodeRequest(code))
                         .subscribeOn(Schedulers.io())
@@ -97,6 +98,7 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
 
 
     private void processResponse(LpnInfoResponse response) {
+        hideLoader();
         this.lpnInfoModel = response.data.getLpnInfoModel();
         this.listLpnPositions = response.data.getListLpnPositions();
         if(listLpnPositions != null) {
@@ -114,5 +116,15 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
     public void splitClick(View v){
         getViewOptional().showSplit(searchVM.getInputText(),listLpnPositions );
     }
+
+    public void unpackClick(View v){
+        getViewOptional().showUnpack(searchVM.getInputText(),listLpnPositions );
+    }
+
+    public void printClick(View v){
+        getViewOptional().showPrint(searchVM.getInputText(),listLpnPositions );
+    }
+
+
 
 }

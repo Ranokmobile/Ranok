@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.orhanobut.hawk.Hawk;
 import com.ranok.R;
 import com.ranok.network.request.BarcodeRequest;
 import com.ranok.network.request.CodeRequest;
+import com.ranok.network.response.PositionInfoByBarcodeData;
 import com.ranok.network.response.PositionInfoByBarcodeResponse;
 import com.ranok.rx_bus.RxPosInfo;
 import com.ranok.ui.base.BaseViewModel;
@@ -33,6 +35,10 @@ public class InfoPositionVM extends BaseViewModel<InfoPositionIView> implements 
     public void onCreate(@Nullable Bundle arguments, @Nullable Bundle savedInstanceState) {
         super.onCreate(arguments, savedInstanceState);
         searchVM = new SearchPositionWidgetVM(SEARCH_WIDGET_TAG, this);
+        PositionInfoByBarcodeData data = Hawk.get("POSITION");
+        if (data != null) RxPosInfo.getInstance().sendData(data);
+        String s = Hawk.get("POSITION_TEXT");
+        if (s!=null) searchVM.onTextChanged(s,0,0,0);
     }
 
     @Override
@@ -63,6 +69,7 @@ public class InfoPositionVM extends BaseViewModel<InfoPositionIView> implements 
     }
 
     private void searchByBarcode(String type, String prefix) {
+        showLoader();
         compositeDisposable.add(
                 netApi.getPositionsByBarcode(
                             new BarcodeRequest(prefix+searchVM.getInputText(),type)
@@ -74,6 +81,7 @@ public class InfoPositionVM extends BaseViewModel<InfoPositionIView> implements 
     }
 
     public void searchByCode(String code) {
+        showLoader();
         compositeDisposable.add(
                 netApi.getPositionsByCode(new CodeRequest(code))
                         .subscribeOn(Schedulers.io())
@@ -83,14 +91,20 @@ public class InfoPositionVM extends BaseViewModel<InfoPositionIView> implements 
     }
 
     private void processPositionsByCodeResponse(PositionInfoByBarcodeResponse response) {
-        RxPosInfo.getInstance().sendRFIDData(response.data);
+        hideLoader();
+        Hawk.put("POSITION", response.data);
+        Hawk.put("POSITION_TEXT", searchVM.getInputText());
+        RxPosInfo.getInstance().sendData(response.data);
     }
 
 
     private void processPositionsByBarcodeResponse(PositionInfoByBarcodeResponse response) {
-        RxPosInfo.getInstance().sendRFIDData(response.data);
+        hideLoader();
+        Hawk.put("POSITION", response.data);
+        Hawk.put("POSITION_TEXT", searchVM.getInputText());
+        RxPosInfo.getInstance().sendData(response.data);
         if (response.data.getPositionList() == null){
-            getViewOptional().showSnakeBar("Данные ненайдены");
+            getViewOptional().showSnakeBar("Данные не найдены");
         } else  if (response.data.getPositionList().size()>1) { //нужно выбирать из нескольких позиций
             getViewOptional().showSelectPositionDialog(response.data.getPositionList());
         }

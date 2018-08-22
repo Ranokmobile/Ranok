@@ -206,6 +206,7 @@
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fabUnPack"
+                android:onClick="@{viewModel::unpackClick}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_package_up"
@@ -214,6 +215,7 @@
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fabPrint"
+                android:onClick="@{viewModel::printClick}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_printer"

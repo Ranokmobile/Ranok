@@ -12,7 +12,6 @@ import com.ranok.databinding.MoveLpnFragmentBinding;
 import com.ranok.mlkit.LivePreviewActivity;
 import com.ranok.ui.base.BaseFragment;
 import com.ranok.ui.main.MainActivity;
-import com.ranok.ui.scan_packages.ScanFragment;
 
 import ranok.mvvm.binding.ViewModelBindingConfig;
 
@@ -57,9 +56,7 @@ public class MoveLpnFragment extends BaseFragment<MoveLpnIView, MoveLpnVM, MoveL
     public void closeScreen() {
         MainActivity activity = ((MainActivity)getActivity());
         if (activity!=null) {
-            activity.getScanPackagesResults().clear();
             activity.getSupportFragmentManager().popBackStack();
-            activity.addFragment(new ScanFragment());
         }
     }
 

@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.adapters.RecyclerBindingAdapter;
-import com.ranok.network.models.PositionPlacesModel;
+import com.ranok.network.models.PlaceInfoModel;
 import com.ranok.network.response.PositionInfoByBarcodeData;
 import com.ranok.rx_bus.RxPosInfo;
 import com.ranok.ui.base.BaseViewModel;
@@ -17,11 +17,11 @@ public class MainInfoVM extends BaseViewModel<MainInfoIView> {
     private PositionInfoByBarcodeData data = new PositionInfoByBarcodeData();
 
 
-    private RecyclerBindingAdapter<PositionPlacesModel> adapter
+    private RecyclerBindingAdapter<PlaceInfoModel> adapter
             = new RecyclerBindingAdapter<>(R.layout.item_position_place, BR.viewModel, data.getPositionPlacesList());
 
 
-    public RecyclerBindingAdapter<PositionPlacesModel> getAdapter() {
+    public RecyclerBindingAdapter<PlaceInfoModel> getAdapter() {
         return adapter;
     }
 
@@ -33,6 +33,11 @@ public class MainInfoVM extends BaseViewModel<MainInfoIView> {
     public void onCreate(@Nullable Bundle arguments, @Nullable Bundle savedInstanceState) {
         super.onCreate(arguments, savedInstanceState);
         compositeDisposable.add(RxPosInfo.getInstance().getEvents().subscribe(this::gotNewData));
+        adapter.setOnItemClickListener(this::processClick);
+    }
+
+    private void processClick(int position, PlaceInfoModel item) {
+        getViewOptional().showMenu(item);
     }
 
     public boolean isPositionDataCorrect(){

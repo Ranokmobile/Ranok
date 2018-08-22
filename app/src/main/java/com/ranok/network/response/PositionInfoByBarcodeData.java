@@ -1,9 +1,9 @@
 package com.ranok.network.response;
 
 import com.google.gson.annotations.SerializedName;
+import com.ranok.network.models.PlaceInfoModel;
 import com.ranok.network.models.PositionInfoModel;
 import com.ranok.network.models.PositionLotAttributesModel;
-import com.ranok.network.models.PositionPlacesModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class PositionInfoByBarcodeData {
     PositionInfoModel positionInfo;
 
     @SerializedName("positionPlaces")
-    List<PositionPlacesModel> positionPlacesList = new ArrayList<>();
+    List<PlaceInfoModel> positionPlacesList = new ArrayList<>();
 
     @SerializedName("positionLotAttributes")
     List<PositionLotAttributesModel> positionLotAttributesList = new ArrayList<>();
@@ -29,7 +29,7 @@ public class PositionInfoByBarcodeData {
         return positionInfo;
     }
 
-    public List<PositionPlacesModel> getPositionPlacesList() {
+    public List<PlaceInfoModel> getPositionPlacesList() {
         return positionPlacesList;
     }
 

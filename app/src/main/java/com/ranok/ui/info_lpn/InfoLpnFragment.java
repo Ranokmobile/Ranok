@@ -20,13 +20,15 @@ import com.ranok.R;
 import com.ranok.adapters.LinearLayoutManager;
 import com.ranok.databinding.InfoLpnFragmentBinding;
 import com.ranok.mlkit.LivePreviewActivity;
-import com.ranok.network.models.LpnPositionModel;
+import com.ranok.network.models.PlaceInfoModel;
 import com.ranok.rx_bus.RxLpnOperation;
 import com.ranok.ui.base.BaseFragment;
 import com.ranok.ui.dialogs.SelectDialogFragment;
 import com.ranok.ui.info_position.SelectPositionFragment;
 import com.ranok.ui.move_lpn.MoveLpnFragment;
+import com.ranok.ui.print_lpn.PrintLpnFragment;
 import com.ranok.ui.split_lpn.SplitLpnFragment;
+import com.ranok.ui.unpack_lpn.UnpackLpnFragment;
 import com.ranok.utils.StringUtils;
 import com.ranok.utils.Utils;
 
@@ -39,7 +41,8 @@ import ranok.mvvm.binding.ViewModelBindingConfig;
 public class InfoLpnFragment extends BaseFragment<InfoLpnIView, InfoLpnVM, InfoLpnFragmentBinding>
         implements InfoLpnIView, TextView.OnEditorActionListener {
 
-    private static final int REQUEST_CODE_SERVICE = 2;
+    private static final int REQUEST_CODE_SPLIT = 2, REQUEST_CODE_UNPACK = 3,
+            REQUEST_CODE_PRINT = 4;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
@@ -100,13 +103,30 @@ public class InfoLpnFragment extends BaseFragment<InfoLpnIView, InfoLpnVM, InfoL
             String barcode = data.getStringExtra("barcode");
             getViewModel().gotBarcode(barcode);
         }
-        if (requestCode == REQUEST_CODE_SERVICE) {
+        if (requestCode == REQUEST_CODE_SPLIT) {
             if (resultCode == SelectDialogFragment.RESULT_CODE) {
-                int id = data.getIntExtra("ID", 0);
                 int position = data.getIntExtra("POSITION", -1);
                 if(position>=0) {
-                    LpnPositionModel model = getViewModel().getListLpnPositions().get(position);
-                    mActivity.addFragment(SplitLpnFragment.getInstance(getViewModel().getSearchVM().getInputText(), model));
+                    PlaceInfoModel model = getViewModel().getListLpnPositions().get(position);
+                    mActivity.addFragment(SplitLpnFragment.getInstance(model));
+                }
+            }
+        }
+        if (requestCode == REQUEST_CODE_UNPACK) {
+            if (resultCode == SelectDialogFragment.RESULT_CODE) {
+                int position = data.getIntExtra("POSITION", -1);
+                if(position>=0) {
+                    PlaceInfoModel model = getViewModel().getListLpnPositions().get(position);
+                    mActivity.addFragment(UnpackLpnFragment.getInstance(model));
+                }
+            }
+        }
+        if (requestCode == REQUEST_CODE_PRINT) {
+            if (resultCode == SelectDialogFragment.RESULT_CODE) {
+                int position = data.getIntExtra("POSITION", -1);
+                if(position>=0) {
+                    PlaceInfoModel model = getViewModel().getListLpnPositions().get(position);
+                    mActivity.addFragment(UnpackLpnFragment.getInstance(model));
                 }
             }
         }
@@ -128,17 +148,49 @@ public class InfoLpnFragment extends BaseFragment<InfoLpnIView, InfoLpnVM, InfoL
     }
 
     @Override
-    public void showSplit(String lpn, ArrayList<LpnPositionModel> positions) {
+    public void showSplit(String lpn, ArrayList<PlaceInfoModel> positions) {
         if (positions == null || positions.size()==0) return;
 
         if (positions.size()==1) {
-            mActivity.addFragment(SplitLpnFragment.getInstance(lpn, positions.get(0)));
+            mActivity.addFragment(SplitLpnFragment.getInstance(positions.get(0)));
         } else {
             SelectPositionFragment.Builder builder = new SelectPositionFragment.Builder();
             DialogFragment fragment = builder.setSourceList(positions)
                     .setItemLayout(R.layout.item_select)
                     .setHeaderText("Выберите элемент")
-                    .build(this, REQUEST_CODE_SERVICE);
+                    .build(this, REQUEST_CODE_SPLIT);
+            fragment.show(mActivity.getSupportFragmentManager(), "DIALOG");
+        }
+    }
+
+    @Override
+    public void showUnpack(String lpn, ArrayList<PlaceInfoModel> positions) {
+        if (positions == null || positions.size()==0) return;
+
+        if (positions.size()==1) {
+            mActivity.addFragment(UnpackLpnFragment.getInstance(positions.get(0)));
+        } else {
+            SelectPositionFragment.Builder builder = new SelectPositionFragment.Builder();
+            DialogFragment fragment = builder.setSourceList(positions)
+                    .setItemLayout(R.layout.item_select)
+                    .setHeaderText("Выберите элемент")
+                    .build(this, REQUEST_CODE_UNPACK);
+            fragment.show(mActivity.getSupportFragmentManager(), "DIALOG");
+        }
+    }
+
+    @Override
+    public void showPrint(String lpn, ArrayList<PlaceInfoModel> positions) {
+        if (positions == null || positions.size()==0) return;
+
+        if (positions.size()==1) {
+            mActivity.addFragment(PrintLpnFragment.getInstance(positions.get(0)));
+        } else {
+            SelectPositionFragment.Builder builder = new SelectPositionFragment.Builder();
+            DialogFragment fragment = builder.setSourceList(positions)
+                    .setItemLayout(R.layout.item_select)
+                    .setHeaderText("Выберите элемент")
+                    .build(this, REQUEST_CODE_PRINT);
             fragment.show(mActivity.getSupportFragmentManager(), "DIALOG");
         }
     }

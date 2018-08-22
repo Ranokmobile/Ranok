@@ -1,4 +1,4 @@
-package com.ranok.ui.unpack_lpn;
+package com.ranok.ui.print_lpn;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,9 +7,8 @@ import android.view.View;
 
 import com.ranok.R;
 import com.ranok.network.models.PlaceInfoModel;
-import com.ranok.network.request.UnpackLpnRequest;
+import com.ranok.network.request.PrintLpnRequest;
 import com.ranok.network.response.LpnOperationResponse;
-import com.ranok.rx_bus.RxLpnOperation;
 import com.ranok.ui.base.BaseViewModel;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -17,8 +16,7 @@ import io.reactivex.schedulers.Schedulers;
 import ranok.annotation.State;
 
 
-public class UnpackLpnVM extends BaseViewModel<UnpackLpnIView> {
-
+public class PrintLpnVM extends BaseViewModel<PrintLpnIView> {
     @State
     PlaceInfoModel model;
 
@@ -55,7 +53,7 @@ public class UnpackLpnVM extends BaseViewModel<UnpackLpnIView> {
     @Override
     public void onCreate(@Nullable Bundle arguments, @Nullable Bundle savedInstanceState) {
         super.onCreate(arguments, savedInstanceState);
-        if (savedInstanceState != null) StateHelperUnpackLpnVM.onRestoreInstanceState(this, savedInstanceState);
+        if (savedInstanceState != null) StateHelperPrintLpnVM.onRestoreInstanceState(this, savedInstanceState);
         if (arguments != null) {
             lpn = arguments.getString("lpn");
             model = arguments.getParcelable("position");
@@ -65,22 +63,14 @@ public class UnpackLpnVM extends BaseViewModel<UnpackLpnIView> {
     @Override
     public void onSaveInstanceState(@NonNull Bundle bundle) {
         super.onSaveInstanceState(bundle);
-        StateHelperUnpackLpnVM.onSaveInstanceState(this, bundle);
+        StateHelperPrintLpnVM.onSaveInstanceState(this, bundle);
     }
 
     public void onClick(View v){
-        if (inputQty == null || inputQty.isEmpty()) return;
-        int qty = Integer.parseInt(inputQty);
-        if (qty <= 0 || qty > model.getAvailQuantity()) {
-            getViewOptional().showSnakeBar("Некоректное количество");
-            return;
-        }
-
         showLoader();
         if (v.getId() == R.id.btnGo){
             compositeDisposable.add( //
-                    netApi.unpackLpn(new UnpackLpnRequest(model.getLpn(), model.getLot(),
-                            Integer.parseInt(model.getItemCode()), qty ))
+                    netApi.printLpn(new PrintLpnRequest(model.getLpn()))
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(this::processResponse, this::processError)
@@ -93,7 +83,7 @@ public class UnpackLpnVM extends BaseViewModel<UnpackLpnIView> {
     private void processResponse(LpnOperationResponse response) {
         hideLoader();
         if (response.data.resultCode == 0) {
-            RxLpnOperation.getInstance().sendLpnData(response.data.newLpnCode);
+            showToast("Запрос успешно выполнен");
             getViewOptional().closeScreen();
         } else {
             getViewOptional().showSnakeBar(response.data.resultMessage);

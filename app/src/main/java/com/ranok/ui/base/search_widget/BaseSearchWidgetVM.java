@@ -4,7 +4,6 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.view.View;
 
-import com.orhanobut.hawk.Hawk;
 import com.ranok.BR;
 import com.ranok.R;
 
@@ -30,9 +29,9 @@ public abstract class BaseSearchWidgetVM extends BaseObservable {
         this.hawkTag = hawkTag;
         this.callbacks = callbacks;
         this.mask = mask;
-        if (Hawk.contains(hawkTag)){
-            onTextChanged(Hawk.get(hawkTag), 0,0,0);
-        }
+//        if (Hawk.contains(hawkTag)){
+//            onTextChanged(Hawk.get(hawkTag), 0,0,0);
+//        }
     }
 
     public BaseSearchWidgetVM(int maxTextLength, String hawkTag, SearchWidgetCallbacks callbacks, String mask, boolean searchBtnVisibility) {
@@ -117,9 +116,9 @@ public abstract class BaseSearchWidgetVM extends BaseObservable {
     }
 
     public void onClick(View v){
-        if (v.getId() ==  R.id.ibSearch) {
-            Hawk.put(hawkTag, inputText);
-        }
+//        if (v.getId() ==  R.id.ibSearch) {
+//            Hawk.put(hawkTag, inputText);
+//        }
         if (callbacks != null) callbacks.onClickWidgetSearch(v);
     }
 

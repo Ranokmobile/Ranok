@@ -1,10 +1,7 @@
 package com.ranok.network.models;
 
-import android.arch.persistence.room.ColumnInfo;
-
-import com.google.gson.annotations.SerializedName;
-
 public class PositionPlacesModel  { //t_place
+/*
     @SerializedName("lot")
     @ColumnInfo(name="lot")
     String lot ;
@@ -57,4 +54,5 @@ public class PositionPlacesModel  { //t_place
     public int getAvailQuantity() {
         return availQuantity;
     }
+    */
 }

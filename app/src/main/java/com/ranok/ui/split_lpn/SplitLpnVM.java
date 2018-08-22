@@ -6,12 +6,11 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.ranok.R;
-import com.ranok.network.models.LpnPositionModel;
+import com.ranok.network.models.PlaceInfoModel;
 import com.ranok.network.request.SplitLpnRequest;
 import com.ranok.network.response.LpnOperationResponse;
 import com.ranok.rx_bus.RxLpnOperation;
 import com.ranok.ui.base.BaseViewModel;
-import com.ranok.utils.StringUtils;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -21,7 +20,7 @@ import ranok.annotation.State;
 public class SplitLpnVM extends BaseViewModel<SplitLpnIView> {
 
     @State
-    LpnPositionModel model;
+    PlaceInfoModel model;
 
     @State
     String lpn="";
@@ -30,16 +29,12 @@ public class SplitLpnVM extends BaseViewModel<SplitLpnIView> {
         return lpn;
     }
 
-    public String getFullLpn() {
-        return StringUtils.formatToLpn(lpn);
-    }
-
     public String getFullPosition(){
-        if (model!=null) return model.getCode()+" - "+model.getLot() ;
+        if (model!=null) return model.getItemCode()+" - "+model.getLot() ;
         else return "";
     }
 
-    public LpnPositionModel getModel() {
+    public PlaceInfoModel getModel() {
         return model;
     }
 
@@ -54,7 +49,7 @@ public class SplitLpnVM extends BaseViewModel<SplitLpnIView> {
     }
 
     public String getQty(){
-        return String.valueOf(model.getAvailQty());
+        return String.valueOf(model.getAvailQuantity());
     }
 
     @Override
@@ -76,7 +71,7 @@ public class SplitLpnVM extends BaseViewModel<SplitLpnIView> {
     public void onClick(View v){
         if (inputQty == null || inputQty.isEmpty()) return;
         int qty = Integer.parseInt(inputQty);
-        if (qty <= 0 || qty > model.getAvailQty()) {
+        if (qty <= 0 || qty > model.getAvailQuantity()) {
             getViewOptional().showSnakeBar("Некоректное количество");
             return;
         }
@@ -84,8 +79,8 @@ public class SplitLpnVM extends BaseViewModel<SplitLpnIView> {
         showLoader();
         if (v.getId() == R.id.btnSplit){
             compositeDisposable.add( //
-                    netApi.splitLpn(new SplitLpnRequest(StringUtils.formatToLpn(getLpn()), model.getLot(),
-                            Integer.parseInt(model.getCode()), qty, model.getISOAddress()))
+                    netApi.splitLpn(new SplitLpnRequest(getLpn(), model.getLot(),
+                            Integer.parseInt(model.getItemCode()), qty, model.getAddress()))
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(this::processResponseSplit, this::processError)
@@ -93,8 +88,8 @@ public class SplitLpnVM extends BaseViewModel<SplitLpnIView> {
 
         } else if (v.getId() == R.id.btnSplitAndMove){
             compositeDisposable.add( //
-                    netApi.splitLpn(new SplitLpnRequest(StringUtils.formatToLpn(getLpn()), model.getLot(),
-                            Integer.parseInt(model.getCode()), qty, model.getISOAddress()))
+                    netApi.splitLpn(new SplitLpnRequest(getLpn(), model.getLot(),
+                            Integer.parseInt(model.getItemCode()), qty, model.getAddress()))
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(this::processResponseSplitAndMove, this::processError)
@@ -105,8 +100,9 @@ public class SplitLpnVM extends BaseViewModel<SplitLpnIView> {
     private void processResponseSplitAndMove(LpnOperationResponse response) {
         hideLoader();
         if (response.data.resultCode == 0) {
-            //RxLpnOperation.getInstance().sendLpnData(response.data.newLpnCode);
             getViewOptional().showMoveFragment(response.data.newLpnCode);
+        } else {
+            getViewOptional().showSnakeBar(response.data.resultMessage);
         }
     }
 
@@ -115,6 +111,8 @@ public class SplitLpnVM extends BaseViewModel<SplitLpnIView> {
         if (response.data.resultCode == 0) {
             RxLpnOperation.getInstance().sendLpnData(response.data.newLpnCode);
             getViewOptional().closeScreen();
+        } else {
+            getViewOptional().showSnakeBar(response.data.resultMessage);
         }
     }
 }

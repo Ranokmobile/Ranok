@@ -25,6 +25,10 @@ import com.ranok.network.models.PlaceInfoModel;
 import com.ranok.ui.base.BaseFragment;
 import com.ranok.ui.dialogs.ActionsDialog;
 import com.ranok.ui.move_lpn.MoveLpnFragment;
+import com.ranok.ui.pack_lpn.PackLpnFragment;
+import com.ranok.ui.print_lpn.PrintLpnFragment;
+import com.ranok.ui.split_lpn.SplitLpnFragment;
+import com.ranok.ui.unpack_lpn.UnpackLpnFragment;
 import com.ranok.utils.LpnUtils;
 import com.ranok.utils.Utils;
 
@@ -74,7 +78,7 @@ public class InfoPlaceFragment extends BaseFragment<InfoPlaceIView, InfoPlaceVM,
 
         String header = (item.getLpn() == null || item.getLpn().isEmpty()) ? item.getItemCode() : item.getLpn();
 
-        ActionsDialog actionsDialog = ActionsDialog.getInstance(list, item.getLpn());
+        ActionsDialog actionsDialog = ActionsDialog.getInstance(list, header, item);
         actionsDialog.setTargetFragment(this, ACTION_DIALOG_CODE);
         actionsDialog.show(mActivity.getSupportFragmentManager(), "DLG");
 
@@ -95,26 +99,23 @@ public class InfoPlaceFragment extends BaseFragment<InfoPlaceIView, InfoPlaceVM,
         if (requestCode == ACTION_DIALOG_CODE && resultCode == Activity.RESULT_OK) {
             int id = data.getIntExtra("id", 0);
             String header = data.getStringExtra("HEADER");
-            processAction(id, header);
-            //showSnakeBar("n = " + id);
-            //String barcode = data.getStringExtra("barcode");
-            //getViewModel().gotBarcode(barcode);
+            PlaceInfoModel item = data.getParcelableExtra("ITEM");
+            processAction(id, item);
         }
     }
 
-    private void processAction(int id, String header) {
+    private void processAction(int id, PlaceInfoModel item) {
         Actions action = Actions.getById(id);
         switch (action) {
-            case MOVE:
-                mActivity.addFragment(MoveLpnFragment.getInstance(header));
+            case MOVE: mActivity.addFragment(MoveLpnFragment.getInstance(item.getLpn()));
                 break;
-            case PACK:
+            case PACK:  mActivity.addFragment(PackLpnFragment.getInstance(item));
                 break;
-            case PRINT:
+            case PRINT: mActivity.addFragment(PrintLpnFragment.getInstance(item));
                 break;
-            case SPLIT:
+            case SPLIT: mActivity.addFragment(SplitLpnFragment.getInstance(item));
                 break;
-            case UNPACK:
+            case UNPACK: mActivity.addFragment(UnpackLpnFragment.getInstance(item));
                 break;
 
         }

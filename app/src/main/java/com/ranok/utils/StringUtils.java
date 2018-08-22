@@ -1,7 +1,14 @@
 package com.ranok.utils;
 
 public class StringUtils {
+
+    public static boolean isEmpty(String s){
+        return s == null || s.isEmpty();
+    }
+
     public static String repeat(String val, int count){
+        if (isEmpty(val)) return "";
+        if (count<=0) return "";
         StringBuilder buf = new StringBuilder(val.length() * count);
         while (count-- > 0) {
             buf.append(val);
@@ -11,7 +18,7 @@ public class StringUtils {
 
     public static String formatToLpn(String val){
         String result = "";
-        if (val==null) return result;
+        if (isEmpty(val)) return result;
         int inputLength = val.length();
         result = "L" + repeat("0", 9 - inputLength) + val;
         return result;

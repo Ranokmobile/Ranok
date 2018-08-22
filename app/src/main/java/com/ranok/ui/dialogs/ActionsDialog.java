@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.ranok.R;
 import com.ranok.databinding.ActionsDialogFragmentBinding;
 import com.ranok.models.ActionModel;
+import com.ranok.network.models.PlaceInfoModel;
 
 import java.util.ArrayList;
 
@@ -31,15 +32,19 @@ public class ActionsDialog extends DialogFragment  {
     ArrayList<ActionModel> actions;
 
     @State
+    PlaceInfoModel item;
+
+    @State
     String header;
 
     View.OnClickListener clickListener = view -> processClick(view.getId());
 
-    public static ActionsDialog getInstance(ArrayList<ActionModel> actions, String header){
+    public static ActionsDialog getInstance(ArrayList<ActionModel> actions, String header, PlaceInfoModel item){
         ActionsDialog actionsDialog = new ActionsDialog();
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("LIST", actions);
         bundle.putString("HEADER", header);
+        bundle.putParcelable("ITEM", item);
         actionsDialog.setArguments(bundle);
         return actionsDialog;
     }
@@ -49,6 +54,7 @@ public class ActionsDialog extends DialogFragment  {
             Intent intent = new Intent();
             intent.putExtra("id", id);
             intent.putExtra("HEADER", header);
+            intent.putExtra("ITEM", item);
             getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
         }
         dismiss();
@@ -62,6 +68,7 @@ public class ActionsDialog extends DialogFragment  {
         if (args != null && args.getParcelableArrayList("LIST") != null) {
             actions = args.getParcelableArrayList("LIST");
             header = args.getString("HEADER");
+            item = args.getParcelable("ITEM");
         }
         if (savedInstanceState != null){
             StateHelperActionsDialog.onRestoreInstanceState(this,savedInstanceState);

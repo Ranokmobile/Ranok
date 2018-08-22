@@ -1,4 +1,4 @@
-package com.ranok.ui.unpack_lpn;
+package com.ranok.ui.pack_lpn;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.ranok.R;
 import com.ranok.network.models.PlaceInfoModel;
-import com.ranok.network.request.UnpackLpnRequest;
+import com.ranok.network.request.PackToLpnRequest;
 import com.ranok.network.response.LpnOperationResponse;
 import com.ranok.rx_bus.RxLpnOperation;
 import com.ranok.ui.base.BaseViewModel;
@@ -17,16 +17,14 @@ import io.reactivex.schedulers.Schedulers;
 import ranok.annotation.State;
 
 
-public class UnpackLpnVM extends BaseViewModel<UnpackLpnIView> {
+public class PackLpnVM extends BaseViewModel<PackLpnIView> {
 
     @State
     PlaceInfoModel model;
 
-    @State
-    String lpn="";
 
     public String getLpn() {
-        return lpn;
+        return model.getAddress();
     }
 
     public String getFullPosition(){
@@ -55,9 +53,8 @@ public class UnpackLpnVM extends BaseViewModel<UnpackLpnIView> {
     @Override
     public void onCreate(@Nullable Bundle arguments, @Nullable Bundle savedInstanceState) {
         super.onCreate(arguments, savedInstanceState);
-        if (savedInstanceState != null) StateHelperUnpackLpnVM.onRestoreInstanceState(this, savedInstanceState);
+        if (savedInstanceState != null) StateHelperPackLpnVM.onRestoreInstanceState(this, savedInstanceState);
         if (arguments != null) {
-            lpn = arguments.getString("lpn");
             model = arguments.getParcelable("position");
         }
     }
@@ -65,7 +62,7 @@ public class UnpackLpnVM extends BaseViewModel<UnpackLpnIView> {
     @Override
     public void onSaveInstanceState(@NonNull Bundle bundle) {
         super.onSaveInstanceState(bundle);
-        StateHelperUnpackLpnVM.onSaveInstanceState(this, bundle);
+        StateHelperPackLpnVM.onSaveInstanceState(this, bundle);
     }
 
     public void onClick(View v){
@@ -77,20 +74,36 @@ public class UnpackLpnVM extends BaseViewModel<UnpackLpnIView> {
         }
 
         showLoader();
-        if (v.getId() == R.id.btnGo){
+        if (v.getId() == R.id.btnSplit){
             compositeDisposable.add( //
-                    netApi.unpackLpn(new UnpackLpnRequest(model.getLpn(), model.getLot(),
-                            Integer.parseInt(model.getItemCode()), qty ))
+                    netApi.packLpn(new PackToLpnRequest(model.getLot(), Integer.parseInt(model.getItemCode())
+                            , qty, model.getAddress()))
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(this::processResponse, this::processError)
+                            .subscribe(this::processResponseSplit, this::processError)
             );
 
+        } else if (v.getId() == R.id.btnSplitAndMove){
+            compositeDisposable.add( //
+                    netApi.packLpn(new PackToLpnRequest(model.getLot(), Integer.parseInt(model.getItemCode())
+                            , qty, model.getAddress()))
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(this::processResponseSplitAndMove, this::processError)
+            );
         }
     }
 
+    private void processResponseSplitAndMove(LpnOperationResponse response) {
+        hideLoader();
+        if (response.data.resultCode == 0) {
+            getViewOptional().showMoveFragment(response.data.newLpnCode);
+        } else {
+            getViewOptional().showSnakeBar(response.data.resultMessage);
+        }
+    }
 
-    private void processResponse(LpnOperationResponse response) {
+    private void processResponseSplit(LpnOperationResponse response) {
         hideLoader();
         if (response.data.resultCode == 0) {
             RxLpnOperation.getInstance().sendLpnData(response.data.newLpnCode);
@@ -99,6 +112,5 @@ public class UnpackLpnVM extends BaseViewModel<UnpackLpnIView> {
             getViewOptional().showSnakeBar(response.data.resultMessage);
         }
     }
-
 
 }

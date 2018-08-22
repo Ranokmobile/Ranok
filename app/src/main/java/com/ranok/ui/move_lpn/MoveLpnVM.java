@@ -60,7 +60,7 @@ public class MoveLpnVM extends BaseViewModel<MoveLpnIView> {
         }, false);
         String lpn ="";
         if (arguments != null) {
-            lpn = arguments.getString("lpn");
+            lpn = StringUtils.formatFromLpn(arguments.getString("lpn"));
         }
         if (lpn != null && !lpn.isEmpty()){
             searchSourceLpnVM.onTextChanged(lpn,0,0,0);

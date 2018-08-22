@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@{viewModel.fullLpn}"
+            android:text="@{viewModel.lpn}"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="@+id/tvSplitableLpnCaption"

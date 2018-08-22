@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.databinding.SplitLpnFragmentBinding;
-import com.ranok.network.models.LpnPositionModel;
+import com.ranok.network.models.PlaceInfoModel;
 import com.ranok.ui.base.BaseFragment;
 import com.ranok.ui.move_lpn.MoveLpnFragment;
 import com.ranok.utils.Utils;
@@ -22,10 +22,16 @@ import ranok.mvvm.binding.ViewModelBindingConfig;
 public class SplitLpnFragment extends BaseFragment<SplitLpnIView, SplitLpnVM, SplitLpnFragmentBinding>
         implements SplitLpnIView, TextView.OnEditorActionListener {
 
-    public static SplitLpnFragment getInstance(String sourceLpn, LpnPositionModel position){
+    @Override
+    protected String getScreenTitle() {
+        return "Разбить НЗ";
+    }
+
+
+    public static SplitLpnFragment getInstance(PlaceInfoModel position){
         SplitLpnFragment fragment = new SplitLpnFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("lpn", sourceLpn);
+        bundle.putString("lpn", position.getLpn());
         bundle.putParcelable("position", position);
         fragment.setArguments(bundle);
         return fragment;

@@ -4,7 +4,9 @@ import com.ranok.network.request.BarcodeRequest;
 import com.ranok.network.request.CodeRequest;
 import com.ranok.network.request.LoginRequest;
 import com.ranok.network.request.MoveLpnRequest;
+import com.ranok.network.request.PackToLpnRequest;
 import com.ranok.network.request.PlaceRequest;
+import com.ranok.network.request.PrintLpnRequest;
 import com.ranok.network.request.RfidRequest;
 import com.ranok.network.request.SplitLpnRequest;
 import com.ranok.network.request.UnpackLpnRequest;
@@ -62,6 +64,12 @@ public interface NetApi {
 
     @POST("unpack_lpn")
     Single<LpnOperationResponse> unpackLpn(@Body UnpackLpnRequest unpackLpnRequest);
+
+    @POST("print_lpn")
+    Single<LpnOperationResponse> printLpn(@Body PrintLpnRequest printLpnRequest);
+
+    @POST("pack_lpn")
+    Single<LpnOperationResponse> packLpn(@Body PackToLpnRequest packLpnRequest);
 
 
 }

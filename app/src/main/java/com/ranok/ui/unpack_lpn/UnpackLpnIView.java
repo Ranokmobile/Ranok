@@ -5,5 +5,4 @@ import com.ranok.ui.base.BaseIView;
 
 public interface UnpackLpnIView extends BaseIView {
     void closeScreen();
-    void showMoveFragment(String newLpn);
 }

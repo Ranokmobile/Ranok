@@ -3,13 +3,13 @@ package com.ranok.rx_bus;
 import com.ranok.network.response.PositionInfoByBarcodeData;
 
 import io.reactivex.Observable;
-import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.Subject;
 
 public class RxPosInfo {
     private static RxPosInfo instance;
 
-    private Subject<PositionInfoByBarcodeData> subject = PublishSubject.create();
+    private Subject<PositionInfoByBarcodeData> subject = BehaviorSubject.create();
 
 
     public static RxPosInfo getInstance() {
@@ -19,7 +19,7 @@ public class RxPosInfo {
         return instance;
     }
 
-    public void sendRFIDData(PositionInfoByBarcodeData data) {
+    public void sendData(PositionInfoByBarcodeData data) {
         subject.onNext(data);
     }
 

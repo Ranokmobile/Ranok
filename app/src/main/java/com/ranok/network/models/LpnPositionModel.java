@@ -1,13 +1,8 @@
 package com.ranok.network.models;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.google.gson.annotations.SerializedName;
-import com.ranok.ui.dialogs.SelectDialogFragment;
-
-public class LpnPositionModel implements Parcelable, SelectDialogFragment.Selectable {
+public class LpnPositionModel {
+        //implements Parcelable, SelectDialogFragment.Selectable {
+    /*
     @SerializedName("code")
     @ColumnInfo(name="CODE")
     String code;
@@ -123,4 +118,5 @@ public class LpnPositionModel implements Parcelable, SelectDialogFragment.Select
             return new LpnPositionModel[size];
         }
     };
+    */
 }

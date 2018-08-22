@@ -2,13 +2,15 @@ package com.ranok.network.models;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Locale;
 
 @Entity
-public class PlaceInfoModel {
+public class PlaceInfoModel implements Parcelable {
     @SerializedName("lot")
     @ColumnInfo(name="lot")
     String lot;
@@ -36,6 +38,10 @@ public class PlaceInfoModel {
     @SerializedName("availQuantity")
     @ColumnInfo(name="availQty")
     int availQuantity;
+
+    public String getFullAddress(){
+        return zone + ":" + address;
+    }
 
     public String getLot() {
         return lot;
@@ -96,4 +102,46 @@ public class PlaceInfoModel {
     public void setAvailQuantity(int availQuantity) {
         this.availQuantity = availQuantity;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.lot);
+        dest.writeString(this.zone);
+        dest.writeString(this.itemCode);
+        dest.writeString(this.lpn);
+        dest.writeInt(this.sysQuantity);
+        dest.writeString(this.address);
+        dest.writeInt(this.availQuantity);
+    }
+
+    public PlaceInfoModel() {
+    }
+
+    protected PlaceInfoModel(Parcel in) {
+        this.lot = in.readString();
+        this.zone = in.readString();
+        this.itemCode = in.readString();
+        this.lpn = in.readString();
+        this.sysQuantity = in.readInt();
+        this.address = in.readString();
+        this.availQuantity = in.readInt();
+    }
+
+    public static final Parcelable.Creator<PlaceInfoModel> CREATOR = new Parcelable.Creator<PlaceInfoModel>() {
+        @Override
+        public PlaceInfoModel createFromParcel(Parcel source) {
+            return new PlaceInfoModel(source);
+        }
+
+        @Override
+        public PlaceInfoModel[] newArray(int size) {
+            return new PlaceInfoModel[size];
+        }
+    };
 }
