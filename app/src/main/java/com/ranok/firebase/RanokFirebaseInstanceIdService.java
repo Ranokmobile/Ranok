@@ -13,12 +13,20 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-
+import com.orhanobut.hawk.Hawk;
 import com.ranok.R;
+import com.ranok.RanokApp;
+import com.ranok.network.request.NewFcmTokenRequest;
+import com.ranok.network.response.BaseResponse;
 import com.ranok.ui.main.MainActivity;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class RanokFirebaseInstanceIdService extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMsgService";
+
+
 
     /**
      * Called when message is received.
@@ -48,10 +56,10 @@ public class RanokFirebaseInstanceIdService extends FirebaseMessagingService {
 
             if (/* Check if data needs to be processed by long running job */ true) {
                 // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
-                scheduleJob();
+             //   scheduleJob();
             } else {
                 // Handle message within 10 seconds
-                handleNow();
+              //  handleNow();
             }
 
         }
@@ -84,26 +92,7 @@ public class RanokFirebaseInstanceIdService extends FirebaseMessagingService {
     }
     // [END on_new_token]
 
-    /**
-     * Schedule a job using FirebaseJobDispatcher.
-     */
-    private void scheduleJob() {
-        // [START dispatch_job]
-//        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
-//        Job myJob = dispatcher.newJobBuilder()
-//                .setService(MyJobService.class)
-//                .setTag("my-job-tag")
-//                .build();
-//        dispatcher.schedule(myJob);
-        // [END dispatch_job]
-    }
 
-    /**
-     * Handle time allotted to BroadcastReceivers.
-     */
-    private void handleNow() {
-        Log.d(TAG, "Short lived task is done.");
-    }
 
     /**
      * Persist token to third-party servers.
@@ -114,7 +103,20 @@ public class RanokFirebaseInstanceIdService extends FirebaseMessagingService {
      * @param token The new token.
      */
     private void sendRegistrationToServer(String token) {
-        // TODO: Implement this method to send token to your app server.
+        Hawk.put("PUSHTOKENSENT", false);
+        Hawk.put("PUSHTOKEN", token);
+        RanokApp.getApp().getNetApi().newPushToken(new NewFcmTokenRequest(token))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::processResponse, this::processError);
+    }
+
+    private void processError(Throwable throwable) {
+        throwable.printStackTrace();
+    }
+
+    private void processResponse(BaseResponse object) {
+        Hawk.put("PUSHTOKENSENT", true);
     }
 
     /**

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.orhanobut.hawk.Hawk;
 import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.adapters.RecyclerBindingAdapter;
@@ -11,6 +12,7 @@ import com.ranok.network.models.LpnInfoModel;
 import com.ranok.network.models.PlaceInfoModel;
 import com.ranok.network.request.CodeRequest;
 import com.ranok.network.response.LpnInfoResponse;
+import com.ranok.network.response.LpnInfoResponseData;
 import com.ranok.ui.base.BaseViewModel;
 import com.ranok.ui.base.search_widget.SearchLpnWidgetVM;
 import com.ranok.ui.base.search_widget.SearchWidgetCallbacks;
@@ -54,6 +56,21 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
     public void onCreate(@Nullable Bundle arguments, @Nullable Bundle savedInstanceState) {
         super.onCreate(arguments, savedInstanceState);
         searchVM = new SearchLpnWidgetVM(SEARCH_WIDGET_TAG, this);
+
+        LpnInfoResponseData data = Hawk.get("LPN_DATA");
+        if (data != null) {
+            this.lpnInfoModel = data.getLpnInfoModel();
+            this.listLpnPositions = data.getListLpnPositions();
+            if(listLpnPositions != null) {
+                adapter.setItems(listLpnPositions);
+            } else {
+                adapter.setItems(new ArrayList<>());
+            }
+            notifyChange();
+        }
+        String s = Hawk.get("LPN_TEXT");
+        if (s!=null) searchVM.onTextChanged(s,0,0,0);
+
     }
 
     @Override
@@ -99,6 +116,8 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
 
     private void processResponse(LpnInfoResponse response) {
         hideLoader();
+        Hawk.put("LPN_DATA", response.data);
+        Hawk.put("LPN_TEXT", searchVM.getInputText());
         this.lpnInfoModel = response.data.getLpnInfoModel();
         this.listLpnPositions = response.data.getListLpnPositions();
         if(listLpnPositions != null) {

@@ -3,6 +3,8 @@ package com.ranok.ui.info_place;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+
+import com.orhanobut.hawk.Hawk;
 import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.adapters.RecyclerBindingAdapter;
@@ -42,6 +44,17 @@ public class InfoPlaceVM extends BaseViewModel<InfoPlaceIView> implements Search
         super.onCreate(arguments, savedInstanceState);
         searchVM = new SearchPlaceWidgetVM(SEARCH_WIDGET_TAG, this);
         adapter.setOnItemClickListener(this);
+        data = Hawk.get("PLACE_DATA");
+        if (data != null) {
+            if(data.getPlaceInfoList() == null) {
+                adapter.setItems(new ArrayList<>());
+            } else{
+                adapter.setItems(data.getPlaceInfoList());
+            }
+            notifyChange();
+        }
+        String s = Hawk.get("PLACE_TEXT");
+        if (s!=null) searchVM.onTextChanged(s,0,0,0);
     }
 
     @Override
@@ -91,6 +104,8 @@ public class InfoPlaceVM extends BaseViewModel<InfoPlaceIView> implements Search
 
     private void processResponse(PlaceInfoResponse placeInfoResponse) {
         hideLoader();
+        Hawk.put("PLACE_DATA", placeInfoResponse.data);
+        Hawk.put("PLACE_TEXT", searchVM.getInputText());
         data = placeInfoResponse.data;
         notifyChange();
         if(data.getPlaceInfoList() == null) {

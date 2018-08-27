@@ -73,6 +73,8 @@ public class MainActivity  extends BaseActivity<MainActivityIView, MainActivityV
         if (arguments != null) {
             getTag(getIntent());
         }
+
+        getViewModel().checkToken();
     }
 
     public void startLoginActivity() {
@@ -199,6 +201,8 @@ public class MainActivity  extends BaseActivity<MainActivityIView, MainActivityV
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+
 
 
     @Nullable
