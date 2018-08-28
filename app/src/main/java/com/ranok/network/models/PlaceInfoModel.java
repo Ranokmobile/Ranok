@@ -6,11 +6,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.ranok.ui.dialogs.SelectDialogFragment;
 
 import java.util.Locale;
 
 @Entity
-public class PlaceInfoModel implements Parcelable {
+public class PlaceInfoModel implements SelectDialogFragment.Selectable {
     @SerializedName("lot")
     @ColumnInfo(name="lot")
     String lot;
@@ -38,6 +39,22 @@ public class PlaceInfoModel implements Parcelable {
     @SerializedName("availQuantity")
     @ColumnInfo(name="availQty")
     int availQuantity;
+
+
+    @Override
+    public String getName() {
+        return itemCode + " / " + lot;
+    }
+
+    @Override
+    public int getId() {
+        return Integer.parseInt(itemCode);
+    }
+
+    @Override
+    public int getType() {
+        return 0;
+    }
 
     public String getFullAddress(){
         return zone + ":" + address;

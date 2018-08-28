@@ -60,6 +60,6 @@ public class MainActivityVM extends BaseViewModel<MainActivityIView> {
     }
 
     private void processResponse(BaseResponse baseResponse) {
-
+        Hawk.put("PUSHTOKENSENT", true);
     }
 }
