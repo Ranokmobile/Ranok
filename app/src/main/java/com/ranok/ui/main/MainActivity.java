@@ -193,7 +193,6 @@ public class MainActivity  extends BaseActivity<MainActivityIView, MainActivityV
                 onBackPressed();
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
