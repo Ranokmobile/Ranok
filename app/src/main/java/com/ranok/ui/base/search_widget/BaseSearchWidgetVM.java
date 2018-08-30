@@ -22,7 +22,11 @@ public abstract class BaseSearchWidgetVM extends BaseObservable {
     private SearchWidgetCallbacks callbacks;
     private boolean searching;
     private String mask;
-    private boolean searchBtnVisibility=true;
+    private boolean searchBtnVisibility=true, scanBtnVisibility=true;
+
+    public boolean isScanBtnVisibility() {
+        return scanBtnVisibility;
+    }
 
     BaseSearchWidgetVM(int maxTextLength, String hawkTag, SearchWidgetCallbacks callbacks, String mask) {
         this.maxTextLength = maxTextLength;
@@ -37,6 +41,13 @@ public abstract class BaseSearchWidgetVM extends BaseObservable {
     public BaseSearchWidgetVM(int maxTextLength, String hawkTag, SearchWidgetCallbacks callbacks, String mask, boolean searchBtnVisibility) {
         this(maxTextLength, hawkTag, callbacks, mask);
         this.searchBtnVisibility = searchBtnVisibility;
+    }
+
+    public BaseSearchWidgetVM(int maxTextLength, String hawkTag, SearchWidgetCallbacks callbacks,
+                              String mask, boolean searchBtnVisibility, boolean scanBtnVisibility) {
+        this(maxTextLength, hawkTag, callbacks, mask);
+        this.searchBtnVisibility = searchBtnVisibility;
+        this.scanBtnVisibility = scanBtnVisibility;
     }
 
 
@@ -116,9 +127,6 @@ public abstract class BaseSearchWidgetVM extends BaseObservable {
     }
 
     public void onClick(View v){
-//        if (v.getId() ==  R.id.ibSearch) {
-//            Hawk.put(hawkTag, inputText);
-//        }
         if (v.getId()==R.id.ibSearch && !isInputCorrect()) return;
         if (callbacks != null) callbacks.onClickWidgetSearch(v);
     }

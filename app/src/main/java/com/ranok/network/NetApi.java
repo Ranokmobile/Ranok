@@ -1,5 +1,6 @@
 package com.ranok.network;
 
+import com.ranok.network.request.AcceptListRequest;
 import com.ranok.network.request.BarcodeRequest;
 import com.ranok.network.request.CodeRequest;
 import com.ranok.network.request.LoginRequest;
@@ -8,9 +9,11 @@ import com.ranok.network.request.NewFcmTokenRequest;
 import com.ranok.network.request.PackToLpnRequest;
 import com.ranok.network.request.PlaceRequest;
 import com.ranok.network.request.PrintLpnRequest;
+import com.ranok.network.request.RecieptListRequest;
 import com.ranok.network.request.RfidRequest;
 import com.ranok.network.request.SplitLpnRequest;
 import com.ranok.network.request.UnpackLpnRequest;
+import com.ranok.network.response.AcceptListResponse;
 import com.ranok.network.response.BaseResponse;
 import com.ranok.network.response.LoginResponse;
 import com.ranok.network.response.LpnInfoResponse;
@@ -19,6 +22,7 @@ import com.ranok.network.response.PackageBarcodeResponse;
 import com.ranok.network.response.PackageBarcodeResponseData;
 import com.ranok.network.response.PlaceInfoResponse;
 import com.ranok.network.response.PositionInfoByBarcodeResponse;
+import com.ranok.network.response.RecieptListResponse;
 
 import io.reactivex.Single;
 import retrofit2.http.Body;
@@ -74,4 +78,11 @@ public interface NetApi {
 
     @POST("new_fcm_token")
     Single<BaseResponse> newPushToken(@Body NewFcmTokenRequest newFcmTokenRequest);
+
+    @POST("receipt_list")
+    Single<RecieptListResponse> getRecieptList(@Body RecieptListRequest recieptListRequest);
+
+    @POST("accept_list")
+    Single<AcceptListResponse> getAcceptList(@Body AcceptListRequest acceptListRequest);
+
 }

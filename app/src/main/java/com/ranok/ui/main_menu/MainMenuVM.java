@@ -16,7 +16,7 @@ import io.reactivex.schedulers.Schedulers;
 import ranok.annotation.State;
 
 
-public class MainVM extends BaseViewModel<MainIView>  {
+public class MainMenuVM extends BaseViewModel<MainMenuIView>  {
 
     @State
     String test;
@@ -25,13 +25,13 @@ public class MainVM extends BaseViewModel<MainIView>  {
     @Override
     public void onCreate(@Nullable Bundle arguments, @Nullable Bundle savedInstanceState) {
         super.onCreate(arguments, savedInstanceState);
-        StateHelperMainVM.onRestoreInstanceState(this, savedInstanceState);
+        StateHelperMainMenuVM.onRestoreInstanceState(this, savedInstanceState);
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle bundle) {
         super.onSaveInstanceState(bundle);
-        StateHelperMainVM.onSaveInstanceState(this, bundle);
+        StateHelperMainMenuVM.onSaveInstanceState(this, bundle);
     }
 
     public void onClick(View v){
@@ -51,8 +51,8 @@ public class MainVM extends BaseViewModel<MainIView>  {
             case R.id.place_info:
                 getViewOptional().showInfoPlace();
                 break;
-            case R.id.move_lpn:
-                getViewOptional().moveLpn();
+            case R.id.reciept:
+                getViewOptional().reciept();
                 break;
         }
 

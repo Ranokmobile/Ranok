@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.ranok.network.models.RecieptListModel" />
+
+
+    </data>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.name}"
+            android:textColor="@color/text_black"
+            android:textStyle="bold"
+            android:layout_margin="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:textSize="18sp" />
+</layout>

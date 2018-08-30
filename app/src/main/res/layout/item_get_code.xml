@@ -111,6 +111,7 @@
             android:focusable="false"
             android:scaleType="centerCrop"
             android:onClick="@{viewModel::onClick}"
+            android:visibility="@{viewModel.scanBtnVisibility}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/ibSearch"
             app:layout_constraintTop_toTopOf="parent"

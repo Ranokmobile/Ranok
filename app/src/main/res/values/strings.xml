@@ -31,4 +31,5 @@
     <string name="lpn_info">Информация о НЗ</string>
     <string name="place_info">Информация о ячейке</string>
     <string name="move_lpn">Переместить НЗ</string>
+    <string name="reciept">Приход поступления</string>
 </resources>

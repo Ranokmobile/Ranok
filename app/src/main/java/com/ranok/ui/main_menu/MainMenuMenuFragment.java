@@ -18,14 +18,13 @@ import com.ranok.ui.info_lpn.InfoLpnFragment;
 import com.ranok.ui.info_place.InfoPlaceFragment;
 import com.ranok.ui.info_position.InfoPositionFragment;
 import com.ranok.ui.main.MainActivity;
-import com.ranok.ui.move_lpn.MoveLpnFragment;
 import com.ranok.ui.scan_packages.ScanFragment;
 import com.ranok.ui.scan_rfid.ScanRFIDFragment;
 
 import ranok.mvvm.binding.ViewModelBindingConfig;
 
 
-public class MainFragment extends BaseFragment<MainIView, MainVM, MainFragmentBinding> implements MainIView {
+public class MainMenuMenuFragment extends BaseFragment<MainMenuIView, MainMenuVM, MainFragmentBinding> implements MainMenuIView {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,11 +83,11 @@ public class MainFragment extends BaseFragment<MainIView, MainVM, MainFragmentBi
     }
 
     @Override
-    public void moveLpn() {
-        MainActivity activity = ((MainActivity)mActivity);
-        if (activity!=null) {
-            activity.addFragment(new MoveLpnFragment());
-        }
+    public void reciept() {
+//        MainActivity activity = ((MainActivity)mActivity);
+//        if (activity!=null) {
+//            activity.addFragment(new MoveLpnFragment());
+//        }
     }
 
     @Override
@@ -121,8 +120,8 @@ public class MainFragment extends BaseFragment<MainIView, MainVM, MainFragmentBi
 
     @Nullable
     @Override
-    public Class<MainVM> getViewModelClass() {
-        return MainVM.class;
+    public Class<MainMenuVM> getViewModelClass() {
+        return MainMenuVM.class;
     }
 
     @Nullable
