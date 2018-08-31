@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.ranok.ui.reciept.RecieptProcessingVM" />
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <include
+        android:id="@+id/toolbarPanel"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            tools:context="com.ranok.ui.reciept.RecieptProcessingFragment">
+
+
+            <TextView
+                android:id="@+id/tvOrderCaption"
+                style="@style/PosInfoLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Заказ   №"
+                app:layout_constraintBottom_toTopOf="@+id/tvPositionText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="spread_inside" />
+
+            <TextView
+                android:id="@+id/tvPositionText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.position.name}"
+                style="@style/PosInfoTexts"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintBottom_toTopOf="@+id/tvQtyCaption"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvOrderCaption" />
+
+            <TextView
+                android:id="@+id/tvQtyCaption"
+                style="@style/PosInfoLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Количество"
+                app:layout_constraintBottom_toTopOf="@+id/tvLot"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvPositionText" />
+
+            <TextView
+                android:id="@+id/tvLot"
+                style="@style/PosInfoLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="8dp"
+                android:text="Партия"
+                app:layout_constraintBottom_toTopOf="@+id/btnReciept"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvQtyCaption" />
+
+            <Button
+                android:id="@+id/btnReciept"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Оприходовать"
+                android:enabled="@{viewModel.recieptEnabled}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLot" />
+
+            <TextView
+                android:id="@+id/tvOrderName"
+                style="@style/PosInfoLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.position.orderName}"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintBottom_toBottomOf="@+id/tvOrderCaption"
+                app:layout_constraintStart_toEndOf="@+id/tvOrderCaption"
+                app:layout_constraintTop_toTopOf="@+id/tvOrderCaption" />
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="@{viewModel.position.maxQtySymbols}"
+                android:text="@={viewModel.inputQty}"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:gravity="center_horizontal"
+                app:layout_constraintBottom_toBottomOf="@+id/tvQtyCaption"
+                app:layout_constraintStart_toEndOf="@+id/tvQtyCaption"
+                app:layout_constraintTop_toTopOf="@+id/tvQtyCaption" />
+
+            <TextView
+                android:id="@+id/tvFrom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.position.from}"
+                style="@style/PosInfoLabels"
+                app:layout_constraintBottom_toBottomOf="@+id/editText"
+                app:layout_constraintStart_toEndOf="@+id/editText"
+                app:layout_constraintTop_toTopOf="@+id/editText" />
+
+            <Spinner
+                android:id="@+id/spinnerLot"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/ibAddLot"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLot" />
+
+            <ImageButton
+                android:id="@+id/ibAddLot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/spinnerLot"
+                app:layout_constraintEnd_toStartOf="@+id/ibLookLot"
+                app:layout_constraintTop_toTopOf="@+id/spinnerLot"
+                app:srcCompat="@android:drawable/ic_input_add" />
+
+            <ImageButton
+                android:id="@+id/ibLookLot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:onClick="@{viewModel::onShowLot}"
+                app:layout_constraintBottom_toBottomOf="@+id/spinnerLot"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/spinnerLot"
+                app:srcCompat="@android:drawable/ic_dialog_info" />
+
+
+        </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+</layout>

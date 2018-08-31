@@ -20,7 +20,11 @@ import java.util.List;
 public class RecieptChooseOrderAdapter  extends RecyclerView.Adapter<RecieptChooseOrderAdapter.RecieptInfoHolder>
     implements Filterable{
 
-    private List<RecieptListModel> items = new ArrayList<>();
+    private RecieptChooseOrderVM.RecieptChooseOrderItemSelected recieptChooseOrderItemSelected;
+
+    private ValueFilter valueFilter;
+
+    private List<RecieptListModel> items, filteredItems;
 
     public List<RecieptListModel> getItems() {
         return items;
@@ -28,7 +32,14 @@ public class RecieptChooseOrderAdapter  extends RecyclerView.Adapter<RecieptChoo
 
     public void setItems(List<RecieptListModel> items) {
         this.items = items;
+        this.filteredItems = items;
         notifyDataSetChanged();
+    }
+
+    public RecieptChooseOrderAdapter(List<RecieptListModel> items, RecieptChooseOrderVM.RecieptChooseOrderItemSelected recieptChooseOrderItemSelected) {
+        this.recieptChooseOrderItemSelected = recieptChooseOrderItemSelected;
+        this.items = items;
+        this.filteredItems = items;
     }
 
     @NonNull
@@ -42,20 +53,24 @@ public class RecieptChooseOrderAdapter  extends RecyclerView.Adapter<RecieptChoo
     @Override
     public void onBindViewHolder(@NonNull RecieptInfoHolder holder, int position) {
         ItemRecieptBinding binding = holder.binding;
-        RecieptListModel model = items.get(position);
-        binding.setViewModel(items.get(position));
+        binding.setViewModel(filteredItems.get(position));
+        binding.getRoot().setOnClickListener(view
+                -> recieptChooseOrderItemSelected.onClick(filteredItems.get(position)));
 
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return filteredItems.size();
     }
 
 
     @Override
     public Filter getFilter() {
-        return null;
+        if (valueFilter == null) {
+            valueFilter = new ValueFilter();
+        }
+        return valueFilter;
     }
 
     private class ValueFilter extends Filter {
@@ -65,23 +80,24 @@ public class RecieptChooseOrderAdapter  extends RecyclerView.Adapter<RecieptChoo
 
             if (constraint != null && constraint.length() > 0) {
                 List<RecieptListModel> filterList = new ArrayList<>();
-                for (int i = 0; i < mStringFilterList.size(); i++) {
-                    if ((mStringFilterList.get(i).toUpperCase()).contains(constraint.toString().toUpperCase())) {
-                        filterList.add(mStringFilterList.get(i));
+                for (int i = 0; i < items.size(); i++) {
+                    if ((items.get(i).getName().toUpperCase()).contains(constraint.toString().toUpperCase())) {
+                        filterList.add(items.get(i));
                     }
                 }
                 results.count = filterList.size();
                 results.values = filterList;
             } else {
-                results.count = mStringFilterList.size();
-                results.values = mStringFilterList;
+                results.count = items.size();
+                results.values = items;
             }
             return results;
         }
 
+        @SuppressWarnings("unchecked")
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            mData = (List<String>) results.values;
+            filteredItems = (List<RecieptListModel>) filterResults.values;
             notifyDataSetChanged();
         }
     }

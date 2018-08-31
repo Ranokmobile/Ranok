@@ -24,7 +24,7 @@ import com.ranok.nfc.nfc_models.BaseRecord;
 import com.ranok.rx_bus.RxRFIDEvent;
 import com.ranok.ui.base.BaseActivity;
 import com.ranok.ui.login.LoginActivity;
-import com.ranok.ui.main_menu.MainMenuMenuFragment;
+import com.ranok.ui.main_menu.MainMenuFragment;
 
 import java.util.ArrayList;
 
@@ -53,7 +53,7 @@ public class MainActivity  extends BaseActivity<MainActivityIView, MainActivityV
         setModelView(this);
 
         if (getSupportFragmentManager().getFragments().size() == 0) {
-            showFragment(new MainMenuMenuFragment());
+            showFragment(new MainMenuFragment());
         }
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
 

@@ -1,13 +1,15 @@
 package com.ranok.network.models;
 
 import android.arch.persistence.room.ColumnInfo;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class RecieptListModel {
+public class RecieptListModel implements Parcelable {
     @SerializedName("lineNumber")
     @ColumnInfo(name="lineNumber")
-    String lineNumber;
+    int lineNumber;
 
     @SerializedName("itemId")
     @ColumnInfo(name="itemId")
@@ -45,16 +47,37 @@ public class RecieptListModel {
     @ColumnInfo(name="lots")
     String lots;
 
+    @SerializedName("orderName")
+    @ColumnInfo(name="orderName")
+    String orderName;
+
+
+    public int getMaxQtySymbols(){
+        return String.valueOf(availQuantity).length();
+    }
+
+    public String getFrom(){
+        return "из " + String.valueOf(availQuantity);
+    }
+
+    public String getOrderName() {
+        return orderName;
+    }
+
+    public void setOrderName(String orderName) {
+        this.orderName = orderName;
+    }
+
     public String getName(){
         return lineNumber + ") " + itemCode + " - " + prodCode + "; " + itemName
                 + "[" + String.valueOf(availQuantity) + "/" +   String.valueOf(totalQuantity)+ "]";
     }
 
-    public String getLineNumber() {
+    public int getLineNumber() {
         return lineNumber;
     }
 
-    public void setLineNumber(String lineNumber) {
+    public void setLineNumber(int lineNumber) {
         this.lineNumber = lineNumber;
     }
 
@@ -129,4 +152,54 @@ public class RecieptListModel {
     public void setLots(String lots) {
         this.lots = lots;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.lineNumber);
+        dest.writeInt(this.itemId);
+        dest.writeString(this.itemCode);
+        dest.writeString(this.prodCodeOld);
+        dest.writeString(this.prodCode);
+        dest.writeString(this.itemName);
+        dest.writeString(this.packStandart);
+        dest.writeInt(this.totalQuantity);
+        dest.writeInt(this.availQuantity);
+        dest.writeString(this.lots);
+        dest.writeString(this.orderName);
+    }
+
+    public RecieptListModel() {
+    }
+
+    protected RecieptListModel(Parcel in) {
+        this.lineNumber = in.readInt();
+        this.itemId = in.readInt();
+        this.itemCode = in.readString();
+        this.prodCodeOld = in.readString();
+        this.prodCode = in.readString();
+        this.itemName = in.readString();
+        this.packStandart = in.readString();
+        this.totalQuantity = in.readInt();
+        this.availQuantity = in.readInt();
+        this.lots = in.readString();
+        this.orderName = in.readString();
+    }
+
+    public static final Parcelable.Creator<RecieptListModel> CREATOR = new Parcelable.Creator<RecieptListModel>() {
+        @Override
+        public RecieptListModel createFromParcel(Parcel source) {
+            return new RecieptListModel(source);
+        }
+
+        @Override
+        public RecieptListModel[] newArray(int size) {
+            return new RecieptListModel[size];
+        }
+    };
 }

@@ -74,6 +74,7 @@ public abstract class BaseViewModel<T extends BaseIView> extends AbstractViewMod
                             errorBody = responseBody.string();
                             BaseResponse baseResponse = new Gson().fromJson(errorBody, BaseResponse.class);
                             getViewOptional().showSnakeBar(baseResponse.message);
+                            showToast(errorBody);
                             Log.d("error", errorBody);
                         }
                     } catch (Exception e1) {

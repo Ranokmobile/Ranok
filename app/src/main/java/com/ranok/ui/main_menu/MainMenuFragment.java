@@ -18,13 +18,14 @@ import com.ranok.ui.info_lpn.InfoLpnFragment;
 import com.ranok.ui.info_place.InfoPlaceFragment;
 import com.ranok.ui.info_position.InfoPositionFragment;
 import com.ranok.ui.main.MainActivity;
+import com.ranok.ui.reciept.RecieptChooseOrderFragment;
 import com.ranok.ui.scan_packages.ScanFragment;
 import com.ranok.ui.scan_rfid.ScanRFIDFragment;
 
 import ranok.mvvm.binding.ViewModelBindingConfig;
 
 
-public class MainMenuMenuFragment extends BaseFragment<MainMenuIView, MainMenuVM, MainFragmentBinding> implements MainMenuIView {
+public class MainMenuFragment extends BaseFragment<MainMenuIView, MainMenuVM, MainFragmentBinding> implements MainMenuIView {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,10 +85,10 @@ public class MainMenuMenuFragment extends BaseFragment<MainMenuIView, MainMenuVM
 
     @Override
     public void reciept() {
-//        MainActivity activity = ((MainActivity)mActivity);
-//        if (activity!=null) {
-//            activity.addFragment(new MoveLpnFragment());
-//        }
+        MainActivity activity = ((MainActivity)mActivity);
+        if (activity!=null) {
+            activity.addFragment(new RecieptChooseOrderFragment());
+        }
     }
 
     @Override

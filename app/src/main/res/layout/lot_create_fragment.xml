@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.ranok.ui.reciept.LotCreateVM" />
+
+    </data>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.ranok.ui.reciept.LotCreateFragment">
+        <com.ranok.widgets.CustomViewLotAttr
+            custom:titleText="Background color"
+            android:layout_width="match_parent"
+            android:value="@={viewModel.s}"
+            android:layout_height="wrap_content">
+        </com.ranok.widgets.CustomViewLotAttr>
+        <!--bind:stringWrapper="@{viewModel.s}"-->
+    </FrameLayout>
+</layout>
