@@ -53,8 +53,8 @@ public class RecieptProcessingFragment extends BaseFragment<RecieptProcessingIVi
     }
 
     @Override
-    public void showLot() {
-        mActivity.addFragment(new LotCreateFragment());
+    public void showLot(int type, String lot, String position) {
+        mActivity.addFragment(LotCreateFragment.getInstance(type, lot, position));
     }
 
     @Nullable

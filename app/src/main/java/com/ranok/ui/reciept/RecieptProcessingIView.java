@@ -4,5 +4,5 @@ import com.ranok.ui.base.BaseIView;
 
 
 public interface RecieptProcessingIView extends BaseIView {
-    void showLot();
+    void showLot(int type, String lot, String position);
 }

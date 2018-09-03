@@ -2,27 +2,575 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <!--<import type="Integer"/>-->
 
         <variable
             name="viewModel"
             type="com.ranok.ui.reciept.LotCreateVM" />
 
+
     </data>
 
 
-    <FrameLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.ranok.ui.reciept.LotCreateFragment">
-        <com.ranok.widgets.CustomViewLotAttr
-            custom:titleText="Background color"
+        android:layout_height="match_parent">
+        <include
+            android:id="@+id/toolbarPanel"
+            layout="@layout/toolbar"
             android:layout_width="match_parent"
-            android:value="@={viewModel.s}"
+            android:layout_height="wrap_content"
+            />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp"
+        tools:context="com.ranok.ui.reciept.LotCreateFragment">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        </com.ranok.widgets.CustomViewLotAttr>
-        <!--bind:stringWrapper="@{viewModel.s}"-->
-    </FrameLayout>
+            <TextView
+                android:text="Позиция"
+                style="@style/PosInfoLabels"
+                android:layout_marginEnd="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                style="@style/PosInfoTexts"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="@{viewModel.position}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Партия"
+                style="@style/PosInfoLabels"
+                android:layout_marginEnd="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                style="@style/PosInfoTexts"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="@{viewModel.lot}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <View
+            android:background="@color/gray"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tvHeader"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:text="Длина штуки"
+                style="@style/PosInfoLabels"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivInputCheck"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewModel.model.posLengthUnset}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="w,1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvHeader"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_warning" />
+
+            <EditText
+                android:id="@+id/etValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:digits="0123456789."
+                android:inputType="number"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:text="@={viewModel.model.posLength}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivInputCheck"
+                app:layout_constraintTop_toBottomOf="@+id/tvHeader" />
+        </android.support.constraint.ConstraintLayout>
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tvHeader1"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:text="Ширина штуки"
+                style="@style/PosInfoLabels"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivInputCheck1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewModel.model.posWidthhUnset}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="w,1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvHeader1"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_warning" />
+
+            <EditText
+                android:id="@+id/etValue1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:digits="0123456789."
+                android:inputType="number"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:text="@={viewModel.model.posWidth}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivInputCheck1"
+                app:layout_constraintTop_toBottomOf="@+id/tvHeader1" />
+        </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvHeader2"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:text="Высота штуки"
+                    style="@style/PosInfoLabels"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivInputCheck2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="@{viewModel.model.posHeightUnset}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="w,1:1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHeader2"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/ic_warning" />
+
+                <EditText
+                    android:id="@+id/etValue2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:digits="0123456789."
+                    android:inputType="number"
+                    android:gravity="center"
+                    android:imeOptions="actionNext"
+                    android:text="@={viewModel.model.posHeight}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ivInputCheck2"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHeader2" />
+            </android.support.constraint.ConstraintLayout>
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvHeader3"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:text="Масса штуки"
+                    style="@style/PosInfoLabels"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivInputCheck3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="@{viewModel.model.posWeightUnset}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="w,1:1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHeader3"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/ic_warning" />
+
+                <EditText
+                    android:id="@+id/etValue3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:digits="0123456789."
+                    android:inputType="number"
+                    android:gravity="center"
+                    android:imeOptions="actionNext"
+                    android:text="@={viewModel.model.posWeight}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ivInputCheck3"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHeader3" />
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+
+
+
+        <TextView
+            android:id="@+id/tvHeader5"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Твёрдость штуки"
+            style="@style/PosInfoLabels"/>
+        <Spinner
+            android:id="@+id/spinnerPosHardness"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            />
+
+        <View
+            android:background="@color/gray"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvHeader6"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:text="Длина упаковки"
+                    style="@style/PosInfoLabels"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivInputCheck6"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="@{viewModel.model.posLengthUnset}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="w,1:1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHeader6"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/ic_warning" />
+
+                <EditText
+                    android:id="@+id/etValue6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:digits="0123456789."
+                    android:inputType="number"
+                    android:gravity="center"
+                    android:imeOptions="actionNext"
+                    android:text="@={viewModel.model.posLength}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ivInputCheck6"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHeader6" />
+            </android.support.constraint.ConstraintLayout>
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvHeader7"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:text="Ширина упаковки"
+                    style="@style/PosInfoLabels"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivInputCheck7"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="@{viewModel.model.posWidthhUnset}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="w,1:1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHeader7"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/ic_warning" />
+
+                <EditText
+                    android:id="@+id/etValue7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:digits="0123456789."
+                    android:inputType="number"
+                    android:gravity="center"
+                    android:imeOptions="actionNext"
+                    android:text="@={viewModel.model.posWidth}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ivInputCheck7"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHeader7" />
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvHeader8"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:text="Высота упаковки"
+                    style="@style/PosInfoLabels"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivInputCheck8"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="@{viewModel.model.posHeightUnset}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="w,1:1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHeader8"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/ic_warning" />
+
+                <EditText
+                    android:id="@+id/etValue8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:digits="0123456789."
+                    android:inputType="number"
+                    android:gravity="center"
+                    android:imeOptions="actionNext"
+                    android:text="@={viewModel.model.posHeight}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ivInputCheck8"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHeader8" />
+            </android.support.constraint.ConstraintLayout>
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvHeader9"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:text="Масса упаковки"
+                    style="@style/PosInfoLabels"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivInputCheck9"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="@{viewModel.model.posWeightUnset}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="w,1:1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHeader9"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/ic_warning" />
+
+                <EditText
+                    android:id="@+id/etValue9"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:digits="0123456789."
+                    android:inputType="number"
+                    android:gravity="center"
+                    android:imeOptions="actionNext"
+                    android:text="@={viewModel.model.posWeight}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ivInputCheck9"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHeader9" />
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+
+
+
+
+
+
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvHeader4"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:text="Стандарт упаковки"
+                    style="@style/PosInfoLabels"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivInputCheck4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="@{viewModel.model.packStandartUnset}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="w,1:1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHeader4"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/ic_warning" />
+
+                <EditText
+                    android:id="@+id/etValue4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:digits="0123456789"
+                    android:inputType="number"
+                    android:gravity="center"
+                    android:imeOptions="actionNext"
+                    android:text="@={viewModel.model.packStandart}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ivInputCheck4"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHeader4" />
+            </android.support.constraint.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tvHeader11"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Твёрдость упаковки"
+            style="@style/PosInfoLabels"/>
+
+
+        <Spinner
+            android:id="@+id/spinnerPackHardness"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            />
+
+        <TextView
+            android:id="@+id/tvHeader12"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Тип упаковки"
+            style="@style/PosInfoLabels"/>
+
+        <Spinner
+            android:id="@+id/spinnerPackStandart"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            />
+
+            <Button
+                android:id="@+id/btn_create_lot"
+                android:onClick="@{viewModel::onClick}"
+                android:visibility="@{viewModel.btnVisible}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+    </LinearLayout>
+    </ScrollView>
+    </LinearLayout>
 </layout>

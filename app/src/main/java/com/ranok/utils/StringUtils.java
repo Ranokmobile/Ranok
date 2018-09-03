@@ -2,6 +2,8 @@ package com.ranok.utils;
 
 public class StringUtils {
 
+    public static String LOT_PREFIX = "P";
+
     public static boolean isEmpty(String s){
         return s == null || s.isEmpty();
     }
@@ -32,6 +34,15 @@ public class StringUtils {
         int i = Integer.parseInt(result);
         return String.valueOf(i);
     }
+
+    public static int lotToNumber(String lot){
+        return Integer.parseInt(lot.substring(1));
+    }
+
+    public static String numberToLot(int lotNumber){
+        return LOT_PREFIX + String.valueOf(lotNumber);
+    }
+
 }
 /*
 if (searchVM.getInputText() == null) return;

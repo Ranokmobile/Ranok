@@ -7,11 +7,15 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.ranok.BR;
+import com.ranok.R;
 import com.ranok.network.models.RecieptListModel;
 import com.ranok.ui.base.BaseViewModel;
 import com.ranok.utils.StringUtils;
 
 import ranok.annotation.State;
+
+import static com.ranok.ui.reciept.LotCreateFragment.CHANGE_LOT;
+import static com.ranok.ui.reciept.LotCreateFragment.NEW_LOT;
 
 
 public class RecieptProcessingVM extends BaseViewModel<RecieptProcessingIView> {
@@ -62,12 +66,16 @@ public class RecieptProcessingVM extends BaseViewModel<RecieptProcessingIView> {
         selectedLot = i;
     }
 
-    public int getSelectedLot() {
-        return selectedLot;
+    public String getSelectedLot() {
+        if (position != null) {
+          return data[selectedLot];
+        }
+        return "";
     }
 
     public void onShowLot(View v){
-        getViewOptional().showLot();
+        int type = v.getId() == R.id.ibAddLot ? NEW_LOT : CHANGE_LOT;
+        getViewOptional().showLot(type, getSelectedLot(), position.getItemCode());
     }
 
     @Bindable
