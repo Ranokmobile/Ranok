@@ -7,6 +7,6 @@ public interface LotCreateIView extends BaseIView {
     void setSpinnerPosHardnessSelection(int i);
     void setSpinnerPackHardnessSelection(int i);
     void setSpinnerPackStandartSelection(int i);
-
+    void closeScreen();
 
 }

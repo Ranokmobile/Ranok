@@ -8,7 +8,10 @@ import android.view.View;
 
 import com.ranok.network.models.PositionLotAttributesModel;
 import com.ranok.network.request.CodeRequest;
+import com.ranok.network.request.CreateLotRequest;
+import com.ranok.network.response.CreateLotResponse;
 import com.ranok.network.response.LotInfoResponse;
+import com.ranok.rx_bus.RxLotCreated;
 import com.ranok.ui.base.BaseViewModel;
 import com.ranok.utils.StringUtils;
 
@@ -26,7 +29,7 @@ import static com.ranok.ui.reciept.LotCreateFragment.NEW_LOT;
 public class LotCreateVM extends BaseViewModel<LotCreateIView> {
 
     public String[] hardness = {"Твердое", "Средне", "Мягкое", ""};
-    public String[] standart = {"Пачка", "Короб", "Пленка", ""};
+    public String[] packType = {"Пачка", "Короб", "Пленка", ""};
 
     @State
     int type;
@@ -37,14 +40,14 @@ public class LotCreateVM extends BaseViewModel<LotCreateIView> {
     @State
     List<PositionLotAttributesModel> lotsList = new ArrayList<>();
     @State
-    PositionLotAttributesModel model = new PositionLotAttributesModel();
+    PositionLotAttributesModel model;
 
     public String[] getHardness() {
         return hardness;
     }
 
-    public String[] getStandart() {
-        return standart;
+    public String[] getPackType() {
+        return packType;
     }
 
     public PositionLotAttributesModel getModel() {
@@ -62,6 +65,7 @@ public class LotCreateVM extends BaseViewModel<LotCreateIView> {
     @Override
     public void onCreate(@Nullable Bundle arguments, @Nullable Bundle savedInstanceState) {
         super.onCreate(arguments, savedInstanceState);
+        model = new PositionLotAttributesModel();
         StateHelperLotCreateVM.onRestoreInstanceState(this, savedInstanceState);
         if (arguments != null) {
             type = arguments.getInt("type");
@@ -96,19 +100,28 @@ public class LotCreateVM extends BaseViewModel<LotCreateIView> {
                 int currentNum = StringUtils.lotToNumber(lotModel.getLotNumber());
                 if (currentNum>lotNum) lotNum=currentNum;
             }
-            if (lotNum==1) lotNum = 10000;
-            model.setLotNumber(StringUtils.numberToLot(lotNum));
+            if (lotNum==1) lotNum = 10000; else lotNum++;
+            lot = StringUtils.numberToLot(lotNum);
+            model.setLotNumber(lot);
             getViewOptional().setSpinnerPosHardnessSelection(3);
+            getViewOptional().setSpinnerPackHardnessSelection(3);
+            getViewOptional().setSpinnerPackStandartSelection(3);
             notifyChange();
         } else if (type == CHANGE_LOT){
             for (PositionLotAttributesModel lotModel : lotsList){
                 if (lotModel.getLotNumber().equals(lot)) model=lotModel;
             }
             for (int i=0; i < hardness.length; i++){
-                if (hardness[i].equals(model.getPosHardness())) getViewOptional().setSpinnerPosHardnessSelection(i);
+                if (hardness[i].equals(model.getPosHardness()))
+                    getViewOptional().setSpinnerPosHardnessSelection(i);
             }
             for (int i=0; i < hardness.length; i++){
-                if (hardness[i].equals(model.getPackHardness())) getViewOptional().setSpinnerPosHardnessSelection(i);
+                if (hardness[i].equals(model.getPackHardness()))
+                    getViewOptional().setSpinnerPackHardnessSelection(i);
+            }
+            for (int i = 0; i < packType.length; i++) {
+                if (packType[i].equals(model.getPackStandart()))
+                    getViewOptional().setSpinnerPackStandartSelection(i);
             }
             notifyChange();
         }
@@ -121,19 +134,45 @@ public class LotCreateVM extends BaseViewModel<LotCreateIView> {
     }
 
     public void onPosHardhessSelected(int i){
+        model.setPosHardness(hardness[i]);
 
     }
 
     public void onPackHardhessSelected(int i){
-
+        model.setPackHardness(hardness[i]);
     }
 
-    public void onPackStandartSelected(int i){
-
+    public void onPackTypeSelected(int i){
+        model.setPackType(packType[i]);
     }
 
     public void onClick(View v){
-       // showToast(value);
+        String check = model.isDataCorrect();
+        if (StringUtils.isEmpty(check)) {
+            showLoader();
+            compositeDisposable.add(
+                    netApi.createLot(new CreateLotRequest(Integer.parseInt(position), model.getLotNumber(), model.getPosLength()
+                    ,model.getPosWidth(), model.getPosHeight(), model.getPosWeight(), model.getPosHardness()
+                    ,model.getPackLength(), model.getPackWidth(), model.getPackHeight(), model.getPackWeight()
+                    ,model.getPackType(), model.getPackHardness(), model.getPackStandart()))
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(this::processCreateLotResponse, this::processError)
+            );
+        } else {
+            getViewOptional().showSnakeBar(check);
+        }
+    }
+
+    private void processCreateLotResponse(CreateLotResponse createLotResponse) {
+        hideLoader();
+        if (createLotResponse.data.resultCode == 0) {
+            RxLotCreated.getInstance().sendLpnData(createLotResponse);
+            getViewOptional().closeScreen();
+        } else {
+            getViewOptional().showSnakeBar(createLotResponse.data.resultMessage);
+        }
+
     }
 
 }

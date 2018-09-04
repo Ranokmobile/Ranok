@@ -89,6 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <android.support.constraint.ConstraintLayout
+            android:animateLayoutChanges="true"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content">
@@ -105,9 +106,9 @@
 
             <ImageView
                 android:id="@+id/ivInputCheck"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="@{viewModel.model.posLengthUnset}"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:visibility="@{viewModel.model.posLengthUnset, default=gone}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="w,1:1"
                 app:layout_constraintStart_toStartOf="parent"
@@ -132,6 +133,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvHeader" />
         </android.support.constraint.ConstraintLayout>
         <android.support.constraint.ConstraintLayout
+            android:animateLayoutChanges="true"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content">
@@ -148,9 +150,9 @@
 
             <ImageView
                 android:id="@+id/ivInputCheck1"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="@{viewModel.model.posWidthhUnset}"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:visibility="@{viewModel.model.posWidthhUnset, default=gone}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="w,1:1"
                 app:layout_constraintStart_toStartOf="parent"
@@ -182,6 +184,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <android.support.constraint.ConstraintLayout
+                android:animateLayoutChanges="true"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
@@ -198,9 +201,9 @@
 
                 <ImageView
                     android:id="@+id/ivInputCheck2"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:visibility="@{viewModel.model.posHeightUnset}"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:visibility="@{viewModel.model.posHeightUnset, default=gone}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="w,1:1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -225,6 +228,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvHeader2" />
             </android.support.constraint.ConstraintLayout>
             <android.support.constraint.ConstraintLayout
+                android:animateLayoutChanges="true"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
@@ -241,9 +245,9 @@
 
                 <ImageView
                     android:id="@+id/ivInputCheck3"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:visibility="@{viewModel.model.posWeightUnset}"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:visibility="@{viewModel.model.posWeightUnset, default=gone}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="w,1:1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -301,6 +305,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <android.support.constraint.ConstraintLayout
+                android:animateLayoutChanges="true"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
@@ -317,9 +322,9 @@
 
                 <ImageView
                     android:id="@+id/ivInputCheck6"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:visibility="@{viewModel.model.posLengthUnset}"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:visibility="@{viewModel.model.packLengthUnset, default=gone}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="w,1:1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -337,13 +342,14 @@
                     android:inputType="number"
                     android:gravity="center"
                     android:imeOptions="actionNext"
-                    android:text="@={viewModel.model.posLength}"
+                    android:text="@={viewModel.model.packLength}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/ivInputCheck6"
                     app:layout_constraintTop_toBottomOf="@+id/tvHeader6" />
             </android.support.constraint.ConstraintLayout>
             <android.support.constraint.ConstraintLayout
+                android:animateLayoutChanges="true"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
@@ -360,9 +366,9 @@
 
                 <ImageView
                     android:id="@+id/ivInputCheck7"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:visibility="@{viewModel.model.posWidthhUnset}"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:visibility="@{viewModel.model.packWidthUnset, default=gone}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="w,1:1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -380,7 +386,7 @@
                     android:inputType="number"
                     android:gravity="center"
                     android:imeOptions="actionNext"
-                    android:text="@={viewModel.model.posWidth}"
+                    android:text="@={viewModel.model.packWidth}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/ivInputCheck7"
@@ -394,6 +400,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <android.support.constraint.ConstraintLayout
+                android:animateLayoutChanges="true"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
@@ -410,9 +417,9 @@
 
                 <ImageView
                     android:id="@+id/ivInputCheck8"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:visibility="@{viewModel.model.posHeightUnset}"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:visibility="@{viewModel.model.packHeightUnset, default=gone}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="w,1:1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -430,13 +437,14 @@
                     android:inputType="number"
                     android:gravity="center"
                     android:imeOptions="actionNext"
-                    android:text="@={viewModel.model.posHeight}"
+                    android:text="@={viewModel.model.packHeight}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/ivInputCheck8"
                     app:layout_constraintTop_toBottomOf="@+id/tvHeader8" />
             </android.support.constraint.ConstraintLayout>
             <android.support.constraint.ConstraintLayout
+                android:animateLayoutChanges="true"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
@@ -453,9 +461,9 @@
 
                 <ImageView
                     android:id="@+id/ivInputCheck9"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:visibility="@{viewModel.model.posWeightUnset}"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:visibility="@{viewModel.model.packWeightUnset, default=gone}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="w,1:1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -473,7 +481,7 @@
                     android:inputType="number"
                     android:gravity="center"
                     android:imeOptions="actionNext"
-                    android:text="@={viewModel.model.posWeight}"
+                    android:text="@={viewModel.model.packWeight}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/ivInputCheck9"
@@ -487,6 +495,7 @@
 
 
         <android.support.constraint.ConstraintLayout
+            android:animateLayoutChanges="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
@@ -502,9 +511,9 @@
 
                 <ImageView
                     android:id="@+id/ivInputCheck4"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:visibility="@{viewModel.model.packStandartUnset}"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:visibility="@{viewModel.model.packStandartUnset, default=gone}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="w,1:1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -556,7 +565,7 @@
             style="@style/PosInfoLabels"/>
 
         <Spinner
-            android:id="@+id/spinnerPackStandart"
+            android:id="@+id/spinnerPackType"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -566,6 +575,8 @@
 
             <Button
                 android:id="@+id/btn_create_lot"
+                android:text="Создать партию"
+                android:layout_marginTop="20dp"
                 android:onClick="@{viewModel::onClick}"
                 android:visibility="@{viewModel.btnVisible}"
                 android:layout_width="match_parent"

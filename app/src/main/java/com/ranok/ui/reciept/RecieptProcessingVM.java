@@ -9,6 +9,9 @@ import android.view.View;
 import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.network.models.RecieptListModel;
+import com.ranok.network.response.CreateLotResponse;
+import com.ranok.network.response.CreateLotResponseData;
+import com.ranok.rx_bus.RxLotCreated;
 import com.ranok.ui.base.BaseViewModel;
 import com.ranok.utils.StringUtils;
 
@@ -60,6 +63,23 @@ public class RecieptProcessingVM extends BaseViewModel<RecieptProcessingIView> {
         if (position != null) {
             data = position.getLots().split(",");
         }
+
+        compositeDisposable.add(
+                RxLotCreated.getInstance().getEvents()
+                        .filter(i->i.data.resultCode==0)
+                        .subscribe(this::onNewLotRecieved));
+    }
+
+    private void onNewLotRecieved(CreateLotResponse createLotResponse) {
+        String newLot = createLotResponse.data.newLotCode;
+        RxLotCreated.getInstance().sendLpnData(new CreateLotResponse(new CreateLotResponseData(1,"","")));
+        if (!StringUtils.isEmpty(newLot)) {
+            if (position != null) {
+                data = (position.getLots()+","+newLot).split(",");
+                selectedLot = data.length-1;
+                getViewOptional().changeSpinner();
+            }
+        }
     }
 
     public void spinnerItemSelected(int i){
@@ -81,6 +101,10 @@ public class RecieptProcessingVM extends BaseViewModel<RecieptProcessingIView> {
     @Bindable
     public boolean isRecieptEnabled(){
         return (!StringUtils.isEmpty(inputQty) && Integer.parseInt(inputQty) <= position.getAvailQuantity() );
+    }
+
+    public void recieptClicked(View v){
+
     }
 
     @Override

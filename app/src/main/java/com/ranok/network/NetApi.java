@@ -3,6 +3,7 @@ package com.ranok.network;
 import com.ranok.network.request.AcceptListRequest;
 import com.ranok.network.request.BarcodeRequest;
 import com.ranok.network.request.CodeRequest;
+import com.ranok.network.request.CreateLotRequest;
 import com.ranok.network.request.LoginRequest;
 import com.ranok.network.request.MoveLpnRequest;
 import com.ranok.network.request.NewFcmTokenRequest;
@@ -15,6 +16,7 @@ import com.ranok.network.request.SplitLpnRequest;
 import com.ranok.network.request.UnpackLpnRequest;
 import com.ranok.network.response.AcceptListResponse;
 import com.ranok.network.response.BaseResponse;
+import com.ranok.network.response.CreateLotResponse;
 import com.ranok.network.response.LoginResponse;
 import com.ranok.network.response.LotInfoResponse;
 import com.ranok.network.response.LpnInfoResponse;
@@ -33,7 +35,7 @@ public interface NetApi {
     //String URL = "http://ebs-dev.localdomain:8008/Conveyor/api/parcelScan/";
     //String URL = "http://dreadnought:8080/Conveyor/api/parcelScan/";
     //String URL = "http://192.168.15.168:8080/Conveyor/api/parcelScan/";
-    String URL = "http://192.168.15.196:8080/Conveyor/api/parcelScan/";
+    String URL = "http://192.168.15.142:8080/Conveyor/api/parcelScan/";
 
     @POST("login")
     Single<LoginResponse> login(@Body LoginRequest loginRequest);
@@ -89,4 +91,6 @@ public interface NetApi {
     @POST("lot_info")
     Single<LotInfoResponse> getLotInfo(@Body CodeRequest codeRequest);
 
+    @POST("create_lot")
+    Single<CreateLotResponse> createLot(@Body CreateLotRequest createLotRequest);
 }

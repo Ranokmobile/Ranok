@@ -10,6 +10,13 @@ import com.google.gson.annotations.SerializedName;
 import com.ranok.BR;
 import com.ranok.utils.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.Single;
+import io.reactivex.disposables.CompositeDisposable;
+
 public class PositionLotAttributesModel extends BaseObservable implements Parcelable {
     @SerializedName("lotNumber")
     @ColumnInfo(name="lot_number")
@@ -289,6 +296,60 @@ public class PositionLotAttributesModel extends BaseObservable implements Parcel
         if (s.isEmpty()) return ret;
         ret =  (s.substring(0,1).equals(".") ? "0" : "") + s;
         return ret;
+    }
+
+    public String isDataCorrect(){
+        if (isPackHeightUnset()) return "Высота упаковки не установлена";
+        if (isPackLengthUnset()) return "Длина упаковки не установлена";
+        if (isPackStandartUnset()) return "Стандарт упаковки не установлен";
+        if (isPackWeightUnset()) return "Масса упаковки не установлен";
+        if (isPackWidthUnset()) return "Ширина упаковки не установлена";
+        if (isPosHeightUnset()) return "Высота штуки не установлена";
+        if (isPosLengthUnset()) return "Длина штуки не установлена";
+        if (isPosWeightUnset()) return "Масса штуки не установлен";
+        if (isPosWidthhUnset()) return "Ширина штуки не установлена";
+        if (StringUtils.isEmpty(posHardness)) return "Твердость штуки не установлена";
+        if (StringUtils.isEmpty(packHardness)) return "Твердость упаковки не установлена";
+        if (StringUtils.isEmpty(packType)) return "Тип упаковки не установлен";
+
+        Observable<Float> packObservable = Observable.just(packHeight, packWidth, packLength)
+                .map(Float::valueOf)
+                .sorted();
+
+        Observable<Float> posObservable = Observable.just(posHeight, posWidth, posLength)
+                .map(Float::valueOf)
+                .sorted();
+
+        //Проверка от большого к меньшему размеров по 1
+        Single<Long> smallToBig = Observable.zip(packObservable, posObservable
+                , (aFloat, aFloat2) -> (aFloat < aFloat2)).filter(i->i).count();
+        List<String> s = new ArrayList<>();
+        CompositeDisposable cd = new CompositeDisposable();
+         cd.add(smallToBig.subscribe(aLong -> {
+             if (aLong>0) s.add("Размеры штуки больше размеров пачки");
+         })
+        );
+        if (s.size()>0) return s.get(0);
+
+        //Проверка объема
+        Single<Float> packTotal = packObservable.reduce(0f, (total, val) -> total*val);
+        Single<Float> posTotal = posObservable.reduce(0f, (total, val) -> total*val);
+        Single<Long> totalSize = Single.zip(packTotal, posTotal
+                , (aFloat, aFloat2) -> (aFloat < aFloat2)).filter(i->i).count();
+        s.clear();
+        cd.add(smallToBig.subscribe(aLong -> {
+                    if (aLong>0) s.add("Объем штуки больше объема пачки");
+                })
+        );
+        if (s.size()>0) return s.get(0);
+
+
+        if (Float.valueOf(posWeight) *Float.valueOf(packStandart) > Float.valueOf(packWeight))
+            return "Масса штук больше массы пачки";
+
+        if (!cd.isDisposed()) cd.dispose();
+        return "";
+
     }
 
 

@@ -35,6 +35,11 @@ public class RecieptProcessingFragment extends BaseFragment<RecieptProcessingIVi
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setModelView(this);
+        changeSpinner();
+    }
+
+    @Override
+    public void changeSpinner() {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity, android.R.layout.simple_spinner_item, getViewModel().getData());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         getBinding().spinnerLot.setAdapter(adapter);

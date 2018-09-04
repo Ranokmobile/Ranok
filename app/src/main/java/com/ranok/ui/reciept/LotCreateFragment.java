@@ -23,7 +23,7 @@ public class LotCreateFragment extends BaseFragment<LotCreateIView, LotCreateVM,
 
     @Override
     protected String getScreenTitle() {
-        return "Создание партии";
+        return getViewModel().type ==1 ? "Создание партии" : "Просмотр партии";
     }
 
     public static LotCreateFragment getInstance(int type, String lot, String position){
@@ -45,7 +45,7 @@ public class LotCreateFragment extends BaseFragment<LotCreateIView, LotCreateVM,
         //Твердость штуки
         ArrayAdapter<String> adapter = new ArrayAdapter<>(mActivity, android.R.layout.simple_spinner_item,
                 getViewModel().getHardness());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
         getBinding().spinnerPosHardness.setAdapter(adapter);
         getBinding().spinnerPosHardness.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -61,9 +61,9 @@ public class LotCreateFragment extends BaseFragment<LotCreateIView, LotCreateVM,
         //Твердость упаковки
         ArrayAdapter<String> adapterPackHardness = new ArrayAdapter<>(mActivity, android.R.layout.simple_spinner_item,
                 getViewModel().getHardness());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        getBinding().spinnerPosHardness.setAdapter(adapterPackHardness);
-        getBinding().spinnerPosHardness.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        adapterPackHardness.setDropDownViewResource(R.layout.item_spinner_dropdown);
+        getBinding().spinnerPackHardness.setAdapter(adapterPackHardness);
+        getBinding().spinnerPackHardness.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 getViewModel().onPackHardhessSelected(i);
@@ -76,13 +76,13 @@ public class LotCreateFragment extends BaseFragment<LotCreateIView, LotCreateVM,
         });
         //Тип упаковки
         ArrayAdapter<String> adapterPackStandart = new ArrayAdapter<>(mActivity, android.R.layout.simple_spinner_item,
-                getViewModel().getStandart());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        getBinding().spinnerPosHardness.setAdapter(adapterPackStandart);
-        getBinding().spinnerPosHardness.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                getViewModel().getPackType());
+        adapterPackStandart.setDropDownViewResource(R.layout.item_spinner_dropdown);
+        getBinding().spinnerPackType.setAdapter(adapterPackStandart);
+        getBinding().spinnerPackType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                getViewModel().onPackStandartSelected(i);
+                getViewModel().onPackTypeSelected(i);
             }
 
             @Override
@@ -90,7 +90,11 @@ public class LotCreateFragment extends BaseFragment<LotCreateIView, LotCreateVM,
 
             }
         });
+    }
 
+    @Override
+    public void closeScreen() {
+        mActivity.onBackPressed();
     }
 
     @Override
@@ -105,7 +109,7 @@ public class LotCreateFragment extends BaseFragment<LotCreateIView, LotCreateVM,
 
     @Override
     public void setSpinnerPackStandartSelection(int i) {
-        getBinding().spinnerPackStandart.setSelection(i);
+        getBinding().spinnerPackType.setSelection(i);
     }
 
     @Nullable
