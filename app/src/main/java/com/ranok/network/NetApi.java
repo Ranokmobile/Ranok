@@ -11,6 +11,7 @@ import com.ranok.network.request.PackToLpnRequest;
 import com.ranok.network.request.PlaceRequest;
 import com.ranok.network.request.PrintLpnRequest;
 import com.ranok.network.request.RecieptListRequest;
+import com.ranok.network.request.RecieptOrderRequest;
 import com.ranok.network.request.RfidRequest;
 import com.ranok.network.request.SplitLpnRequest;
 import com.ranok.network.request.UnpackLpnRequest;
@@ -26,6 +27,7 @@ import com.ranok.network.response.PackageBarcodeResponseData;
 import com.ranok.network.response.PlaceInfoResponse;
 import com.ranok.network.response.PositionInfoByBarcodeResponse;
 import com.ranok.network.response.RecieptListResponse;
+import com.ranok.network.response.RecieptOrderResponse;
 
 import io.reactivex.Single;
 import retrofit2.http.Body;
@@ -93,4 +95,7 @@ public interface NetApi {
 
     @POST("create_lot")
     Single<CreateLotResponse> createLot(@Body CreateLotRequest createLotRequest);
+
+    @POST("reciept_order")
+    Single<RecieptOrderResponse> recieptOrder(@Body RecieptOrderRequest recieptOrderRequest);
 }

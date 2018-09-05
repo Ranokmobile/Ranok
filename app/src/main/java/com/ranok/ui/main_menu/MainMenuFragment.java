@@ -18,6 +18,7 @@ import com.ranok.ui.info_lpn.InfoLpnFragment;
 import com.ranok.ui.info_place.InfoPlaceFragment;
 import com.ranok.ui.info_position.InfoPositionFragment;
 import com.ranok.ui.main.MainActivity;
+import com.ranok.ui.reciept.CheckRecieptFragment;
 import com.ranok.ui.reciept.RecieptChooseOrderFragment;
 import com.ranok.ui.scan_packages.ScanFragment;
 import com.ranok.ui.scan_rfid.ScanRFIDFragment;
@@ -88,6 +89,14 @@ public class MainMenuFragment extends BaseFragment<MainMenuIView, MainMenuVM, Ma
         MainActivity activity = ((MainActivity)mActivity);
         if (activity!=null) {
             activity.addFragment(new RecieptChooseOrderFragment());
+        }
+    }
+
+    @Override
+    public void checkReciept() {
+        MainActivity activity = ((MainActivity)mActivity);
+        if (activity!=null) {
+            activity.addFragment(new CheckRecieptFragment());
         }
     }
 

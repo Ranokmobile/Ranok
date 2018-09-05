@@ -247,7 +247,7 @@
 
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/search_position_coming"
+            android:id="@+id/check_reciept"
             android:layout_width="@dimen/menu_panel_width"
             android:layout_height="@dimen/menu_panel_height"
             android:elevation="4dp"
@@ -262,7 +262,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:src="@android:drawable/ic_menu_search"
+                android:src="@drawable/ic_playlist_check"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -275,7 +275,7 @@
                 android:layout_marginStart="1dp"
                 android:layout_marginTop="4dp"
                 android:gravity="center"
-                android:text="@string/search_position_coming"
+                android:text="Контроль поступления"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

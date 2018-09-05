@@ -10,4 +10,5 @@ interface MainMenuIView extends BaseIView {
     void showInfoLpn();
     void showInfoPlace();
     void reciept();
+    void checkReciept();
 }

@@ -9,12 +9,16 @@ import android.view.View;
 import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.network.models.RecieptListModel;
+import com.ranok.network.request.RecieptOrderRequest;
 import com.ranok.network.response.CreateLotResponse;
 import com.ranok.network.response.CreateLotResponseData;
+import com.ranok.network.response.RecieptOrderResponse;
 import com.ranok.rx_bus.RxLotCreated;
 import com.ranok.ui.base.BaseViewModel;
 import com.ranok.utils.StringUtils;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import ranok.annotation.State;
 
 import static com.ranok.ui.reciept.LotCreateFragment.CHANGE_LOT;
@@ -104,7 +108,28 @@ public class RecieptProcessingVM extends BaseViewModel<RecieptProcessingIView> {
     }
 
     public void recieptClicked(View v){
+        if (Integer.parseInt(inputQty) > position.getAvailQuantity()) {
+            getViewOptional().showSnakeBar("Введенное количество больше доступного в заказе");
+            return;
+        }
+        showLoader();
+        compositeDisposable.add(
+                netApi.recieptOrder(new RecieptOrderRequest(Integer.parseInt(position.getOrderName()), position.getLineNumber(),
+                        getSelectedLot(), Integer.parseInt(inputQty) ))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::processRecieptResponse, this::processError)
+        );
+    }
 
+    private void processRecieptResponse(RecieptOrderResponse recieptOrderResponse) {
+        hideLoader();
+        if (recieptOrderResponse.data.resultCode == 0){
+            position.setAvailQuantity(position.getAvailQuantity() - recieptOrderResponse.data.qtyRecieved);
+            notifyChange();
+        } else {
+            getViewOptional().showSnakeBar(recieptOrderResponse.data.resultMessage);
+        }
     }
 
     @Override

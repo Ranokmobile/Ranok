@@ -26,6 +26,18 @@ public class AcceptListModel {
     @ColumnInfo(name="lot")
     String lot;
 
+    @SerializedName("lpn")
+    @ColumnInfo(name="lpn")
+    String lpn;
+
+    public String getLpn() {
+        return lpn;
+    }
+
+    public void setLpn(String lpn) {
+        this.lpn = lpn;
+    }
+
     public String getItemCode() {
         return itemCode;
     }

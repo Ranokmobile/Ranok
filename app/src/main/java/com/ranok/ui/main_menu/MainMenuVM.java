@@ -54,6 +54,9 @@ public class MainMenuVM extends BaseViewModel<MainMenuIView>  {
             case R.id.reciept:
                 getViewOptional().reciept();
                 break;
+            case R.id.check_reciept:
+                getViewOptional().checkReciept();
+                break;
         }
 
 

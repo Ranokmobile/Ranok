@@ -15,15 +15,15 @@ public class RecieptOrderRequest {
     @SerializedName("qty")
     int qty;
 
-    @SerializedName("lpn")
-    String lpn;
+//    @SerializedName("lpn")
+//    String lpn;
 
-    public RecieptOrderRequest(int orderNum, int lineNum, String lot, int qty, String lpn) {
+    public RecieptOrderRequest(int orderNum, int lineNum, String lot, int qty) {
         this.orderNum = orderNum;
         this.lineNum = lineNum;
         this.lot = lot;
         this.qty = qty;
-        this.lpn = lpn;
+   //    this.lpn = lpn;
     }
 
     public int getOrderNum() {
@@ -58,11 +58,11 @@ public class RecieptOrderRequest {
         this.qty = qty;
     }
 
-    public String getLpn() {
-        return lpn;
-    }
-
-    public void setLpn(String lpn) {
-        this.lpn = lpn;
-    }
+//    public String getLpn() {
+//        return lpn;
+//    }
+//
+//    public void setLpn(String lpn) {
+//        this.lpn = lpn;
+//    }
 }
