@@ -58,6 +58,12 @@ public class RecieptProcessingFragment extends BaseFragment<RecieptProcessingIVi
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        getBinding().spinnerLot.setSelection(getViewModel().selectedLot);
+    }
+
+    @Override
     public void showLot(int type, String lot, String position) {
         mActivity.addFragment(LotCreateFragment.getInstance(type, lot, position));
     }

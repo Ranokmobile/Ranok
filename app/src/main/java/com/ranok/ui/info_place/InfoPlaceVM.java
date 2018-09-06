@@ -97,6 +97,7 @@ public class InfoPlaceVM extends BaseViewModel<InfoPlaceIView> implements Search
     }
 
     public boolean isDataPresent(){
+        if (data == null) return false;
         if (data.getPlaceInfoList() == null) return false;
         if (data.getPlaceInfoList().size() == 0) return false;
         return true;
