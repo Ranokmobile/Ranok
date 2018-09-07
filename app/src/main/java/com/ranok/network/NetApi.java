@@ -1,6 +1,7 @@
 package com.ranok.network;
 
 import com.ranok.network.request.AcceptListRequest;
+import com.ranok.network.request.AcceptOrderRequest;
 import com.ranok.network.request.BarcodeRequest;
 import com.ranok.network.request.CodeRequest;
 import com.ranok.network.request.CreateLotRequest;
@@ -16,6 +17,7 @@ import com.ranok.network.request.RfidRequest;
 import com.ranok.network.request.SplitLpnRequest;
 import com.ranok.network.request.UnpackLpnRequest;
 import com.ranok.network.response.AcceptListResponse;
+import com.ranok.network.response.AcceptOrderResponse;
 import com.ranok.network.response.BaseResponse;
 import com.ranok.network.response.CreateLotResponse;
 import com.ranok.network.response.LoginResponse;
@@ -98,4 +100,8 @@ public interface NetApi {
 
     @POST("reciept_order")
     Single<RecieptOrderResponse> recieptOrder(@Body RecieptOrderRequest recieptOrderRequest);
+
+    @POST("accept_order")
+    Single<AcceptOrderResponse> acceptOrder(@Body AcceptOrderRequest acceptOrderRequest);
+
 }

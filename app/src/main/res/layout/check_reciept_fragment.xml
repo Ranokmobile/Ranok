@@ -28,10 +28,12 @@
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:layout_height="0dp">
+
             <TextView
                 android:id="@+id/tvLpn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="НЗ для контроля"
                 android:textColor="@color/text_black"
                 android:textSize="18sp"
@@ -39,17 +41,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <include
                 android:id="@+id/searchLpn"
                 layout="@layout/item_get_code"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="tvLpn"
                 bind:viewModel="@{viewModel.searchSourceLpnVM}" />
         </android.support.constraint.ConstraintLayout>
 
