@@ -29,7 +29,18 @@ public class CheckRecieptIVM extends BaseViewModel<CheckRecieptIView>
     List<String> qualities;
 
     @State
+    String inputQty;
+
+    @State
     String lpn;
+
+    public String getInputQty() {
+        return inputQty;
+    }
+
+    public void setInputQty(String inputQty) {
+        this.inputQty = inputQty;
+    }
 
     private SearchLpnWidgetVM searchSourceLpnVM;
 
@@ -60,6 +71,7 @@ public class CheckRecieptIVM extends BaseViewModel<CheckRecieptIView>
     }
 
     private void startSearch() {
+        showLoader();
         compositeDisposable.add(
           netApi.getAcceptList(new AcceptListRequest(searchSourceLpnVM.getInputText()))
           .subscribeOn(Schedulers.io())

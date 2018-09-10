@@ -23,7 +23,6 @@ public class CheckRecieptFragment extends BaseFragment<CheckRecieptIView, CheckR
     }
 
 
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

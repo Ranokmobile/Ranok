@@ -52,8 +52,47 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="tvLpn"
+                app:layout_constraintTop_toBottomOf="@+id/tvLpn"
                 bind:viewModel="@{viewModel.searchSourceLpnVM}" />
+
+
+            <TextView
+                android:id="@+id/tvQtyCaption"
+                style="@style/PosInfoLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="Количество"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/searchLpn" />
+
+
+            <!--android:maxLength="@{viewModel.position.maxQtySymbols}"-->
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:text="@={viewModel.inputQty}"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:gravity="center_horizontal"
+                app:layout_constraintBottom_toBottomOf="@+id/tvQtyCaption"
+                app:layout_constraintStart_toEndOf="@+id/tvQtyCaption"
+                app:layout_constraintTop_toTopOf="@+id/tvQtyCaption" />
+
+            <Spinner
+                android:id="@+id/spinnerQuality"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText" />
+
         </android.support.constraint.ConstraintLayout>
 
     </LinearLayout>

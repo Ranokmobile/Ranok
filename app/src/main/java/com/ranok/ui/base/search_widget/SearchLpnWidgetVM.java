@@ -15,6 +15,6 @@ public class SearchLpnWidgetVM extends BaseSearchWidgetVM  {
 
     @Override
     protected boolean isInputCorrect() {
-        return !getInputText().isEmpty();
+        return getInputText() != null && !getInputText().isEmpty();
     }
 }
