@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -24,36 +23,57 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             />
+
+        <TextView
+            android:id="@+id/tvLpn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="НЗ для контроля"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/text_black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/searchLpn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="0dp">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/tvLpn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="НЗ для контроля"
-                android:textColor="@color/text_black"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <include
                 android:id="@+id/searchLpn"
                 layout="@layout/item_get_code"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/tvPositionInfo"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvLpn"
-                bind:viewModel="@{viewModel.searchSourceLpnVM}" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="spread_inside"
+                app:viewModel="@{viewModel.searchSourceLpnVM}" />
+
+            <TextView
+                android:id="@+id/tvPositionInfo"
+                style="@style/PosInfoLabels"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@{viewModel.model.itemSpec}"
+                app:layout_constraintBottom_toTopOf="@+id/tvQtyCaption"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/searchLpn" />
 
 
             <TextView
@@ -64,8 +84,9 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Количество"
+                app:layout_constraintBottom_toTopOf="@+id/tvQuality"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/searchLpn" />
+                app:layout_constraintTop_toBottomOf="@+id/tvPositionInfo" />
 
 
             <!--android:maxLength="@{viewModel.position.maxQtySymbols}"-->
@@ -73,15 +94,39 @@
                 android:id="@+id/editText"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:imeOptions="actionDone"
                 android:inputType="number"
+                android:maxLength="@{viewModel.model.maxQtySymbols}"
                 android:text="@={viewModel.inputQty}"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp"
-                android:gravity="center_horizontal"
                 app:layout_constraintBottom_toBottomOf="@+id/tvQtyCaption"
                 app:layout_constraintStart_toEndOf="@+id/tvQtyCaption"
                 app:layout_constraintTop_toTopOf="@+id/tvQtyCaption" />
+
+            <TextView
+                android:id="@+id/tvFrom"
+                style="@style/PosInfoLabels"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.model.from}"
+                app:layout_constraintBottom_toBottomOf="@+id/editText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/editText"
+                app:layout_constraintTop_toTopOf="@+id/editText" />
+
+            <TextView
+                android:id="@+id/tvQuality"
+                style="@style/PosInfoLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="Качество"
+                app:layout_constraintBottom_toTopOf="@+id/btnCheck"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvQtyCaption" />
 
             <Spinner
                 android:id="@+id/spinnerQuality"
@@ -89,9 +134,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvQuality"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvQuality"
+                app:layout_constraintTop_toTopOf="@+id/tvQuality" />
+
+            <Button
+                android:id="@+id/btnCheck"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Подтвердить приёмку"
+                android:onClick="@{viewModel::checkClicked}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText" />
+                app:layout_constraintTop_toBottomOf="@+id/tvQuality" />
+
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--android:enabled="@{viewModel.recieptEnabled}"-->
+            <!--android:onClick="@{viewModel::recieptClicked}"-->
 
         </android.support.constraint.ConstraintLayout>
 

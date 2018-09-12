@@ -30,6 +30,19 @@ public class AcceptListModel {
     @ColumnInfo(name="lpn")
     String lpn;
 
+
+    public String getFrom(){
+        return " из " + String.valueOf(quantity);
+    }
+
+    public String getItemSpec(){
+        return itemCode + " / " + itemName;
+    }
+
+    public int getMaxQtySymbols(){
+        return String.valueOf(quantity).length();
+    }
+
     public String getLpn() {
         return lpn;
     }

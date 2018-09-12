@@ -1,13 +1,16 @@
 package com.ranok.ui.reciept;
 
 public enum QualityCode {
-    NORM("Нормальные"), X_CUSTOMER("Брак клиента"), X_PRODUCTION("Брак производства"),
-    X_TRANSPORT("Брак транспортировки"), X_WAREHOUSE("Брак склада"),
-    EXAM("Образцы"), RETURN("Ликвидный возврат");
+    NORM("Нормальные", 0), X_CUSTOMER("Брак клиента", 1), X_PRODUCTION("Брак производства", 2),
+    X_TRANSPORT("Брак транспортировки", 3), X_WAREHOUSE("Брак склада", 4),
+    EXAM("Образцы", 5), RETURN("Ликвидный возврат", 6), UNKNOWN("", 7);
 
     String label;
-    QualityCode(String label) {
+    int npp;
+
+    QualityCode(String label, int npp) {
         this.label = label;
+        this.npp = npp;
     }
 
     public static QualityCode getByLabel(String lbl){
@@ -15,6 +18,13 @@ public enum QualityCode {
             if(lbl.equals(e.label)) return e;
         }
         return null;
+    }
+
+    public static QualityCode getByNpp(int npp){
+        for(QualityCode e : QualityCode.values()){
+            if(e.npp == npp) return e;
+        }
+        return UNKNOWN;
     }
 
 }
