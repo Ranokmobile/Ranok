@@ -1,6 +1,7 @@
 package com.ranok.ui.reciept;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 
@@ -28,7 +29,9 @@ public class CheckRecieptIVM extends BaseViewModel<CheckRecieptIView>
         implements SearchWidgetCallbacks {
     public static final String SEARCH_WIDGET_SOURCE_LPN_TAG =  "CheckRecieptIVM";
 
+    @State
     AcceptListModel model;
+
 
     QualityCode qualityCode = QualityCode.UNKNOWN;
 
@@ -69,12 +72,18 @@ public class CheckRecieptIVM extends BaseViewModel<CheckRecieptIView>
     @Override
     public void onCreate(@Nullable Bundle arguments, @Nullable Bundle savedInstanceState) {
         super.onCreate(arguments, savedInstanceState);
+        StateHelperCheckRecieptIVM.onRestoreInstanceState(this, savedInstanceState);
 
         compositeDisposable.add(Observable.fromIterable(Arrays.asList(QualityCode.values()) )
                 .map(i->i.label).toList().subscribe(strings -> qualities = strings)
         );
-
         searchSourceLpnVM = new SearchLpnWidgetVM(SEARCH_WIDGET_SOURCE_LPN_TAG, this);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+        StateHelperCheckRecieptIVM.onSaveInstanceState(this, bundle);
     }
 
     public void spinnerItemSelected(int i){
@@ -98,6 +107,7 @@ public class CheckRecieptIVM extends BaseViewModel<CheckRecieptIView>
 
     public void startSearch() {
         showLoader();
+        lpn = searchSourceLpnVM.getInputText();
         compositeDisposable.add(
           netApi.getAcceptList(new AcceptListRequest(StringUtils.formatToLpn(searchSourceLpnVM.getInputText())))
           .subscribeOn(Schedulers.io())
@@ -133,8 +143,8 @@ public class CheckRecieptIVM extends BaseViewModel<CheckRecieptIView>
         }
         showLoader();
         compositeDisposable.add(
-                netApi.acceptOrder(new AcceptOrderRequest(lpn, model.getItemCode(), model.getLot(),
-                        Integer.valueOf(inputQty), qualityCode.label))
+                netApi.acceptOrder(new AcceptOrderRequest(StringUtils.formatToLpn(lpn) , model.getItemCode(), model.getLot(),
+                        Integer.valueOf(inputQty), qualityCode.toString()))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::processAcceptResponse, this::processError)
@@ -142,6 +152,7 @@ public class CheckRecieptIVM extends BaseViewModel<CheckRecieptIView>
     }
 
     private void processAcceptResponse(AcceptOrderResponse acceptOrderResponse) {
+        hideLoader();
 
     }
 }

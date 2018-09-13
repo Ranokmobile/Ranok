@@ -42,6 +42,10 @@ public class LpnInfoModel {
     @ColumnInfo(name="volume")
     Double volume;
 
+    @SerializedName("lpnContext")
+    @ColumnInfo(name="lpnContext")
+    String lpnContext;
+
     public String getCreation() {
         return createdBy + " (" + creationDate + ")";
     }
@@ -67,6 +71,13 @@ public class LpnInfoModel {
         return number.replaceAll("\\.?0*$", "");
     }
 
+    public String getLpnContext() {
+        return lpnContext;
+    }
+
+    public void setLpnContext(String lpnContext) {
+        this.lpnContext = lpnContext;
+    }
 
     public String getLpn() {
         return lpn;

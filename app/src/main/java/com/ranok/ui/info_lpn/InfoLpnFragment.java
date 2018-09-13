@@ -45,6 +45,14 @@ public class InfoLpnFragment extends BaseFragment<InfoLpnIView, InfoLpnVM, InfoL
             REQUEST_CODE_PRINT = 4;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
+    public static InfoLpnFragment getInstance(String lpn){
+        InfoLpnFragment fragment = new InfoLpnFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("lpn", lpn);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     @Override
     protected String getScreenTitle() {
         return "Информация о НЗ";

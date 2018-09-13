@@ -57,20 +57,25 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
         super.onCreate(arguments, savedInstanceState);
         searchVM = new SearchLpnWidgetVM(SEARCH_WIDGET_TAG, this);
 
-        LpnInfoResponseData data = Hawk.get("LPN_DATA");
-        if (data != null) {
-            this.lpnInfoModel = data.getLpnInfoModel();
-            this.listLpnPositions = data.getListLpnPositions();
-            if(listLpnPositions != null) {
-                adapter.setItems(listLpnPositions);
-            } else {
-                adapter.setItems(new ArrayList<>());
+        if (arguments != null && arguments.getString("lpn") != null) {
+            String pLpn = arguments.getString("lpn");
+            searchVM.onTextChanged(pLpn, 0, 0, 0);
+            startSearch();
+        } else {
+            LpnInfoResponseData data = Hawk.get("LPN_DATA");
+            if (data != null) {
+                this.lpnInfoModel = data.getLpnInfoModel();
+                this.listLpnPositions = data.getListLpnPositions();
+                if (listLpnPositions != null) {
+                    adapter.setItems(listLpnPositions);
+                } else {
+                    adapter.setItems(new ArrayList<>());
+                }
+                notifyChange();
             }
-            notifyChange();
+            String s = Hawk.get("LPN_TEXT");
+            if (s != null) searchVM.onTextChanged(s, 0, 0, 0);
         }
-        String s = Hawk.get("LPN_TEXT");
-        if (s!=null) searchVM.onTextChanged(s,0,0,0);
-
     }
 
     @Override
