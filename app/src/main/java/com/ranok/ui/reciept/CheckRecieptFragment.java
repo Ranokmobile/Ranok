@@ -25,6 +25,8 @@ import ranok.mvvm.binding.ViewModelBindingConfig;
 public class CheckRecieptFragment extends BaseFragment<CheckRecieptIView, CheckRecieptIVM, CheckRecieptFragmentBinding>
         implements CheckRecieptIView,  TextView.OnEditorActionListener {
 
+    private static final int SCAN_REQUEST_CODE = 1, DIALOG_REQUEST_CODE = 2;
+
 
 
 
@@ -59,6 +61,11 @@ public class CheckRecieptFragment extends BaseFragment<CheckRecieptIView, CheckR
     }
 
     @Override
+    public void setupSpinner() {
+        getBinding().spinnerQuality.setSelection(getViewModel().getQualityCode().npp);
+    }
+
+    @Override
     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
         if (i == EditorInfo.IME_ACTION_SEARCH) {
             mActivity.hideKeyboard();
@@ -70,16 +77,27 @@ public class CheckRecieptFragment extends BaseFragment<CheckRecieptIView, CheckR
 
     @Override
     public void startScanBarcode() {
-        startActivityForResult(new Intent(getActivity(), LivePreviewActivity.class),1);
+        startActivityForResult(new Intent(getActivity(), LivePreviewActivity.class),SCAN_REQUEST_CODE);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
+        if (requestCode == SCAN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             String barcode = data.getStringExtra("barcode");
             getViewModel().gotBarcode(barcode);
+            return;
         }
+        if (requestCode == DIALOG_REQUEST_CODE){
+
+        }
+    }
+
+    @Override
+    public void showPlacementDialog(String lpn) {
+        PlacementDialogFragment dialog =  PlacementDialogFragment.getInstance(lpn);
+        dialog.setTargetFragment(this, DIALOG_REQUEST_CODE);
+        dialog.show(mActivity.getSupportFragmentManager(), "");
     }
 
     @Nullable

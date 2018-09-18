@@ -118,6 +118,10 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
         return (listLpnPositions != null && listLpnPositions.size()>0);
     }
 
+    public boolean isFabMenuVisible(){
+        return (listLpnPositions != null && listLpnPositions.size()>0) || (!lpnInfoModel.isLpnDelivered());
+    }
+
 
     private void processResponse(LpnInfoResponse response) {
         hideLoader();

@@ -55,12 +55,13 @@ public class LpnInfoModel {
     }
 
     public String getCharacteristics() {
-       // return weight + " кг," + volume + " м3";
         String res = trimTrailingZeros(String.format(Locale.getDefault(),"%.12f", weight)) + " кг, ";
         res = res + trimTrailingZeros(String.format(Locale.getDefault(),"%.12f", volume)) + " м3";
         return res;
-        //return String.format(Locale.getDefault(), "%.12f кг, %.12f м3", weight, volume);
+    }
 
+    public boolean isLpnDelivered(){
+        return lpnContext.equals("На хранении");
     }
 
     private static String trimTrailingZeros(String number) {

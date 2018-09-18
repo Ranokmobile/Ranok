@@ -64,7 +64,8 @@
                     android:text="@{viewModel.lpnInfoModel.lpnContext}"
                     style="@style/PosInfoTexts"
                     android:layout_marginStart="20dp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
@@ -182,7 +183,7 @@
     </LinearLayout>
 
         <com.github.clans.fab.FloatingActionMenu
-            android:visibility="@{viewModel.rvVisible}"
+            android:visibility="@{viewModel.fabMenuVisible}"
             android:id="@+id/menu_red"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -210,6 +211,7 @@
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fabSplit"
+                android:visibility="@{viewModel.lpnInfoModel.lpnDelivered}"
                 android:onClick="@{viewModel::splitClick}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -219,6 +221,7 @@
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fabUnPack"
+                android:visibility="@{viewModel.lpnInfoModel.lpnDelivered}"
                 android:onClick="@{viewModel::unpackClick}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

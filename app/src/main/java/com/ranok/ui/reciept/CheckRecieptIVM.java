@@ -123,6 +123,8 @@ public class CheckRecieptIVM extends BaseViewModel<CheckRecieptIView>
     private void processSearchResponse(AcceptListResponse acceptListResponse) {
         hideLoader();
         inputQty = null;
+        spinnerItemSelected(7);
+        getViewOptional().setupSpinner();
         if (acceptListResponse.data.getAcceptList() == null
                 || acceptListResponse.data.getAcceptList().size()==0) {
             model =null;
@@ -153,6 +155,25 @@ public class CheckRecieptIVM extends BaseViewModel<CheckRecieptIView>
 
     private void processAcceptResponse(AcceptOrderResponse acceptOrderResponse) {
         hideLoader();
-
+        if (acceptOrderResponse.data.resultCode == 0 || acceptOrderResponse.data.resultCode == 30){
+            model.setQuantity(model.getQuantity() - acceptOrderResponse.data.qtyRecieved);
+            spinnerItemSelected(7);
+            inputQty = "";
+            getViewOptional().setupSpinner();
+            notifyChange();
+            if (model.getQuantity() == 0) {
+                getViewOptional().showPlacementDialog(model.getLpn());
+            } else {
+                model.setLpn(lpn);
+                lpn = StringUtils.formatFromLpn(acceptOrderResponse.data.lpnRejected);
+                searchSourceLpnVM.setInputText(lpn);
+                getViewOptional().showSnakeBar("Сформирован НЗ "
+                        + acceptOrderResponse.data.lpnRejected
+                        + " c отклоненным кол-вом"
+                );
+            }
+        } else {
+            getViewOptional().showSnakeBar(acceptOrderResponse.data.resultMessage);
+        }
     }
 }

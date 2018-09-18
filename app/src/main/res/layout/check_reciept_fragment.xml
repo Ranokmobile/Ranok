@@ -69,6 +69,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="@{viewModel.model.itemSpec}"
+                android:singleLine="false"
+                android:lines="4"
                 app:layout_constraintBottom_toTopOf="@+id/tvQtyCaption"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

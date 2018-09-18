@@ -40,16 +40,16 @@
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:layout_marginTop="8dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:visibility="@{viewModel.dataPresent}"
             bind:layout_constraintEnd_toEndOf="parent"
             bind:layout_constraintStart_toStartOf="parent"
             bind:layout_constraintTop_toBottomOf="@+id/searchItem">
 
             <TextView
+                android:visibility="@{viewModel.dataPresent}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -58,6 +58,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:visibility="@{viewModel.dataPresent}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -66,6 +67,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:visibility="@{viewModel.dataPresent}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -74,6 +76,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:visibility="@{viewModel.dataPresent}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
