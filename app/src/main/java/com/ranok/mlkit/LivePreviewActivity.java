@@ -68,6 +68,7 @@ public final class LivePreviewActivity extends AppCompatActivity
     } else {
       getRuntimePermissions();
     }
+
   }
 
     @Override
