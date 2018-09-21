@@ -130,56 +130,13 @@ public class MainActivity  extends BaseActivity<MainActivityIView, MainActivityV
                     BaseRecord result = NDEFRecordFactory.createRecord(record);
                     if (result != null) {
                         RxRFIDEvent.getInstance().sendRFIDData(result.payload);
-                        //setNfcData(result);
                     }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-/*
-        String action = i.getAction();
-        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
-            Log.d("Nfc", "Action NDEF Found");
-            Parcelable[] parcs = i.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-
-            // List record
-
-            for (Parcelable p : parcs) {
-                NdefMessage msg = (NdefMessage) p;
-                final int numRec = msg.getRecords().length;
-                //  recNumberTxt.setText(String.valueOf(numRec));
-
-                NdefRecord[] records = msg.getRecords();
-                for (NdefRecord record : records) {
-                    BaseRecord result = NDEFRecordFactory.createRecord(record);
-                    if (result != null) {
-                        setNfcData(result);
-                    }
-                }
-            }
-        }
-*/
-
     }
-
-//    void setNfcData(BaseRecord result) {
-//        String tag = result.payload;
-//        Log.d("nfcRec", tag);
-//        if (tag.equals("Посылки")) {
-//            Fragment f = getSupportFragmentManager().findFragmentById(R.id.container);
-//            if (f instanceof ScanFragment) {
-//                Log.d("NFC", "do nothing");
-//            } else {
-//                addFragment(new ScanFragment());
-//            }
-//        } else {
-//            Snackbar snackbar = Snackbar
-//                    .make(getBinding().getRoot(), "Метка неправильная", Snackbar.LENGTH_LONG);
-//            snackbar.show();
-//        }
-//    }
 
     @Override
     public void onStop() {
@@ -212,5 +169,9 @@ public class MainActivity  extends BaseActivity<MainActivityIView, MainActivityV
 
     public ArrayList<PackageBarcodeResponseData> getScanPackagesResults(){
         return getViewModel().packageScanResults;
+    }
+
+    public void  addScanPackagesResult(PackageBarcodeResponseData data){
+        getViewModel().packageScanResults.add(data);
     }
 }

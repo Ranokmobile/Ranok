@@ -82,8 +82,11 @@ public class InfoPlaceVM extends BaseViewModel<InfoPlaceIView> implements Search
         if (searchVM.getInputText() == null) return;
         String searchStr = searchVM.getInputText();
         String[] sArr = searchStr.split("\\.");
-
-        searchByCode(sArr[0], sArr[1], sArr[2], sArr[3]);
+        if (sArr.length != 4) {
+            getViewOptional().showSnakeBar("Некоррекный адрес");
+        } else {
+            searchByCode(sArr[0], sArr[1], sArr[2], sArr[3]);
+        }
     }
 
     public void searchByCode(String rack, String space, String floor, String block) {

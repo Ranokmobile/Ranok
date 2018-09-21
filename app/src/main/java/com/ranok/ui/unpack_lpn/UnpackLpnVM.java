@@ -93,7 +93,7 @@ public class UnpackLpnVM extends BaseViewModel<UnpackLpnIView> {
     private void processResponse(LpnOperationResponse response) {
         hideLoader();
         if (response.data.resultCode == 0) {
-            RxLpnOperation.getInstance().sendLpnData(response.data.newLpnCode);
+            if (response.data.newLpnCode != null) RxLpnOperation.getInstance().sendLpnData(response.data.newLpnCode);
             getViewOptional().closeScreen();
         } else {
             getViewOptional().showSnakeBar(response.data.resultMessage);

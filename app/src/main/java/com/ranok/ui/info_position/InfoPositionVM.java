@@ -83,7 +83,7 @@ public class InfoPositionVM extends BaseViewModel<InfoPositionIView> implements 
     public void searchByCode(String code) {
         showLoader();
         compositeDisposable.add(
-                netApi.getPositionsByCode(new CodeRequest(code))
+                netApi.getPositionsByCode(new CodeRequest(code,""))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::processPositionsByCodeResponse, this::processError)

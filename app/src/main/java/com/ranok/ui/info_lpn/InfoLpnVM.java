@@ -98,7 +98,7 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
     private void searchByCode(String code) {
         showLoader();
         compositeDisposable.add(
-                netApi.getLpnByCode(new CodeRequest(code))
+                netApi.getLpnByCode(new CodeRequest(code, "daily"))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::processResponse, this::processError)
@@ -119,7 +119,13 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
     }
 
     public boolean isFabMenuVisible(){
-        return (listLpnPositions != null && listLpnPositions.size()>0) || (!lpnInfoModel.isLpnDelivered());
+        return (listLpnPositions != null && listLpnPositions.size()>0)
+                ||
+                (lpnInfoModel != null && !lpnInfoModel.isLpnDelivered());
+    }
+
+    public boolean isFabItemVisible(){
+        return (lpnInfoModel != null && lpnInfoModel.isLpnDelivered());
     }
 
 
@@ -135,6 +141,7 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
             adapter.setItems(new ArrayList<>());
         }
         notifyChange();
+        getViewOptional().refreshFab();
     }
 
     public void moveClick(View v){

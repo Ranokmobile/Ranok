@@ -16,6 +16,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 
 public class PositionLotAttributesModel extends BaseObservable implements Parcelable {
     @SerializedName("lotNumber")
@@ -332,16 +333,27 @@ public class PositionLotAttributesModel extends BaseObservable implements Parcel
         if (s.size()>0) return s.get(0);
 
         //Проверка объема
-        Single<Float> packTotal = packObservable.reduce(0f, (total, val) -> total*val);
-        Single<Float> posTotal = posObservable.reduce(0f, (total, val) -> total*val);
+        Single<Float> packTotal = packObservable.reduce(1f, (total, val) -> total*val);
+        Single<Float> posTotal = posObservable.reduce(1f, (total, val) -> total*val);
         Single<Long> totalSize = Single.zip(packTotal, posTotal
                 , (aFloat, aFloat2) -> (aFloat < aFloat2)).filter(i->i).count();
         s.clear();
-        cd.add(smallToBig.subscribe(aLong -> {
+        cd.add(totalSize.subscribe(aLong -> {
                     if (aLong>0) s.add("Объем штуки больше объема пачки");
                 })
         );
         if (s.size()>0) return s.get(0);
+
+        //
+        List<Float> floatList = new ArrayList<>();
+        cd.add(posTotal.subscribe((Consumer<Float>) floatList::add));
+        cd.add(packTotal.subscribe((Consumer<Float>) floatList::add));
+
+        Float div = floatList.get(0)*Float.valueOf(packStandart) / floatList.get(1);
+
+        if ( div <.85 || div >1.0){
+            return "Объем штучек*стандарт не соответствует объему пачки";
+        }
 
 
         if (Float.valueOf(posWeight) *Float.valueOf(packStandart) > Float.valueOf(packWeight))

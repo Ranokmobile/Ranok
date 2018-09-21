@@ -82,7 +82,8 @@ public class BaseScanVM extends BaseViewModel<BaseScanIView> implements BarcodeS
     }
 
     private void processAddedBarcode(PackageBarcodeResponse response) {
-        responsesList.add(response.data);
+        //responsesList.add(response.data);
+        getViewOptional().barcodeAccepted(response.data);
         hideLoader();
         if (response.data.code == 0){
             playSound(R.raw.scanner);

@@ -79,7 +79,7 @@ public class LotCreateVM extends BaseViewModel<LotCreateIView> {
     private void getLots() {
         showLoader();
         compositeDisposable.add(
-                netApi.getLotInfo(new CodeRequest(position))
+                netApi.getLotInfo(new CodeRequest(position,""))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::processResponse, this::processError)

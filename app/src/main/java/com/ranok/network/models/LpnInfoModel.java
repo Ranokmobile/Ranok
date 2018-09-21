@@ -61,7 +61,7 @@ public class LpnInfoModel {
     }
 
     public boolean isLpnDelivered(){
-        return lpnContext.equals("На хранении");
+        return lpnContext != null && lpnContext.equals("На хранении");
     }
 
     private static String trimTrailingZeros(String number) {

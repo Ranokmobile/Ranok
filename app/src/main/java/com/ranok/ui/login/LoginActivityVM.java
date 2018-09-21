@@ -18,9 +18,11 @@ import ranok.annotation.State;
 public class LoginActivityVM extends BaseViewModel<LoginActivityIView> {
 
     @State
-    String login = "trainee01";
+    //String login = "trainee01";
+    String login = "";
 
-    private String password = "123456";
+    //private String password = "123456";
+    private String password = "";
 
     public String getLogin() {
         return login;

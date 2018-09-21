@@ -17,7 +17,9 @@ import com.ranok.mlkit.CameraSource;
 import com.ranok.mlkit.CameraSourcePreview;
 import com.ranok.mlkit.GraphicOverlay;
 import com.ranok.mlkit.barcodescanning.BarcodeScanningProcessor;
+import com.ranok.network.response.PackageBarcodeResponseData;
 import com.ranok.ui.base.BaseFragment;
+import com.ranok.ui.main.MainActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -192,5 +194,10 @@ public class BaseScanFragment extends BaseFragment<BaseScanIView, BaseScanVM, Ba
     @Override
     public ViewModelBindingConfig getViewModelBindingConfig() {
         return new ViewModelBindingConfig(R.layout.base_scan_fragment, BR.viewModel, getContext());
+    }
+
+    @Override
+    public void barcodeAccepted(PackageBarcodeResponseData data) {
+        ((MainActivity)mActivity).addScanPackagesResult(data);
     }
 }

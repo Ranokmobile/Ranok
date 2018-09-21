@@ -34,8 +34,9 @@ public class ScanRFIDVM extends BaseViewModel<ScanRFIDIView> {
     private void gotRFID(String s) {
         Log.d("ranok ScanRFIDVM", "gotRfid");
         RxRFIDEvent.getInstance().sendRFIDData("");
+        showLoader();
         compositeDisposable.add(
-                netApi.rfid(new RfidRequest(s))
+                netApi.rfid(new RfidRequest(s, ""))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::processOk,this::processError)
@@ -45,6 +46,7 @@ public class ScanRFIDVM extends BaseViewModel<ScanRFIDIView> {
     }
 
     private void processOk(BaseResponse baseResponse) {
+        hideLoader();
         getViewOptional().startScanPackages();
 
     }

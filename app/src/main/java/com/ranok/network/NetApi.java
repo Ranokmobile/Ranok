@@ -25,7 +25,6 @@ import com.ranok.network.response.LotInfoResponse;
 import com.ranok.network.response.LpnInfoResponse;
 import com.ranok.network.response.LpnOperationResponse;
 import com.ranok.network.response.PackageBarcodeResponse;
-import com.ranok.network.response.PackageBarcodeResponseData;
 import com.ranok.network.response.PlaceInfoResponse;
 import com.ranok.network.response.PositionInfoByBarcodeResponse;
 import com.ranok.network.response.RecieptListResponse;
@@ -36,10 +35,19 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface NetApi {
-    //String URL = "http://ebs-dev.localdomain:8008/Conveyor/api/parcelScan/";
+    //String URL = "http://ebs-dev.localdomain:8008/Conveyor/api/parcelScan/"; // dev
+
+
     //String URL = "http://dreadnought:8080/Conveyor/api/parcelScan/";
     //String URL = "http://192.168.15.168:8080/Conveyor/api/parcelScan/";
-    String URL = "http://192.168.15.240:8080/Conveyor/api/parcelScan/";
+    //String URL = "http://192.168.15.211:8080/Conveyor/api/parcelScan/";
+
+    String URL = "http://192.168.15.211:8080/Conveyor/api/parcelScan/"; //local
+
+
+
+
+    //String URL = "http://ebs-dev.localdomain:8008/Conveyor/api/parcelScan/";
 
     @POST("login")
     Single<LoginResponse> login(@Body LoginRequest loginRequest);
@@ -54,7 +62,7 @@ public interface NetApi {
     Single<PackageBarcodeResponse> packagebarcode(@Body BarcodeRequest barcodeRequest);
 
     @POST("add_movement")
-    Single<PackageBarcodeResponseData> addMovement();
+    Single<PackageBarcodeResponse> addMovement();
 
     @POST("get_position_info_by_barcode")
     Single<PositionInfoByBarcodeResponse> getPositionsByBarcode(@Body BarcodeRequest barcodeRequest);

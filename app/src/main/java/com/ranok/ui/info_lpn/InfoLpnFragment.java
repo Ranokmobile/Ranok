@@ -84,6 +84,12 @@ public class InfoLpnFragment extends BaseFragment<InfoLpnIView, InfoLpnVM, InfoL
         );
     }
 
+    @Override
+    public void refreshFab() {
+        getBinding().fabSplit.setEnabled(getViewModel().isFabItemVisible());
+        getBinding().fabUnPack.setEnabled(getViewModel().isFabItemVisible());
+    }
+
     private void gotNewLpn(String s) {
         RxLpnOperation.getInstance().sendLpnData("");
         Utils.copyToClipboard(mActivity, StringUtils.formatFromLpn(s));

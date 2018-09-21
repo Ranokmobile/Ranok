@@ -197,7 +197,7 @@
             fab:menu_icon="@drawable/ic_wrench"
             fab:menu_labels_ellipsize="end"
             fab:menu_labels_singleLine="true"
-            fab:menu_backgroundColor="#ccffffff"
+            fab:menu_backgroundColor="#eeffffff"
             fab:menu_fab_label="Отмена">
 
             <com.github.clans.fab.FloatingActionButton
@@ -211,23 +211,23 @@
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fabSplit"
-                android:visibility="@{viewModel.lpnInfoModel.lpnDelivered}"
                 android:onClick="@{viewModel::splitClick}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_call_split"
                 fab:fab_size="mini"
                 fab:fab_label="Разбить НЗ" />
+            <!--android:visibility="@{viewModel.fabItemVisible}"-->
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fabUnPack"
-                android:visibility="@{viewModel.lpnInfoModel.lpnDelivered}"
                 android:onClick="@{viewModel::unpackClick}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_package_up"
                 fab:fab_size="mini"
                 fab:fab_label="Распаковать НЗ" />
+            <!--android:visibility="@{viewModel.fabItemVisible}"-->
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fabPrint"

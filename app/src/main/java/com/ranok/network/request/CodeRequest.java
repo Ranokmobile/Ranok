@@ -6,7 +6,11 @@ public class CodeRequest {
     @SerializedName("code")
     public String code;
 
-    public CodeRequest(String code) {
+    @SerializedName("instance")
+    public String instance;
+
+    public CodeRequest(String code, String instance) {
         this.code = code;
+        this.instance = instance;
     }
 }

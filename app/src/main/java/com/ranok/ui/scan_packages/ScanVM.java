@@ -8,6 +8,7 @@ import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.RanokApp;
 import com.ranok.adapters.RecyclerBindingAdapter;
+import com.ranok.network.response.PackageBarcodeResponse;
 import com.ranok.network.response.PackageBarcodeResponseData;
 import com.ranok.ui.base.BaseViewModel;
 
@@ -58,9 +59,9 @@ public class ScanVM extends BaseViewModel<ScanIView>  {
         );
     }
 
-    private void processAddedMovement(PackageBarcodeResponseData baseResponse) {
+    private void processAddedMovement(PackageBarcodeResponse baseResponse) {
         hideLoader();
-        if (baseResponse.code == 0) {
+        if (baseResponse.data.code == 0) {
             showToast(RanokApp.getApp().getString(R.string.scan_packages_complete));
             getViewOptional().exit();
         } else {
