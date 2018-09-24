@@ -35,14 +35,14 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface NetApi {
-    //String URL = "http://ebs-dev.localdomain:8008/Conveyor/api/parcelScan/"; // dev
+    String URL = "http://ebs-dev.localdomain:8008/Conveyor/api/parcelScan/"; // dev
 
 
     //String URL = "http://dreadnought:8080/Conveyor/api/parcelScan/";
     //String URL = "http://192.168.15.168:8080/Conveyor/api/parcelScan/";
     //String URL = "http://192.168.15.211:8080/Conveyor/api/parcelScan/";
 
-    String URL = "http://192.168.15.211:8080/Conveyor/api/parcelScan/"; //local
+   // String URL = "http://192.168.15.211:8080/Conveyor/api/parcelScan/"; //local
 
 
 

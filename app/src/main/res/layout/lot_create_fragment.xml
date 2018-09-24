@@ -50,7 +50,7 @@
                 style="@style/PosInfoTexts"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
-                android:text="@{viewModel.position}"
+                android:text="@{viewModel.position.itemCode}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>

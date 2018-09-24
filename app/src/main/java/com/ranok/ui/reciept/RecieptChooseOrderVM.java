@@ -95,6 +95,8 @@ public class RecieptChooseOrderVM extends BaseViewModel<RecieptChooseOrderIView>
         if (response.data.getRecieptList() != null) newList = response.data.getRecieptList();
         adapter.setItems(newList);
         adapter.getFilter().filter(filterText);
+
+        if (newList.size() ==0 ) getViewOptional().showSnakeBar("Поступление ненайдено");
     }
 
     private void itemClicked(RecieptListModel model) {

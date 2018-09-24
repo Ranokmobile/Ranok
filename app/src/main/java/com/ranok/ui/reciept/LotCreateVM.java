@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.ranok.network.models.PositionLotAttributesModel;
+import com.ranok.network.models.RecieptListModel;
 import com.ranok.network.request.CodeRequest;
 import com.ranok.network.request.CreateLotRequest;
 import com.ranok.network.response.CreateLotResponse;
@@ -36,7 +37,7 @@ public class LotCreateVM extends BaseViewModel<LotCreateIView> {
     @State
     String lot;
     @State
-    String position;
+    RecieptListModel position;
     @State
     List<PositionLotAttributesModel> lotsList = new ArrayList<>();
     @State
@@ -54,7 +55,7 @@ public class LotCreateVM extends BaseViewModel<LotCreateIView> {
         return model;
     }
 
-    public String getPosition() {
+    public RecieptListModel getPosition() {
         return position;
     }
 
@@ -70,7 +71,7 @@ public class LotCreateVM extends BaseViewModel<LotCreateIView> {
         if (arguments != null) {
             type = arguments.getInt("type");
             lot = arguments.getString("lot");
-            position = arguments.getString("position");
+            position = arguments.getParcelable("position");
         }
         getLots();
     }
@@ -79,7 +80,7 @@ public class LotCreateVM extends BaseViewModel<LotCreateIView> {
     private void getLots() {
         showLoader();
         compositeDisposable.add(
-                netApi.getLotInfo(new CodeRequest(position,""))
+                netApi.getLotInfo(new CodeRequest(position.getItemCode(),""))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::processResponse, this::processError)
@@ -147,11 +148,12 @@ public class LotCreateVM extends BaseViewModel<LotCreateIView> {
     }
 
     public void onClick(View v){
-        String check = model.isDataCorrect();
+        String check = model.isDataCorrect(position.getPackStandart());
         if (StringUtils.isEmpty(check)) {
             showLoader();
             compositeDisposable.add(
-                    netApi.createLot(new CreateLotRequest(Integer.parseInt(position), model.getLotNumber(), model.getPosLength()
+                    netApi.createLot(new CreateLotRequest(Integer.parseInt(position.getItemCode())
+                    ,model.getLotNumber(), model.getPosLength()
                     ,model.getPosWidth(), model.getPosHeight(), model.getPosWeight(), model.getPosHardness()
                     ,model.getPackLength(), model.getPackWidth(), model.getPackHeight(), model.getPackWeight()
                     ,model.getPackType(), model.getPackHardness(), model.getPackStandart()))

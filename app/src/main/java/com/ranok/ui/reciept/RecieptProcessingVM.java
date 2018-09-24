@@ -99,7 +99,7 @@ public class RecieptProcessingVM extends BaseViewModel<RecieptProcessingIView> {
 
     public void onShowLot(View v){
         int type = v.getId() == R.id.ibAddLot ? NEW_LOT : CHANGE_LOT;
-        getViewOptional().showLot(type, getSelectedLot(), position.getItemCode());
+        getViewOptional().showLot(type, getSelectedLot(), position);
     }
 
     @Bindable

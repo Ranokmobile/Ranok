@@ -237,7 +237,6 @@
                 android:src="@drawable/ic_printer"
                 fab:fab_size="mini"
                 fab:fab_label="Печать НЗ" />
-
         </com.github.clans.fab.FloatingActionMenu>
 
     </RelativeLayout>

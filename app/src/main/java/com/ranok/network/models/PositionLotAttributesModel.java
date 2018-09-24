@@ -299,7 +299,7 @@ public class PositionLotAttributesModel extends BaseObservable implements Parcel
         return ret;
     }
 
-    public String isDataCorrect(){
+    public String isDataCorrect(String positionPackStandart){
         if (isPackHeightUnset()) return "Высота упаковки не установлена";
         if (isPackLengthUnset()) return "Длина упаковки не установлена";
         if (isPackStandartUnset()) return "Стандарт упаковки не установлен";
@@ -349,14 +349,14 @@ public class PositionLotAttributesModel extends BaseObservable implements Parcel
         cd.add(posTotal.subscribe((Consumer<Float>) floatList::add));
         cd.add(packTotal.subscribe((Consumer<Float>) floatList::add));
 
-        Float div = floatList.get(0)*Float.valueOf(packStandart) / floatList.get(1);
+        Float div = floatList.get(0)*Float.valueOf(positionPackStandart) / floatList.get(1);
 
         if ( div <.85 || div >1.0){
             return "Объем штучек*стандарт не соответствует объему пачки";
         }
 
 
-        if (Float.valueOf(posWeight) *Float.valueOf(packStandart) > Float.valueOf(packWeight))
+        if (Float.valueOf(posWeight) *Float.valueOf(positionPackStandart) > Float.valueOf(packWeight))
             return "Масса штук больше массы пачки";
 
         if (!cd.isDisposed()) cd.dispose();

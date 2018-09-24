@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.databinding.LotCreateFragmentBinding;
+import com.ranok.network.models.RecieptListModel;
 import com.ranok.ui.base.BaseFragment;
 
 import ranok.mvvm.binding.ViewModelBindingConfig;
@@ -26,12 +27,12 @@ public class LotCreateFragment extends BaseFragment<LotCreateIView, LotCreateVM,
         return getViewModel().type ==1 ? "Создание партии" : "Просмотр партии";
     }
 
-    public static LotCreateFragment getInstance(int type, String lot, String position){
+    public static LotCreateFragment getInstance(int type, String lot, RecieptListModel position){
         LotCreateFragment fragment = new LotCreateFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("type", type);
         bundle.putString("lot", lot);
-        bundle.putString("position", position);
+        bundle.putParcelable("position", position);
         fragment.setArguments(bundle);
         return fragment;
     }
