@@ -9,6 +9,7 @@ import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.adapters.RecyclerBindingAdapter;
 import com.ranok.network.models.LpnInfoModel;
+import com.ranok.network.models.LpnInfoPositionsInReceipt;
 import com.ranok.network.models.PlaceInfoModel;
 import com.ranok.network.request.CodeRequest;
 import com.ranok.network.response.LpnInfoResponse;
@@ -30,11 +31,20 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
 
     private LpnInfoModel lpnInfoModel;
     private ArrayList<PlaceInfoModel> listLpnPositions;
+    private ArrayList<LpnInfoPositionsInReceipt> listLpnPositionsReceipt;
 
     private SearchLpnWidgetVM searchVM;
 
     private RecyclerBindingAdapter<PlaceInfoModel> adapter
             = new RecyclerBindingAdapter<>(R.layout.item_position_lpn, BR.viewModel, new ArrayList<>());
+
+    private RecyclerBindingAdapter<LpnInfoPositionsInReceipt> receiptAdapter
+            = new RecyclerBindingAdapter<>(R.layout.item_position_in_lpn_receipt, BR.viewModel, new ArrayList<>());
+
+
+    public RecyclerBindingAdapter<LpnInfoPositionsInReceipt> getReceiptAdapter() {
+        return receiptAdapter;
+    }
 
     public LpnInfoModel getLpnInfoModel() {
         return lpnInfoModel;
@@ -52,6 +62,10 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
         return listLpnPositions;
     }
 
+    public ArrayList<LpnInfoPositionsInReceipt> getListLpnPositionsReceipt() {
+        return listLpnPositionsReceipt;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle arguments, @Nullable Bundle savedInstanceState) {
         super.onCreate(arguments, savedInstanceState);
@@ -66,10 +80,16 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
             if (data != null) {
                 this.lpnInfoModel = data.getLpnInfoModel();
                 this.listLpnPositions = data.getListLpnPositions();
+                this.listLpnPositionsReceipt = data.getListLpnPositionsReceipt();
                 if (listLpnPositions != null) {
                     adapter.setItems(listLpnPositions);
                 } else {
                     adapter.setItems(new ArrayList<>());
+                }
+                if (listLpnPositionsReceipt != null){
+                    receiptAdapter.setItems(listLpnPositionsReceipt);
+                } else {
+                    receiptAdapter.setItems(new ArrayList<>());
                 }
                 notifyChange();
             }
@@ -98,7 +118,7 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
     private void searchByCode(String code) {
         showLoader();
         compositeDisposable.add(
-                netApi.getLpnByCode(new CodeRequest(code, "daily"))
+                netApi.getLpnByCode(new CodeRequest(code, ""))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::processResponse, this::processError)
@@ -118,6 +138,11 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
         return (listLpnPositions != null && listLpnPositions.size()>0);
     }
 
+    public boolean isReceiptVisible(){
+        return (!isRvVisible() && listLpnPositionsReceipt != null && listLpnPositionsReceipt.size()>0 );
+    }
+
+
     public boolean isFabMenuVisible(){
         return (listLpnPositions != null && listLpnPositions.size()>0)
                 ||
@@ -135,10 +160,16 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
         Hawk.put("LPN_TEXT", searchVM.getInputText());
         this.lpnInfoModel = response.data.getLpnInfoModel();
         this.listLpnPositions = response.data.getListLpnPositions();
+        this.listLpnPositionsReceipt = response.data.getListLpnPositionsReceipt();
         if(listLpnPositions != null) {
             adapter.setItems(listLpnPositions);
         } else {
             adapter.setItems(new ArrayList<>());
+        }
+        if(listLpnPositionsReceipt != null) {
+            receiptAdapter.setItems(listLpnPositionsReceipt);
+        } else {
+            receiptAdapter.setItems(new ArrayList<>());
         }
         notifyChange();
         getViewOptional().refreshFab();

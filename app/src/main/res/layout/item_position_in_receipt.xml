@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.ranok.network.models.PosInReceiptModel" />
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tvLpnCaption"
+            style="@style/PosInfoLabels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="НЗ:"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvLpn"
+            style="@style/PosInfoTexts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{viewModel.lpn}"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tvLpnCaption"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tvTypeCaption"
+            style="@style/PosInfoLabels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Операция:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLpnCaption" />
+
+        <TextView
+            android:id="@+id/tvType"
+            style="@style/PosInfoTexts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{viewModel.transactionTypeName}"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTypeCaption"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvTypeCaption"
+            app:layout_constraintTop_toTopOf="@+id/tvTypeCaption" />
+
+        <TextView
+            android:id="@+id/tvDateCaption"
+            style="@style/PosInfoLabels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Дата:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTypeCaption" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            style="@style/PosInfoTexts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{viewModel.createDate}"
+            app:layout_constraintBottom_toBottomOf="@+id/tvDateCaption"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvDateCaption"
+            app:layout_constraintTop_toTopOf="@+id/tvDateCaption" />
+
+        <TextView
+            android:id="@+id/tvQtyCaption"
+            style="@style/PosInfoLabels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Количество:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDateCaption" />
+
+        <TextView
+            android:id="@+id/tvQty"
+            style="@style/PosInfoTexts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{viewModel.quantityString}"
+            app:layout_constraintBottom_toBottomOf="@+id/tvQtyCaption"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvQtyCaption"
+            app:layout_constraintTop_toTopOf="@+id/tvQtyCaption" />
+
+        <TextView
+            android:id="@+id/tvQualityCaption"
+            style="@style/PosInfoLabels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{viewModel.inspectionQualityCodeCaption}"
+            android:visibility="@{viewModel.qualityPresent}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvQtyCaption" />
+
+        <TextView
+            android:id="@+id/tvQuality"
+            style="@style/PosInfoTexts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{viewModel.inspectionQualityCode}"
+            android:visibility="@{viewModel.qualityPresent}"
+            app:layout_constraintBottom_toBottomOf="@+id/tvQualityCaption"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvQualityCaption"
+            app:layout_constraintTop_toTopOf="@+id/tvQualityCaption" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

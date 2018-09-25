@@ -48,15 +48,18 @@ public class InfoPositionFragment extends BaseFragment<InfoPositionIView, InfoPo
         super.onViewCreated(view, savedInstanceState);
         setModelView(this);
         EditText et = getBinding().searchItem.etCode;
-
-        pagerAdapter = new InfoPositionPagerAdapter(getChildFragmentManager());
+        pagerAdapter = new InfoPositionPagerAdapter(getChildFragmentManager(),getViewModel().getPagesCount());
         getBinding().vp.setAdapter(pagerAdapter);
         getBinding().tabLayout.setupWithViewPager(getBinding().vp);
         et.post(() -> Utils.selectText(et));
         et.setOnEditorActionListener(this);
-
     }
 
+    @Override
+    public void updatePager(boolean hasRaceipt) {
+        if (!hasRaceipt && getBinding().vp.getCurrentItem()==2) getBinding().vp.setCurrentItem(0,true);
+        pagerAdapter.setCntPages(hasRaceipt ? 3 : 2);
+    }
 
     @Override
     public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {

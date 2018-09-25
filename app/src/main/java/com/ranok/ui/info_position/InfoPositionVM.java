@@ -31,14 +31,27 @@ public class InfoPositionVM extends BaseViewModel<InfoPositionIView> implements 
         return searchVM;
     }
 
+    private PositionInfoByBarcodeData data;
+
     @Override
     public void onCreate(@Nullable Bundle arguments, @Nullable Bundle savedInstanceState) {
         super.onCreate(arguments, savedInstanceState);
         searchVM = new SearchPositionWidgetVM(SEARCH_WIDGET_TAG, this);
-        PositionInfoByBarcodeData data = Hawk.get("POSITION");
-        if (data != null) RxPosInfo.getInstance().sendData(data);
+        data = Hawk.get("POSITION");
+        if (data != null) {
+            RxPosInfo.getInstance().sendData(data);
+            getViewOptional().updatePager(data.getPositionInReceiptList() != null
+                && data.getPositionInReceiptList().size()>0);
+        }
         String s = Hawk.get("POSITION_TEXT");
         if (s!=null) searchVM.onTextChanged(s,0,0,0);
+    }
+
+    public int getPagesCount(){
+        if (data != null) {
+            return (data.getPositionInReceiptList() != null
+                    && data.getPositionInReceiptList().size()>0) ? 3 : 2;
+        } else return 2;
     }
 
     @Override
@@ -94,6 +107,12 @@ public class InfoPositionVM extends BaseViewModel<InfoPositionIView> implements 
         hideLoader();
         Hawk.put("POSITION", response.data);
         Hawk.put("POSITION_TEXT", searchVM.getInputText());
+        if (response.data.getPositionInReceiptList() != null
+                && response.data.getPositionInReceiptList().size()>0) {
+            getViewOptional().updatePager(true);
+        } else {
+            getViewOptional().updatePager(false);
+        }
         RxPosInfo.getInstance().sendData(response.data);
     }
 

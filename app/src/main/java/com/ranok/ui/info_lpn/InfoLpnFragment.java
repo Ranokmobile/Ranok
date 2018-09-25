@@ -72,6 +72,14 @@ public class InfoLpnFragment extends BaseFragment<InfoLpnIView, InfoLpnVM, InfoL
         rv.addItemDecoration(decor);
         if (adapter != null) rv.setAdapter(adapter);
 
+        RecyclerView rvReceipt = getBinding().rvReceipt;
+        RecyclerView.Adapter adapterReceipt = getViewModel().getReceiptAdapter();
+        LinearLayoutManager managerReceipt = new LinearLayoutManager(mActivity);
+        rvReceipt.setLayoutManager(managerReceipt);
+        rvReceipt.setHasFixedSize(false);
+        rvReceipt.addItemDecoration(decor);
+        if (adapterReceipt != null) rvReceipt.setAdapter(adapterReceipt);
+
         getBinding().menuRed.setClosedOnTouchOutside(true);
 
         EditText et = getBinding().searchItem.etCode;

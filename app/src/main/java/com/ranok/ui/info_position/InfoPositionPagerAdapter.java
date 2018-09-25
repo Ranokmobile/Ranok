@@ -6,19 +6,31 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.ranok.ui.info_position.lot_info.LotInfoFragment;
 import com.ranok.ui.info_position.main_info.MainInfoFragment;
+import com.ranok.ui.info_position.receipt_info.ReceiptInfoFragment;
 
 public class InfoPositionPagerAdapter extends FragmentPagerAdapter {
 
-
-    Fragment[] fragments  = {new MainInfoFragment(), new LotInfoFragment()};
-    String[] titles = {"Основные","Партии"};
+    private int cntPages;
 
 
-    public InfoPositionPagerAdapter(FragmentManager fm) {
+    private Fragment[] fragments  = {new MainInfoFragment(), new LotInfoFragment(), new ReceiptInfoFragment()};
+    private String[] titles = {"Основные","Партии", "Приёмка"};
+
+
+    public InfoPositionPagerAdapter(FragmentManager fm, int cntPages) {
         super(fm);
+        this.cntPages = cntPages;
     }
 
+    public void setCntPages(int newCntPages) {
+        if (newCntPages != cntPages) {
+            if (newCntPages == 2) {
 
+            }
+            cntPages = newCntPages;
+            notifyDataSetChanged();
+        }
+    }
 
     @Override
     public CharSequence getPageTitle(int position) {
@@ -32,6 +44,6 @@ public class InfoPositionPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return cntPages;
     }
 }
