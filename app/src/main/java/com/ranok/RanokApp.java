@@ -1,6 +1,8 @@
 package com.ranok;
 
 import android.app.Application;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.FirebaseApp;
@@ -15,15 +17,22 @@ public class RanokApp extends Application {
 
     private NetApi netApi;
     private static RanokApp app;
+    private String version = "";
 
 
     @Override
     public void onCreate() {
         super.onCreate();
+        try {
+            PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
+            version = String.valueOf(pInfo.versionCode);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
         Fabric.with(this, new Crashlytics());
         FirebaseApp.initializeApp(this);
         app = this;
-        netApi = NetService.getNetApi();
+        netApi = NetService.getNetApi(version);
         Hawk.init(this).build();
     }
 

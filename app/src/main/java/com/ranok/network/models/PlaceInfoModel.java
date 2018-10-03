@@ -43,7 +43,7 @@ public class PlaceInfoModel implements SelectDialogFragment.Selectable {
 
     @Override
     public String getName() {
-        return itemCode + " / " + address + " / " + lot;
+        return itemCode + " / " + address + " / " + lot + " / " + getQty();
     }
 
     @Override

@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetService {
 
-    public static NetApi getNetApi() {
+    public static NetApi getNetApi(String version) {
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -28,6 +28,8 @@ public class NetService {
             Request original = chain.request();
             Request.Builder request = original.newBuilder();
             request.header("Content-Type", "application/json");
+
+            request.header("version", version);
 
             if (Hawk.contains(Consts.TOKEN)) {
                 request.header("Token",  Hawk.get(Consts.TOKEN));
