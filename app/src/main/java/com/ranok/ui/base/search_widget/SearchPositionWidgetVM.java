@@ -35,7 +35,7 @@ public class SearchPositionWidgetVM extends BaseSearchWidgetVM {
     }
 
     public enum ItemType {
-        ITEM_CODE("^[1-2]{1,1}\\d{5,5}$", "")
+        ITEM_CODE("^[1-3]{1,1}\\d{5,5}$", "")
         , PIECE_BARCODE("^[1-9]{1,1}\\d{12,12}$", "GTIN")
         , PACK_BARCODE("^[1]{1,1}\\d{7,7}$", "GTIN_BOX")
         , ITEM_BARCODE("^[2]{1,1}\\d{7,7}$", "GTIN_ITEM")

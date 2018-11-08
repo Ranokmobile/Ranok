@@ -19,12 +19,14 @@ import com.ranok.models.ActionModel;
 import com.ranok.network.models.PlaceInfoModel;
 import com.ranok.ui.base.BaseFragment;
 import com.ranok.ui.dialogs.ActionsDialog;
+import com.ranok.ui.info_lpn.InfoLpnFragment;
 import com.ranok.ui.move_lpn.MoveLpnFragment;
 import com.ranok.ui.pack_lpn.PackLpnFragment;
 import com.ranok.ui.print_lpn.PrintLpnFragment;
 import com.ranok.ui.split_lpn.SplitLpnFragment;
 import com.ranok.ui.unpack_lpn.UnpackLpnFragment;
 import com.ranok.utils.LpnUtils;
+import com.ranok.utils.StringUtils;
 
 import java.util.ArrayList;
 
@@ -58,6 +60,8 @@ public class MainInfoFragment extends BaseFragment<MainInfoIView, MainInfoVM, Ma
         if (LpnUtils.isPrintEnabled(item)) list.add(new ActionModel(Actions.PRINT));
         if (LpnUtils.isUnpackEnabled(item)) list.add(new ActionModel(Actions.UNPACK));
         if (LpnUtils.isPackEnabled(item)) list.add(new ActionModel(Actions.PACK));
+        if (LpnUtils.isLpnInfoEnabled(item)) list.add(new ActionModel(Actions.LPN_INFO));
+
 
         String header = (item.getLpn() == null || item.getLpn().isEmpty()) ? item.getItemCode() : item.getLpn();
 
@@ -90,6 +94,8 @@ public class MainInfoFragment extends BaseFragment<MainInfoIView, MainInfoVM, Ma
             case SPLIT: mActivity.addFragment(SplitLpnFragment.getInstance(item));
                 break;
             case UNPACK: mActivity.addFragment(UnpackLpnFragment.getInstance(item));
+                break;
+            case LPN_INFO: mActivity.addFragment(InfoLpnFragment.getInstance(StringUtils.formatFromLpn(item.getLpn())));
                 break;
 
         }

@@ -55,7 +55,7 @@ public class MoveLpnFragment extends BaseFragment<MoveLpnIView, MoveLpnVM, MoveL
     @Override
     public void closeScreen() {
         MainActivity activity = ((MainActivity)getActivity());
-        if (activity!=null) {
+        if (activity!=null && !activity.isFinishing()) {
             activity.getSupportFragmentManager().popBackStack();
         }
     }

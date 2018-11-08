@@ -20,7 +20,9 @@ public class LpnUtils {
         return item.getAvailQuantity() >= 1 && (item.getLpn() == null || item.getLpn().isEmpty());
     }
 
-
+    public static boolean isLpnInfoEnabled(PlaceInfoModel item) {
+        return (item.getLpn() != null && !item.getLpn().isEmpty());
+    }
 
     public static boolean isPrintEnabled(PlaceInfoModel item) {
         return !(item.getLpn() == null || item.getLpn().isEmpty());

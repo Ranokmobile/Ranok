@@ -8,6 +8,7 @@ public enum Actions {
     UNPACK(3, R.drawable.ic_package_up, "Распаковать НЗ" ),
     PRINT(4, R.drawable.ic_printer, "Печать НЗ" ),
     PACK(5, R.drawable.ic_package_down, "Упаковать в НЗ" ),
+    LPN_INFO(6, R.drawable.ic_information_variant, "Информация о НЗ" ),
     UNKNOWN(-1, -1, "");
     private int id, drawableId;
     private String text;
