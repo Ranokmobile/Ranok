@@ -40,7 +40,7 @@ public interface NetApi {
 
     //String URL = "http://dreadnought:8080/Conveyor/api/parcelScan/";
     //String URL = "http://192.168.15.168:8080/Conveyor/api/parcelScan/";
-    String URL = "http://192.168.15.2:8080/Conveyor/api/parcelScan/";
+    String URL = "http://192.168.15.106:8080/Conveyor/api/parcelScan/";
 
 
 

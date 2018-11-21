@@ -1,0 +1,118 @@
+apply plugin: 'com.android.library'
+//apply plugin: 'com.jfrog.bintray'
+//apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'ranok.mvvm' // Change this to match your package name
+version = '1.0.0' // Change this to match your version number
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+ext.supportVersion = '27.1.0'
+
+configurations {
+    javadocDeps
+}
+
+dependencies {
+    implementation "com.android.support:appcompat-v7:$supportVersion"
+    implementation "com.android.support:support-v4:$supportVersion"
+    implementation "com.android.support:support-annotations:$supportVersion"
+    javadocDeps "com.android.support:appcompat-v7:$supportVersion"
+    javadocDeps "com.android.support:support-v4:$supportVersion"
+    javadocDeps "com.android.support:support-annotations:$supportVersion"
+    androidTestImplementation 'junit:junit:4.12'
+}
+
+//configurations {
+//    javadocDeps
+//}
+
+/*dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}*/
+
+task generateSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier 'sources'
+}
+
+task generateJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath()
+            .join(File.pathSeparator))
+    classpath += configurations.compile
+    failOnError false
+}
+
+
+
+task generateJavadocsJar(type: Jar) {
+    from generateJavadocs.destinationDir
+    classifier 'javadoc'
+}
+
+generateJavadocsJar.dependsOn generateJavadocs
+
+artifacts {
+    archives generateJavadocsJar
+    archives generateSourcesJar
+}
+
+/*bintray {
+    //user = 'ranokmobile'
+    user = 'ranok' //rmdev256   ?
+    //key = 'b4bb550f4c4e629e87b0b416d550458baf2c18c1'
+    key = '90c1052a05dc7e50d066c12ebc521c81eb93fc91'
+    pkg {
+        repo = 'AndroidMVVM'
+        name = 'base' // the name of the package in BinTray
+       // userOrg = 'ranokmdev'
+
+        version {
+            name = 'base' // the name of your library project
+            desc = 'This is the 1 version'
+//            released  = "2016-12-21 15:27:12.004"
+            vcsTag = '1.0.0' // the version
+        }
+
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/Mezozoy/MyLib.git' // your GitHub repo
+        websiteUrl = 'https://github.com/Mezozoy/MyLib' // your website or whatever has documentation
+    }
+    configurations = ['archives']
+}
+
+*/
+

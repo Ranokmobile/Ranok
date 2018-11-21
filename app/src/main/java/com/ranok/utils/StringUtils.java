@@ -28,7 +28,7 @@ public class StringUtils {
 
     public static String formatFromLpn(String val){
         String result = "";
-        if (val==null) return result;
+        if (isEmpty(val)) return result;
         result = val;
         if (val.substring(0,1).equals("L")) result = val.substring(1);
         int i = Integer.parseInt(result);
