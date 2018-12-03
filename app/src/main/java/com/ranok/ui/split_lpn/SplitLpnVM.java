@@ -76,8 +76,8 @@ public class SplitLpnVM extends BaseViewModel<SplitLpnIView> {
             return;
         }
 
-        showLoader();
         if (v.getId() == R.id.btnSplit){
+            showLoader();
             compositeDisposable.add( //
                     netApi.splitLpn(new SplitLpnRequest(getLpn(), model.getLot(),
                             Integer.parseInt(model.getItemCode()), qty, model.getAddress()))
@@ -87,17 +87,19 @@ public class SplitLpnVM extends BaseViewModel<SplitLpnIView> {
             );
 
         } else if (v.getId() == R.id.btnSplitAndMove){
-            compositeDisposable.add( //
+           /* compositeDisposable.add( //
                     netApi.splitLpn(new SplitLpnRequest(getLpn(), model.getLot(),
                             Integer.parseInt(model.getItemCode()), qty, model.getAddress()))
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(this::processResponseSplitAndMove, this::processError)
-            );
+            );*/
+            getViewOptional().showMoveFragment(new SplitLpnRequest(getLpn(), model.getLot(),
+                    Integer.parseInt(model.getItemCode()), qty, model.getAddress()));
         }
     }
 
-    private void processResponseSplitAndMove(LpnOperationResponse response) {
+  /*  private void processResponseSplitAndMove(LpnOperationResponse response) {
         hideLoader();
         if (response.data.resultCode == 0) {
             getViewOptional().showMoveFragment(response.data.newLpnCode);
@@ -105,6 +107,7 @@ public class SplitLpnVM extends BaseViewModel<SplitLpnIView> {
             getViewOptional().showSnakeBar(response.data.resultMessage);
         }
     }
+    */
 
     private void processResponseSplit(LpnOperationResponse response) {
         hideLoader();

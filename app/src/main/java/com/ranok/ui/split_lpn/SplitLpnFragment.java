@@ -12,6 +12,7 @@ import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.databinding.SplitLpnFragmentBinding;
 import com.ranok.network.models.PlaceInfoModel;
+import com.ranok.network.request.SplitLpnRequest;
 import com.ranok.ui.base.BaseFragment;
 import com.ranok.ui.move_lpn.MoveLpnFragment;
 import com.ranok.utils.Utils;
@@ -60,9 +61,9 @@ public class SplitLpnFragment extends BaseFragment<SplitLpnIView, SplitLpnVM, Sp
     }
 
     @Override
-    public void showMoveFragment(String newLpn) {
+    public void showMoveFragment(SplitLpnRequest splitLpnRequest) {
         mActivity.getSupportFragmentManager().popBackStackImmediate();
-        mActivity.addFragment(MoveLpnFragment.getInstance(newLpn));
+        mActivity.addFragment(MoveLpnFragment.getInstance(null, splitLpnRequest));
     }
 
     @Nullable

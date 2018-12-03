@@ -21,7 +21,7 @@ public abstract class BaseFragment<T extends BaseIView, R extends BaseViewModel<
     protected BaseActivity mActivity;
     protected Toolbar toolbar;
     private ViewDataBinding binding;
-    protected boolean isWithBackOption = false, allowAnimation = true;
+    protected boolean isWithBackOption = false, allowAnimation = false;
 
     @Override
     public void onAttach(Context context) {

@@ -80,6 +80,8 @@ public abstract class BaseViewModel<T extends BaseIView> extends AbstractViewMod
                     } catch (Exception e1) {
                         Log.d("JSON", "бодяга пришла");
                     }
+                } else {
+                    showToast("Ошибка обработки запроса");
                 }
             }
         }

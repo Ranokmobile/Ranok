@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mask="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <!--<variable-->
+            <!--name="viewModel"-->
+            <!--type="com.ranok.ui.move_lpn.MoveLpnVM" />-->
+
+    </data>
+
+
+    <LinearLayout
+        android:id="@+id/llRoot"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="10dp"
+        android:layout_gravity="center"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/header"
+            android:background="@color/colorWhite"
+            android:gravity="center"
+            android:paddingStart="2dp"
+            android:paddingEnd="20dp"
+            android:textColor="@color/text_black"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_width="300dp"
+            android:layout_height="40dp" />
+        <br.com.sapereaude.maskedEditText.MaskedEditText
+            android:id="@+id/etCode"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="1dp"
+            android:focusable="true"
+            android:gravity="center"
+            android:inputType="number"
+            android:imeOptions="actionSearch"
+            android:maxLength="11"
+            android:singleLine="true"
+            mask:allowed_chars="1234567890"
+            mask:mask="###.###.#.#"
+            />
+        <Button
+            android:id="@+id/buttonOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Переместить"
+            />
+    </LinearLayout>
+</layout>
+    <!--android:onClick="@{viewModel::onClick}"-->
+    <!--android:text="@{viewModel.inputText}"-->
+    <!--android:onTextChanged="@{viewModel::onTextChanged}"-->

@@ -14,6 +14,7 @@ import com.ranok.network.request.PrintLpnRequest;
 import com.ranok.network.request.RecieptListRequest;
 import com.ranok.network.request.RecieptOrderRequest;
 import com.ranok.network.request.RfidRequest;
+import com.ranok.network.request.SplitAndMoveRequest;
 import com.ranok.network.request.SplitLpnRequest;
 import com.ranok.network.request.UnpackLpnRequest;
 import com.ranok.network.response.AcceptListResponse;
@@ -35,20 +36,11 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface NetApi {
-   //String URL = "http://ebs-dev.localdomain:8008/Conveyor/api/parcelScan/"; // dev
-
-
+    //String URL = "http://ebs-dev.localdomain:8008/Conveyor/api/parcelScan/"; // dev
     //String URL = "http://dreadnought:8080/Conveyor/api/parcelScan/";
     //String URL = "http://192.168.15.168:8080/Conveyor/api/parcelScan/";
-    String URL = "http://192.168.15.106:8080/Conveyor/api/parcelScan/";
-
-
-
-  //  String URL = "http://192.168.15.211:8080/Conveyor/api/parcelScan/"; //local
-
-
-
-
+    String URL = "http://192.168.15.27:8080/Conveyor/api/parcelScan/";
+    //  String URL = "http://192.168.15.211:8080/Conveyor/api/parcelScan/"; //local
     //String URL = "http://ebs-dev.localdomain:8008/Conveyor/api/parcelScan/";
 
     @POST("login")
@@ -113,5 +105,8 @@ public interface NetApi {
 
     @POST("accept_order")
     Single<AcceptOrderResponse> acceptOrder(@Body AcceptOrderRequest acceptOrderRequest);
+
+    @POST("split_and_move")
+    Single<LpnOperationResponse> splitAndMoveLpn(@Body SplitAndMoveRequest splitAndMoveRequest);
 
 }

@@ -15,10 +15,14 @@ public class MoveLpnRequest {
     @SerializedName("move_type")
     public String moveType;   // 'full_lpn', 'lpn_content'
 
-    public MoveLpnRequest(String sourceLpn, String targetLpn, String targetPlaceAddress, String moveType) {
+    @SerializedName("targetType")
+    public int  targetType; //{R.id.rbToLpn, R.id.rbToPlace, R.id.rbToNewLpn};
+
+    public MoveLpnRequest(String sourceLpn, String targetLpn, String targetPlaceAddress, String moveType, int targetType) {
         this.sourceLpn = sourceLpn;
         this.targetLpn = targetLpn;
         this.targetPlaceAddress = targetPlaceAddress;
         this.moveType = moveType;
+        this.targetType = targetType;
     }
 }

@@ -3,10 +3,10 @@ package com.ranok.ui.move_lpn;
 import com.ranok.R;
 
 public class MoveLpnModel {
-    private String sourceLpn, targetLpn, targetPlace;
+    private String sourceLpn, targetLpn, targetPlace, newLpnPlace;
 
-    private int[] arrRbAim = {R.id.rbToLpn, R.id.rbToPlace};
-    private String[] arrAimCaptions = {"Целевой НЗ", "Целевая ячейка"};
+    private int[] arrRbAim = {R.id.rbToLpn, R.id.rbToPlace, R.id.rbToNewLpn};
+    private String[] arrAimCaptions = {"Целевой НЗ", "Целевая ячейка", ""};
     private int selectedAim;
 
 
@@ -82,4 +82,11 @@ public class MoveLpnModel {
         this.targetPlace = targetPlace;
     }
 
+    public String getNewLpnPlace() {
+        return newLpnPlace;
+    }
+
+    public void setNewLpnPlace(String newLpnPlace) {
+        this.newLpnPlace = newLpnPlace;
+    }
 }
