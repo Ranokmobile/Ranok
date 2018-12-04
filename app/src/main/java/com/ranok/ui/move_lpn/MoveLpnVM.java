@@ -7,6 +7,8 @@ import android.widget.RadioGroup;
 
 import com.ranok.R;
 import com.ranok.network.request.MoveLpnRequest;
+import com.ranok.network.request.PackAndMoveLpnRequest;
+import com.ranok.network.request.PackToLpnRequest;
 import com.ranok.network.request.SplitAndMoveRequest;
 import com.ranok.network.request.SplitLpnRequest;
 import com.ranok.network.response.LpnOperationResponse;
@@ -20,6 +22,7 @@ import io.reactivex.schedulers.Schedulers;
 import ranok.annotation.State;
 
 import static com.ranok.ui.move_lpn.MoveLpnFragment.LPN;
+import static com.ranok.ui.move_lpn.MoveLpnFragment.PACK;
 import static com.ranok.ui.move_lpn.MoveLpnFragment.SPLIT;
 
 
@@ -36,6 +39,9 @@ public class MoveLpnVM extends BaseViewModel<MoveLpnIView> {
 
     @State
     SplitLpnRequest splitLpnRequest;
+
+    @State
+    PackToLpnRequest packToLpnRequest;
 
     @State
     boolean transaction;
@@ -70,6 +76,11 @@ public class MoveLpnVM extends BaseViewModel<MoveLpnIView> {
                 splitLpnRequest = arguments.getParcelable(SPLIT);
                 transaction = true;
             }
+            if (arguments.containsKey(PACK)){
+                packToLpnRequest = arguments.getParcelable(PACK);
+                transaction = true;
+            }
+
         }
 
         searchSourceLpnVM = new SearchLpnWidgetVM(SEARCH_WIDGET_SOURCE_PLN_TAG, v -> {
@@ -138,6 +149,10 @@ public class MoveLpnVM extends BaseViewModel<MoveLpnIView> {
             getViewOptional().showInputPlace("Номер ячейки");
             return;
         }
+        if (model.getSelectedAim() == 0 && StringUtils.isEmpty(searchAimLpnVM.getInputText())){
+            showToast("Введите целевой НЗ");
+            return;
+        }
         showLoader();
         String sourceLpn,targetLpn = null, targetPlaceAddress, moveType;
         sourceLpn = StringUtils.formatToLpn(searchSourceLpnVM.getInputText());
@@ -152,7 +167,7 @@ public class MoveLpnVM extends BaseViewModel<MoveLpnIView> {
         moveType = model.getSelectedType() == 0 ? "full_lpn" : "lpn_content";
 
         if (!transaction) {
-            compositeDisposable.add( //String sourceLpn, String targetLpn, String targetPlaceAddress, String moveType
+            compositeDisposable.add(
                     netApi.moveLpn(new MoveLpnRequest(sourceLpn, targetLpn, targetPlaceAddress, moveType, model.getSelectedAim()))
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
@@ -160,8 +175,16 @@ public class MoveLpnVM extends BaseViewModel<MoveLpnIView> {
             );
         } else if (splitLpnRequest != null) {
             MoveLpnRequest moveLpnRequest = new MoveLpnRequest(sourceLpn, targetLpn, targetPlaceAddress, moveType, model.getSelectedAim());
-            compositeDisposable.add( //String sourceLpn, String targetLpn, String targetPlaceAddress, String moveType
+            compositeDisposable.add(
                     netApi.splitAndMoveLpn(new SplitAndMoveRequest(splitLpnRequest, moveLpnRequest))
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(this::processResponse, this::processError)
+            );
+        } else if (packToLpnRequest != null) {
+            MoveLpnRequest moveLpnRequest = new MoveLpnRequest(sourceLpn, targetLpn, targetPlaceAddress, moveType, model.getSelectedAim());
+            compositeDisposable.add(
+                    netApi.packAndMoveLpn(new PackAndMoveLpnRequest(packToLpnRequest, moveLpnRequest))
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(this::processResponse, this::processError)

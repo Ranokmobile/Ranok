@@ -8,6 +8,7 @@ import android.view.View;
 import com.ranok.R;
 import com.ranok.network.models.PlaceInfoModel;
 import com.ranok.network.request.PackToLpnRequest;
+import com.ranok.network.request.SplitLpnRequest;
 import com.ranok.network.response.LpnOperationResponse;
 import com.ranok.rx_bus.RxLpnOperation;
 import com.ranok.ui.base.BaseViewModel;
@@ -73,8 +74,8 @@ public class PackLpnVM extends BaseViewModel<PackLpnIView> {
             return;
         }
 
-        showLoader();
         if (v.getId() == R.id.btnSplit){
+            showLoader();
             compositeDisposable.add( //
                     netApi.packLpn(new PackToLpnRequest(model.getLot(), Integer.parseInt(model.getItemCode())
                             , qty, model.getAddress()))
@@ -84,16 +85,20 @@ public class PackLpnVM extends BaseViewModel<PackLpnIView> {
             );
 
         } else if (v.getId() == R.id.btnSplitAndMove){
-            compositeDisposable.add( //
+/*            compositeDisposable.add( //
                     netApi.packLpn(new PackToLpnRequest(model.getLot(), Integer.parseInt(model.getItemCode())
                             , qty, model.getAddress()))
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(this::processResponseSplitAndMove, this::processError)
             );
+*/
+            getViewOptional().showMoveFragment(new PackToLpnRequest(model.getLot(), Integer.parseInt(model.getItemCode())
+                    , qty, model.getAddress()));
+
         }
     }
-
+/*
     private void processResponseSplitAndMove(LpnOperationResponse response) {
         hideLoader();
         if (response.data.resultCode == 0) {
@@ -102,7 +107,7 @@ public class PackLpnVM extends BaseViewModel<PackLpnIView> {
             getViewOptional().showSnakeBar(response.data.resultMessage);
         }
     }
-
+*/
     private void processResponseSplit(LpnOperationResponse response) {
         hideLoader();
         if (response.data.resultCode == 0) {

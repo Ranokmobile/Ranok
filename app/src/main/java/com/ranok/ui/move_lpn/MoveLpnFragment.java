@@ -11,6 +11,7 @@ import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.databinding.MoveLpnFragmentBinding;
 import com.ranok.mlkit.LivePreviewActivity;
+import com.ranok.network.request.PackToLpnRequest;
 import com.ranok.network.request.SplitLpnRequest;
 import com.ranok.ui.base.BaseFragment;
 import com.ranok.ui.dialogs.InputPlaceDialog;
@@ -31,6 +32,15 @@ public class MoveLpnFragment extends BaseFragment<MoveLpnIView, MoveLpnVM, MoveL
         Bundle bundle = new Bundle();
         bundle.putString(LPN, sourceLpn);
         bundle.putParcelable(SPLIT, splitLpnRequest);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    public static MoveLpnFragment getInstance(String sourceLpn, PackToLpnRequest packToLpnRequest){
+        MoveLpnFragment fragment = new MoveLpnFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(LPN, sourceLpn);
+        bundle.putParcelable(PACK, packToLpnRequest);
         fragment.setArguments(bundle);
         return fragment;
     }

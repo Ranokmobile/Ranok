@@ -8,6 +8,7 @@ import com.ranok.network.request.CreateLotRequest;
 import com.ranok.network.request.LoginRequest;
 import com.ranok.network.request.MoveLpnRequest;
 import com.ranok.network.request.NewFcmTokenRequest;
+import com.ranok.network.request.PackAndMoveLpnRequest;
 import com.ranok.network.request.PackToLpnRequest;
 import com.ranok.network.request.PlaceRequest;
 import com.ranok.network.request.PrintLpnRequest;
@@ -108,5 +109,8 @@ public interface NetApi {
 
     @POST("split_and_move")
     Single<LpnOperationResponse> splitAndMoveLpn(@Body SplitAndMoveRequest splitAndMoveRequest);
+
+    @POST("pack_and_move")
+    Single<LpnOperationResponse> packAndMoveLpn(@Body PackAndMoveLpnRequest packAndMoveLpnRequest);
 
 }

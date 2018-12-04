@@ -12,6 +12,7 @@ import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.databinding.PackLpnFragmentBinding;
 import com.ranok.network.models.PlaceInfoModel;
+import com.ranok.network.request.PackToLpnRequest;
 import com.ranok.ui.base.BaseFragment;
 import com.ranok.ui.move_lpn.MoveLpnFragment;
 import com.ranok.utils.Utils;
@@ -59,9 +60,9 @@ public class PackLpnFragment extends BaseFragment<PackLpnIView, PackLpnVM, PackL
     }
 
     @Override
-    public void showMoveFragment(String newLpn) {
+    public void showMoveFragment(PackToLpnRequest packToLpnRequest) {
         mActivity.getSupportFragmentManager().popBackStackImmediate();
-        mActivity.addFragment(MoveLpnFragment.getInstance(newLpn));
+        mActivity.addFragment(MoveLpnFragment.getInstance(null, packToLpnRequest));
     }
 
     @Nullable
