@@ -21,7 +21,6 @@
         android:layout_height="wrap_content">
         <TextView
             android:id="@+id/header"
-            android:paddingLeft="20dp"
             android:paddingStart="20dp"
             android:text="@{viewModel.lotNumber}"
             android:background="@color/light_gray"
@@ -47,7 +46,7 @@
                 android:layout_weight="1"
                 android:layout_height="25dp" />
             <TextView
-                android:text="@{viewModel.posLength}"
+                android:text="@{viewModel.posLengthb}"
                 style="PosInfoLot"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -68,7 +67,7 @@
                 android:layout_weight="1"
                 android:layout_height="25dp" />
             <TextView
-                android:text="@{viewModel.posWidth}"
+                android:text="@{viewModel.posWidthb}"
                 style="PosInfoLot"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -89,7 +88,7 @@
                 android:layout_weight="1"
                 android:layout_height="25dp" />
             <TextView
-                android:text="@{viewModel.posHeight}"
+                android:text="@{viewModel.posHeightb}"
                 style="PosInfoLot"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -110,7 +109,7 @@
                 android:layout_weight="1"
                 android:layout_height="25dp" />
             <TextView
-                android:text="@{viewModel.posWeight}"
+                android:text="@{viewModel.posWeightb}"
                 style="PosInfoLot"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -152,7 +151,7 @@
                 android:layout_weight="1"
                 android:layout_height="25dp" />
             <TextView
-                android:text="@{viewModel.packLength}"
+                android:text="@{viewModel.packLengthb}"
                 style="PosInfoLot"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -173,7 +172,7 @@
                 android:layout_weight="1"
                 android:layout_height="25dp" />
             <TextView
-                android:text="@{viewModel.packWidth}"
+                android:text="@{viewModel.packWidthb}"
                 style="PosInfoLot"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -194,7 +193,7 @@
                 android:layout_weight="1"
                 android:layout_height="25dp" />
             <TextView
-                android:text="@{viewModel.packHeight}"
+                android:text="@{viewModel.packHeightb}"
                 style="PosInfoLot"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -215,7 +214,7 @@
                 android:layout_weight="1"
                 android:layout_height="25dp" />
             <TextView
-                android:text="@{viewModel.packWeight}"
+                android:text="@{viewModel.packWeightb}"
                 style="PosInfoLot"
                 android:layout_width="0dp"
                 android:layout_weight="1"

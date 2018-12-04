@@ -56,6 +56,13 @@ public class InfoPositionFragment extends BaseFragment<InfoPositionIView, InfoPo
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        getViewModel().startSearch();
+    }
+
+
+    @Override
     public void updatePager(boolean hasRaceipt) {
         if (!hasRaceipt && getBinding().vp.getCurrentItem()==2) getBinding().vp.setCurrentItem(0,true);
         pagerAdapter.setCntPages(hasRaceipt ? 3 : 2);

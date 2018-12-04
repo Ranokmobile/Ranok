@@ -73,6 +73,10 @@ public class InfoPlaceVM extends BaseViewModel<InfoPlaceIView> implements Search
         }
     }
 
+    public boolean isDataEmpty(){
+        return data.getPlaceInfoList() == null;
+    }
+
     public void gotBarcode(String barcode){
         searchVM.onTextChanged(barcode,0,0,0);
         startSearch();

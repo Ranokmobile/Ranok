@@ -64,7 +64,7 @@
 
             <Button
                 android:id="@+id/btnGo"
-                android:text="Распаковать"
+                android:text="Распечатать"
                 android:onClick="@{viewModel::onClick}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

@@ -93,6 +93,13 @@ public class InfoLpnFragment extends BaseFragment<InfoLpnIView, InfoLpnVM, InfoL
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        getViewModel().startSearch();
+
+    }
+
+    @Override
     public void refreshFab() {
         getBinding().fabSplit.setEnabled(getViewModel().isFabItemVisible());
         getBinding().fabUnPack.setEnabled(getViewModel().isFabItemVisible());
@@ -166,7 +173,7 @@ public class InfoLpnFragment extends BaseFragment<InfoLpnIView, InfoLpnVM, InfoL
 
     @Override
     public void showMove(String lpn) {
-        mActivity.showFragment(MoveLpnFragment.getInstance(lpn));
+        mActivity.addFragment(MoveLpnFragment.getInstance(lpn));
     }
 
     @Override

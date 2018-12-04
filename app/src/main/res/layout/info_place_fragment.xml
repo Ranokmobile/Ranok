@@ -93,12 +93,26 @@
             bind:layout_constraintStart_toStartOf="parent"
             bind:layout_constraintTop_toBottomOf="@+id/linearLayout"/>
 
-        <!--android:layout_marginTop="32dp"-->
+        <TextView
+            android:text="Данные не найдены"
+            android:textSize="40sp"
+            android:gravity="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_width="0dp"
+            android:visibility="@{!viewModel.dataPresent}"
+
+            android:layout_height="0dp"
+            bind:layout_constraintBottom_toBottomOf="parent"
+            bind:layout_constraintEnd_toEndOf="parent"
+            bind:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintTop_toBottomOf="@+id/linearLayout"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:visibility="@{viewModel.dataPresent}"
             bind:layout_constraintBottom_toBottomOf="parent"
             bind:layout_constraintEnd_toEndOf="parent"
             bind:layout_constraintHorizontal_bias="0.0"

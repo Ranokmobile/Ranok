@@ -64,7 +64,7 @@ public class RecieptProcessingVM extends BaseViewModel<RecieptProcessingIView> {
             position = arguments.getParcelable("position");
         }
 
-        if (position != null) {
+        if (position != null && position.getLots() != null) {
             data = position.getLots().split(",");
         }
 
@@ -91,7 +91,7 @@ public class RecieptProcessingVM extends BaseViewModel<RecieptProcessingIView> {
     }
 
     public String getSelectedLot() {
-        if (position != null) {
+        if (position != null && data.length > 0) {
           return data[selectedLot];
         }
         return "";

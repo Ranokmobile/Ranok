@@ -69,9 +69,12 @@ public class SplitLpnVM extends BaseViewModel<SplitLpnIView> {
     }
 
     public void onClick(View v){
-        if (inputQty == null || inputQty.isEmpty()) return;
+        if (inputQty == null || inputQty.isEmpty()) {
+            showToast("Введите количество");
+            return;
+        }
         int qty = Integer.parseInt(inputQty);
-        if (qty <= 0 || qty > model.getAvailQuantity()) {
+        if (qty <= 0 || qty >= model.getAvailQuantity()) {
             getViewOptional().showSnakeBar("Некоректное количество");
             return;
         }

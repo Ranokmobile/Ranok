@@ -98,6 +98,8 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
         }
     }
 
+
+
     @Override
     public void onClickWidgetSearch(View v) {
         hideKeyboard();

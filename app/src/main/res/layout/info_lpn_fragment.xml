@@ -32,6 +32,22 @@
             bind:viewModel="@{viewModel.searchVM}"
             layout="@layout/item_get_code">
         </include>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/notfound"
+            android:visibility='@{!viewModel.infoVisible, default=visible}'
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="Данные не найдены"
+                android:textSize="40sp"
+                android:gravity="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </TextView>
+        </LinearLayout>
+
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

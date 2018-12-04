@@ -68,6 +68,12 @@ public class InfoPlaceFragment extends BaseFragment<InfoPlaceIView, InfoPlaceVM,
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        getViewModel().startSearch();
+    }
+
+    @Override
     public void showMenu(PlaceInfoModel item) {
         ArrayList<ActionModel> list = new ArrayList<>();
 

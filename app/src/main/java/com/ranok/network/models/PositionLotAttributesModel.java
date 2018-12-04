@@ -107,17 +107,41 @@ public class PositionLotAttributesModel extends BaseObservable implements Parcel
         return posLength;
     }
     @Bindable
+    public String getPosLengthb() {
+        return posLength + " см.";
+    }
+
+
+
+    @Bindable
     public String getPosWidth() {
         return posWidth;
     }
+    @Bindable
+    public String getPosWidthb() {
+        return posWidth+ " см.";
+    }
+
+
     @Bindable
     public String getPosHeight() {
         return posHeight;
     }
     @Bindable
+    public String getPosHeightb() {
+        return posHeight + " см.";
+    }
+
+    @Bindable
     public String getPosWeight() {
         return posWeight;
     }
+    @Bindable
+    public String getPosWeightb() {
+        return posWeight+ " кг.";
+    }
+
+
     @Bindable
     public String getPosHardness() {
         return posHardness;
@@ -127,17 +151,38 @@ public class PositionLotAttributesModel extends BaseObservable implements Parcel
         return packLength;
     }
     @Bindable
+    public String getPackLengthb() {
+        return packLength+ " см.";
+    }
+
+    @Bindable
     public String getPackWidth() {
         return packWidth;
     }
+    @Bindable
+    public String getPackWidthb() {
+        return packWidth+ " см.";
+    }
+
+
     @Bindable
     public String getPackHeight() {
         return packHeight;
     }
     @Bindable
+    public String getPackHeightb() {
+        return packHeight+ " см.";
+    }
+
+    @Bindable
     public String getPackWeight() {
         return packWeight;
     }
+    @Bindable
+    public String getPackWeightb() {
+        return packWeight+ " кг.";
+    }
+
     @Bindable
     public String getPackType() {
         return packType;
