@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.ranok.R;
 import com.ranok.databinding.InputPlaceDialogFragmentBinding;
+import com.ranok.ui.base.BaseActivity;
 
 import ranok.annotation.State;
 
@@ -49,6 +50,12 @@ public class InputPlaceDialog extends DialogFragment {
         binding.header.setText(header);
         binding.buttonOk.setOnClickListener(this::onOkClick);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (getActivity() != null)        ( (BaseActivity) getActivity()).showKeyboard();
     }
 
     private void onOkClick(View view) {

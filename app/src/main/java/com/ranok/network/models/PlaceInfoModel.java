@@ -3,7 +3,6 @@ package com.ranok.network.models;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 import com.ranok.ui.dialogs.SelectDialogFragment;
@@ -12,6 +11,7 @@ import java.util.Locale;
 
 @Entity
 public class PlaceInfoModel implements SelectDialogFragment.Selectable {
+
     @SerializedName("lot")
     @ColumnInfo(name="lot")
     String lot;
@@ -39,6 +39,14 @@ public class PlaceInfoModel implements SelectDialogFragment.Selectable {
     @SerializedName("availQuantity")
     @ColumnInfo(name="availQty")
     int availQuantity;
+
+    @SerializedName("maySplit")
+    @ColumnInfo(name="maySplit")
+    int maySplit;
+
+    @SerializedName("mayUnpack")
+    @ColumnInfo(name="mayUnpack")
+    int mayUnpack;
 
 
     @Override
@@ -120,6 +128,21 @@ public class PlaceInfoModel implements SelectDialogFragment.Selectable {
         this.availQuantity = availQuantity;
     }
 
+    public int getMaySplit() {
+        return maySplit;
+    }
+
+    public void setMaySplit(int maySplit) {
+        this.maySplit = maySplit;
+    }
+
+    public int getMayUnpack() {
+        return mayUnpack;
+    }
+
+    public void setMayUnpack(int mayUnpack) {
+        this.mayUnpack = mayUnpack;
+    }
 
     @Override
     public int describeContents() {
@@ -135,6 +158,8 @@ public class PlaceInfoModel implements SelectDialogFragment.Selectable {
         dest.writeInt(this.sysQuantity);
         dest.writeString(this.address);
         dest.writeInt(this.availQuantity);
+        dest.writeInt(this.maySplit);
+        dest.writeInt(this.mayUnpack);
     }
 
     public PlaceInfoModel() {
@@ -148,9 +173,11 @@ public class PlaceInfoModel implements SelectDialogFragment.Selectable {
         this.sysQuantity = in.readInt();
         this.address = in.readString();
         this.availQuantity = in.readInt();
+        this.maySplit = in.readInt();
+        this.mayUnpack = in.readInt();
     }
 
-    public static final Parcelable.Creator<PlaceInfoModel> CREATOR = new Parcelable.Creator<PlaceInfoModel>() {
+    public static final Creator<PlaceInfoModel> CREATOR = new Creator<PlaceInfoModel>() {
         @Override
         public PlaceInfoModel createFromParcel(Parcel source) {
             return new PlaceInfoModel(source);

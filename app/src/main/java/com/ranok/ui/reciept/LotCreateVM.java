@@ -63,6 +63,10 @@ public class LotCreateVM extends BaseViewModel<LotCreateIView> {
         return lot;
     }
 
+    public boolean isEditable(){
+        return type ==1;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle arguments, @Nullable Bundle savedInstanceState) {
         super.onCreate(arguments, savedInstanceState);

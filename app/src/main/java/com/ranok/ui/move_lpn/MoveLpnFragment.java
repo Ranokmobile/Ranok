@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.ranok.BR;
 import com.ranok.R;
@@ -22,7 +26,8 @@ import ranok.mvvm.binding.ViewModelBindingConfig;
 import static com.ranok.ui.dialogs.InputPlaceDialog.PLACE;
 
 
-public class MoveLpnFragment extends BaseFragment<MoveLpnIView, MoveLpnVM, MoveLpnFragmentBinding> implements MoveLpnIView {
+public class MoveLpnFragment extends BaseFragment<MoveLpnIView, MoveLpnVM, MoveLpnFragmentBinding>
+        implements MoveLpnIView, TextView.OnEditorActionListener  {
 
     public static final int INPUT_PLACE_DIALOG_CODE = 2;
     public static final String LPN = "LPN", SPLIT = "SPLIT", PACK = "PACK";
@@ -63,6 +68,29 @@ public class MoveLpnFragment extends BaseFragment<MoveLpnIView, MoveLpnVM, MoveL
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setModelView(this);
+        EditText et = getBinding().searchItemAimLpn.etCode;
+        et.setImeOptions(EditorInfo.IME_ACTION_DONE );
+        et.setOnEditorActionListener(this);
+        et = getBinding().searchItemMovableLpn.etCode;
+        et.setImeOptions(EditorInfo.IME_ACTION_DONE );
+        et.setOnEditorActionListener(this);
+        et = getBinding().searchItemAimPlace.etCode;
+        et.setImeOptions(EditorInfo.IME_ACTION_DONE );
+        et.setOnEditorActionListener(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+        if (i == EditorInfo.IME_ACTION_DONE || i == EditorInfo.IME_ACTION_SEARCH) {
+            mActivity.hideKeyboard();
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -103,6 +131,7 @@ public class MoveLpnFragment extends BaseFragment<MoveLpnIView, MoveLpnVM, MoveL
         MainActivity activity = ((MainActivity)getActivity());
         if (activity!=null && !activity.isFinishing()) {
             activity.getSupportFragmentManager().popBackStack();
+            if(getViewModel().transaction) activity.getSupportFragmentManager().popBackStack();
         }
     }
 

@@ -62,7 +62,7 @@ public class SplitLpnFragment extends BaseFragment<SplitLpnIView, SplitLpnVM, Sp
 
     @Override
     public void showMoveFragment(SplitLpnRequest splitLpnRequest) {
-        mActivity.getSupportFragmentManager().popBackStackImmediate();
+        //mActivity.getSupportFragmentManager(). popBackStack();
         mActivity.addFragment(MoveLpnFragment.getInstance(null, splitLpnRequest));
     }
 

@@ -32,6 +32,14 @@ public class InfoPositionFragment extends BaseFragment<InfoPositionIView, InfoPo
     private static final int REQUEST_CODE_SERVICE = 99;
     InfoPositionPagerAdapter pagerAdapter;
 
+    public static InfoPositionFragment getInstance(String code){
+        InfoPositionFragment fragment = new InfoPositionFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("code", code);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     @Override
     protected String getScreenTitle() {
         return getString(R.string.about_position);

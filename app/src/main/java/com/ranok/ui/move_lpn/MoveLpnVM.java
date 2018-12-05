@@ -68,7 +68,6 @@ public class MoveLpnVM extends BaseViewModel<MoveLpnIView> {
     @Override
     public void onCreate(@Nullable Bundle arguments, @Nullable Bundle savedInstanceState) {
         super.onCreate(arguments, savedInstanceState);
-
         String lpn ="";
         if (arguments != null) {
             lpn = StringUtils.formatFromLpn(arguments.getString(LPN));
@@ -84,15 +83,12 @@ public class MoveLpnVM extends BaseViewModel<MoveLpnIView> {
         }
 
         searchSourceLpnVM = new SearchLpnWidgetVM(SEARCH_WIDGET_SOURCE_PLN_TAG, v -> {
-            hideKeyboard();
-            getViewOptional().startScanBarcode(SearchWidgets.SOURCE_LPN);
+                getViewOptional().startScanBarcode(SearchWidgets.SOURCE_LPN);
         }, false);
         searchAimLpnVM = new SearchLpnWidgetVM(SEARCH_WIDGET_TARGET_PLN_TAG, v -> {
-            hideKeyboard();
             getViewOptional().startScanBarcode(SearchWidgets.TARGET_LPN);
         }, false);
         searchAimPlaceVM = new SearchPlaceWidgetVM(SEARCH_WIDGET_TARGET_PLACE_TAG, v -> {
-            hideKeyboard();
             getViewOptional().startScanBarcode(SearchWidgets.TARGET_PLACE);
         }, false);
 
@@ -100,6 +96,7 @@ public class MoveLpnVM extends BaseViewModel<MoveLpnIView> {
             searchSourceLpnVM.onTextChanged(lpn,0,0,0);
         }
     }
+
 
     private void setupUI() {
         notifyChange();
@@ -153,6 +150,10 @@ public class MoveLpnVM extends BaseViewModel<MoveLpnIView> {
             showToast("Введите целевой НЗ");
             return;
         }
+        if (model.getSelectedAim() == 1 && StringUtils.isEmpty(searchAimPlaceVM.getInputText())){
+            showToast("Введите целевую ячейку");
+            return;
+        }
         showLoader();
         String sourceLpn,targetLpn = null, targetPlaceAddress, moveType;
         sourceLpn = StringUtils.formatToLpn(searchSourceLpnVM.getInputText());
@@ -203,6 +204,9 @@ public class MoveLpnVM extends BaseViewModel<MoveLpnIView> {
             getViewOptional().closeScreen();
         } else if (response.data.resultCode == -1) {
             getViewOptional().showInputPlace("Номер ячейки");
+        }
+        else if (response.data.resultCode == -2) {
+            showToast("Целевой НЗ ненайден");
         }
         else {
             getViewOptional().showSnakeBar(response.data.resultMessage);

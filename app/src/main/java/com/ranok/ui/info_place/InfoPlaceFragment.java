@@ -25,6 +25,7 @@ import com.ranok.network.models.PlaceInfoModel;
 import com.ranok.ui.base.BaseFragment;
 import com.ranok.ui.dialogs.ActionsDialog;
 import com.ranok.ui.info_lpn.InfoLpnFragment;
+import com.ranok.ui.info_position.InfoPositionFragment;
 import com.ranok.ui.move_lpn.MoveLpnFragment;
 import com.ranok.ui.pack_lpn.PackLpnFragment;
 import com.ranok.ui.print_lpn.PrintLpnFragment;
@@ -44,6 +45,14 @@ public class InfoPlaceFragment extends BaseFragment<InfoPlaceIView, InfoPlaceVM,
     private final static int ACTION_DIALOG_CODE = 3;
 
     private PopupMenu popupActions;
+
+    public static InfoPlaceFragment getInstance(String place){
+        InfoPlaceFragment fragment = new InfoPlaceFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("place", place);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Override
     protected String getScreenTitle() {
@@ -83,6 +92,7 @@ public class InfoPlaceFragment extends BaseFragment<InfoPlaceIView, InfoPlaceVM,
         if (LpnUtils.isUnpackEnabled(item)) list.add(new ActionModel(Actions.UNPACK));
         if (LpnUtils.isPackEnabled(item)) list.add(new ActionModel(Actions.PACK));
         if (LpnUtils.isLpnInfoEnabled(item)) list.add(new ActionModel(Actions.LPN_INFO));
+        if (LpnUtils.isPositionInfoEnabled(item)) list.add(new ActionModel(Actions.POSITION_INFO));
 
 
         String header = (item.getLpn() == null || item.getLpn().isEmpty()) ? item.getItemCode() : item.getLpn();
@@ -127,6 +137,8 @@ public class InfoPlaceFragment extends BaseFragment<InfoPlaceIView, InfoPlaceVM,
             case UNPACK: mActivity.addFragment(UnpackLpnFragment.getInstance(item));
                 break;
             case LPN_INFO: mActivity.addFragment(InfoLpnFragment.getInstance(StringUtils.formatFromLpn(item.getLpn())));
+                break;
+            case POSITION_INFO: mActivity.addFragment(InfoPositionFragment.getInstance(item.getItemCode()));
                 break;
         }
     }

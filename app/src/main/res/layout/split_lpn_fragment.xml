@@ -151,6 +151,7 @@
             android:id="@+id/btnSplit"
             android:text="Разбить"
             android:onClick="@{viewModel::onClick}"
+            android:enabled="@{viewModel.maySplit}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/llQty"

@@ -37,14 +37,21 @@ public class InfoPositionVM extends BaseViewModel<InfoPositionIView> implements 
     public void onCreate(@Nullable Bundle arguments, @Nullable Bundle savedInstanceState) {
         super.onCreate(arguments, savedInstanceState);
         searchVM = new SearchPositionWidgetVM(SEARCH_WIDGET_TAG, this);
-        data = Hawk.get("POSITION");
-        if (data != null) {
-            RxPosInfo.getInstance().sendData(data);
-            getViewOptional().updatePager(data.getPositionInReceiptList() != null
-                && data.getPositionInReceiptList().size()>0);
+
+        //bundle.putString("code", code);
+        if (arguments!= null && arguments.containsKey("code")) {
+            String s = arguments.getString("code");
+            if (s!=null) searchVM.onTextChanged(s,0,0,0);
+        } else {
+            data = Hawk.get("POSITION");
+            if (data != null) {
+                RxPosInfo.getInstance().sendData(data);
+                getViewOptional().updatePager(data.getPositionInReceiptList() != null
+                        && data.getPositionInReceiptList().size() > 0);
+            }
+            String s = Hawk.get("POSITION_TEXT");
+            if (s != null) searchVM.onTextChanged(s, 0, 0, 0);
         }
-        String s = Hawk.get("POSITION_TEXT");
-        if (s!=null) searchVM.onTextChanged(s,0,0,0);
     }
 
     public int getPagesCount(){
@@ -68,6 +75,7 @@ public class InfoPositionVM extends BaseViewModel<InfoPositionIView> implements 
     public void startSearch() {
         SearchPositionWidgetVM.ItemType itemType;
         itemType = searchVM.getItemType();
+        if (itemType != null)
         switch (itemType) {
             case ITEM_CODE: searchByCode(searchVM.getInputText());
                 break;
@@ -77,7 +85,8 @@ public class InfoPositionVM extends BaseViewModel<InfoPositionIView> implements 
                 break;
             case PIECE_BARCODE: searchByBarcode(PIECE_BARCODE.type, "0");
                 break;
-            case UNKNOWN: break;
+            case UNKNOWN: showToast("Некорректный ввод");
+                break;
         }
     }
 

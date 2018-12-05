@@ -46,6 +46,18 @@ public class LpnInfoModel {
     @ColumnInfo(name="lpnContext")
     String lpnContext;
 
+    @SerializedName("childCount")
+    @ColumnInfo(name="childCount")
+    int childCount;
+
+    @SerializedName("maySplit")
+    @ColumnInfo(name="maySplit")
+    int maySplit;
+
+    @SerializedName("mayUnpack")
+    @ColumnInfo(name="mayUnpack")
+    int mayUnpack;
+
     public String getCreation() {
         return createdBy + " (" + creationDate + ")";
     }
@@ -147,6 +159,30 @@ public class LpnInfoModel {
 
     public void setVolume(Double volume) {
         this.volume = volume;
+    }
+
+    public int getChildCount() {
+        return childCount;
+    }
+
+    public void setChildCount(int childCount) {
+        this.childCount = childCount;
+    }
+
+    public int getMaySplit() {
+        return maySplit;
+    }
+
+    public void setMaySplit(int maySplit) {
+        this.maySplit = maySplit;
+    }
+
+    public int getMayUnpack() {
+        return mayUnpack;
+    }
+
+    public void setMayUnpack(int mayUnpack) {
+        this.mayUnpack = mayUnpack;
     }
 }
 /*

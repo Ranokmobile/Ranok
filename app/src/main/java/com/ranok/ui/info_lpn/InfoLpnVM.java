@@ -26,7 +26,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidgetCallbacks {
+public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidgetCallbacks,
+        RecyclerBindingAdapter.OnItemClickListener<PlaceInfoModel>{
     private static final String SEARCH_WIDGET_TAG = "InfoLpnVM";
 
     private LpnInfoModel lpnInfoModel;
@@ -45,6 +46,8 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
     public RecyclerBindingAdapter<LpnInfoPositionsInReceipt> getReceiptAdapter() {
         return receiptAdapter;
     }
+
+
 
     public LpnInfoModel getLpnInfoModel() {
         return lpnInfoModel;
@@ -70,7 +73,7 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
     public void onCreate(@Nullable Bundle arguments, @Nullable Bundle savedInstanceState) {
         super.onCreate(arguments, savedInstanceState);
         searchVM = new SearchLpnWidgetVM(SEARCH_WIDGET_TAG, this);
-
+        adapter.setOnItemClickListener(this);
         if (arguments != null && arguments.getString("lpn") != null) {
             String pLpn = arguments.getString("lpn");
             searchVM.onTextChanged(pLpn, 0, 0, 0);
@@ -98,7 +101,10 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
         }
     }
 
-
+    @Override
+    public void onItemClick(int position, PlaceInfoModel item) {
+        getViewOptional().showMenu(item);
+    }
 
     @Override
     public void onClickWidgetSearch(View v) {

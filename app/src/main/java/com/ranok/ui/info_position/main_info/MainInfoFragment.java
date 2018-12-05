@@ -20,6 +20,7 @@ import com.ranok.network.models.PlaceInfoModel;
 import com.ranok.ui.base.BaseFragment;
 import com.ranok.ui.dialogs.ActionsDialog;
 import com.ranok.ui.info_lpn.InfoLpnFragment;
+import com.ranok.ui.info_place.InfoPlaceFragment;
 import com.ranok.ui.move_lpn.MoveLpnFragment;
 import com.ranok.ui.pack_lpn.PackLpnFragment;
 import com.ranok.ui.print_lpn.PrintLpnFragment;
@@ -61,6 +62,7 @@ public class MainInfoFragment extends BaseFragment<MainInfoIView, MainInfoVM, Ma
         if (LpnUtils.isUnpackEnabled(item)) list.add(new ActionModel(Actions.UNPACK));
         if (LpnUtils.isPackEnabled(item)) list.add(new ActionModel(Actions.PACK));
         if (LpnUtils.isLpnInfoEnabled(item)) list.add(new ActionModel(Actions.LPN_INFO));
+        if (LpnUtils.isPlaceInfoEnabled(item)) list.add(new ActionModel(Actions.PLACE_INFO));
 
 
         String header = (item.getLpn() == null || item.getLpn().isEmpty()) ? item.getItemCode() : item.getLpn();
@@ -97,6 +99,9 @@ public class MainInfoFragment extends BaseFragment<MainInfoIView, MainInfoVM, Ma
                 break;
             case LPN_INFO: mActivity.addFragment(InfoLpnFragment.getInstance(StringUtils.formatFromLpn(item.getLpn())));
                 break;
+            case PLACE_INFO: mActivity.addFragment(InfoPlaceFragment.getInstance(item.getAddress()));
+                break;
+
 
         }
     }

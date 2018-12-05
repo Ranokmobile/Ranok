@@ -19,16 +19,22 @@ import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.adapters.LinearLayoutManager;
 import com.ranok.databinding.InfoLpnFragmentBinding;
+import com.ranok.enums.Actions;
 import com.ranok.mlkit.LivePreviewActivity;
+import com.ranok.models.ActionModel;
 import com.ranok.network.models.PlaceInfoModel;
 import com.ranok.rx_bus.RxLpnOperation;
 import com.ranok.ui.base.BaseFragment;
+import com.ranok.ui.dialogs.ActionsDialog;
 import com.ranok.ui.dialogs.SelectDialogFragment;
+import com.ranok.ui.info_place.InfoPlaceFragment;
+import com.ranok.ui.info_position.InfoPositionFragment;
 import com.ranok.ui.info_position.SelectPositionFragment;
 import com.ranok.ui.move_lpn.MoveLpnFragment;
 import com.ranok.ui.print_lpn.PrintLpnFragment;
 import com.ranok.ui.split_lpn.SplitLpnFragment;
 import com.ranok.ui.unpack_lpn.UnpackLpnFragment;
+import com.ranok.utils.LpnUtils;
 import com.ranok.utils.StringUtils;
 import com.ranok.utils.Utils;
 
@@ -42,7 +48,7 @@ public class InfoLpnFragment extends BaseFragment<InfoLpnIView, InfoLpnVM, InfoL
         implements InfoLpnIView, TextView.OnEditorActionListener {
 
     private static final int REQUEST_CODE_SPLIT = 2, REQUEST_CODE_UNPACK = 3,
-            REQUEST_CODE_PRINT = 4;
+            REQUEST_CODE_PRINT = 4, ACTION_DIALOG_CODE = 5;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public static InfoLpnFragment getInstance(String lpn){
@@ -96,13 +102,34 @@ public class InfoLpnFragment extends BaseFragment<InfoLpnIView, InfoLpnVM, InfoL
     public void onResume() {
         super.onResume();
         getViewModel().startSearch();
+    }
 
+    @Override
+    public void showMenu(PlaceInfoModel item) {
+        ArrayList<ActionModel> list = new ArrayList<>();
+        if (LpnUtils.isPositionInfoEnabled(item)) list.add(new ActionModel(Actions.POSITION_INFO));
+        if (LpnUtils.isPlaceInfoEnabled(item)) list.add(new ActionModel(Actions.PLACE_INFO));
+        String header = (item.getLpn() == null || item.getLpn().isEmpty()) ? item.getItemCode() : item.getLpn();
+        ActionsDialog actionsDialog = ActionsDialog.getInstance(list, header, item);
+        actionsDialog.setTargetFragment(this, ACTION_DIALOG_CODE);
+        actionsDialog.show(mActivity.getSupportFragmentManager(), "DLG");
+    }
+
+    private void processAction(int id, PlaceInfoModel item) {
+        Actions action = Actions.getById(id);
+        switch (action) {
+            case PLACE_INFO: mActivity.addFragment(InfoPlaceFragment.getInstance(item.getAddress()));
+                break;
+            case POSITION_INFO: mActivity.addFragment(InfoPositionFragment.getInstance(item.getItemCode()));
+                break;
+        }
     }
 
     @Override
     public void refreshFab() {
         getBinding().fabSplit.setEnabled(getViewModel().isFabItemVisible());
-        getBinding().fabUnPack.setEnabled(getViewModel().isFabItemVisible());
+        getBinding().fabUnPack.setEnabled(getViewModel().isFabItemVisible()
+        && getViewModel().getLpnInfoModel().getMayUnpack()==1);
     }
 
     private void gotNewLpn(String s) {
@@ -158,6 +185,13 @@ public class InfoLpnFragment extends BaseFragment<InfoLpnIView, InfoLpnVM, InfoL
                     mActivity.addFragment(UnpackLpnFragment.getInstance(model));
                 }
             }
+        }
+
+        if (requestCode == ACTION_DIALOG_CODE && resultCode == Activity.RESULT_OK) {
+            int id = data.getIntExtra("id", 0);
+            String header = data.getStringExtra("HEADER");
+            PlaceInfoModel item = data.getParcelableExtra("ITEM");
+            processAction(id, item);
         }
     }
 

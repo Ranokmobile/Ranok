@@ -52,6 +52,10 @@ public class SplitLpnVM extends BaseViewModel<SplitLpnIView> {
         return String.valueOf(model.getAvailQuantity());
     }
 
+    public boolean isMaySplit(){
+        return (model != null && model.getMaySplit()==1);
+    }
+
     @Override
     public void onCreate(@Nullable Bundle arguments, @Nullable Bundle savedInstanceState) {
         super.onCreate(arguments, savedInstanceState);
@@ -59,6 +63,7 @@ public class SplitLpnVM extends BaseViewModel<SplitLpnIView> {
         if (arguments != null) {
             lpn = arguments.getString("lpn");
             model = arguments.getParcelable("position");
+            //        bundle.putInt("maySplit", position.getMaySplit());
         }
     }
 

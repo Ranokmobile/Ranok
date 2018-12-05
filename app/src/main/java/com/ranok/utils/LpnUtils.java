@@ -13,7 +13,7 @@ public class LpnUtils {
     }
 
     public static boolean isUnpackEnabled(PlaceInfoModel item) {
-        return item.getAvailQuantity() >= 1 && !(item.getLpn() == null || item.getLpn().isEmpty());
+        return item.getMayUnpack()==1 && item.getAvailQuantity() >= 1 && !(item.getLpn() == null || item.getLpn().isEmpty());
     }
 
     public static boolean isPackEnabled(PlaceInfoModel item) {
@@ -26,6 +26,14 @@ public class LpnUtils {
 
     public static boolean isPrintEnabled(PlaceInfoModel item) {
         return !(item.getLpn() == null || item.getLpn().isEmpty());
+    }
+
+    public static boolean isPlaceInfoEnabled(PlaceInfoModel item) {
+        return (item.getAddress() != null && !item.getAddress().isEmpty());
+    }
+
+    public static boolean isPositionInfoEnabled(PlaceInfoModel item) {
+        return (item.getItemCode() != null && !item.getItemCode().isEmpty());
     }
 
 }

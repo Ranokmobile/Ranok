@@ -13,4 +13,5 @@ public interface InfoLpnIView extends BaseIView {
     void showUnpack(String lpn, ArrayList<PlaceInfoModel> positions);
     void showPrint(String lpn, ArrayList<PlaceInfoModel> positions);
     void refreshFab();
+    void showMenu(PlaceInfoModel item);
 }

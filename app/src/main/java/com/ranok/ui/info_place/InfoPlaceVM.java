@@ -44,17 +44,25 @@ public class InfoPlaceVM extends BaseViewModel<InfoPlaceIView> implements Search
         super.onCreate(arguments, savedInstanceState);
         searchVM = new SearchPlaceWidgetVM(SEARCH_WIDGET_TAG, this);
         adapter.setOnItemClickListener(this);
-        data = Hawk.get("PLACE_DATA");
-        if (data != null) {
-            if(data.getPlaceInfoList() == null) {
-                adapter.setItems(new ArrayList<>());
-            } else{
-                adapter.setItems(data.getPlaceInfoList());
-            }
-            notifyChange();
+
+        if (arguments!= null && arguments.containsKey("place")) {
+            String s = arguments.getString("place");
+            if (s!=null) searchVM.onTextChanged(s,0,0,0);
         }
-        String s = Hawk.get("PLACE_TEXT");
-        if (s!=null) searchVM.onTextChanged(s,0,0,0);
+        //bundle.putString("place", place);
+        else{
+            data = Hawk.get("PLACE_DATA");
+            if (data != null) {
+                if(data.getPlaceInfoList() == null) {
+                    adapter.setItems(new ArrayList<>());
+                } else{
+                    adapter.setItems(data.getPlaceInfoList());
+                }
+                notifyChange();
+            }
+            String s = Hawk.get("PLACE_TEXT");
+            if (s!=null) searchVM.onTextChanged(s,0,0,0);
+        }
     }
 
     @Override
