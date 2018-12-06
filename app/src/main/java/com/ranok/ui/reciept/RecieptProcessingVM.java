@@ -104,7 +104,7 @@ public class RecieptProcessingVM extends BaseViewModel<RecieptProcessingIView> {
 
     @Bindable
     public boolean isRecieptEnabled(){
-        return (!StringUtils.isEmpty(inputQty) && Integer.parseInt(inputQty) <= position.getAvailQuantity() );
+        return (!StringUtils.isEmpty(inputQty)&& Integer.parseInt(inputQty) >0 && Integer.parseInt(inputQty) <= position.getAvailQuantity() );
     }
 
     public void recieptClicked(View v){

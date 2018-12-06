@@ -6,11 +6,11 @@ public class SearchLpnWidgetVM extends BaseSearchWidgetVM  {
 
 
     public SearchLpnWidgetVM(String hawkTag, SearchWidgetCallbacks callbacks) {
-        super(9, hawkTag, callbacks, "##########");
+        super(15, hawkTag, callbacks, "##########");
     }
 
     public SearchLpnWidgetVM(String hawkTag, SearchWidgetCallbacks callbacks, boolean searchBtnVisibility) {
-        super(9, hawkTag, callbacks, "##########", searchBtnVisibility);
+        super(15, hawkTag, callbacks, "##########", searchBtnVisibility);
     }
 
     @Override

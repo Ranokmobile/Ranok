@@ -48,6 +48,11 @@ public class PlaceInfoModel implements SelectDialogFragment.Selectable {
     @ColumnInfo(name="mayUnpack")
     int mayUnpack;
 
+    @SerializedName("mayMove")
+    @ColumnInfo(name="mayMove")
+    int mayMove;
+
+
 
     @Override
     public String getName() {
@@ -144,6 +149,15 @@ public class PlaceInfoModel implements SelectDialogFragment.Selectable {
         this.mayUnpack = mayUnpack;
     }
 
+    public int getMayMove() {
+        return mayMove;
+    }
+
+    public void setMayMove(int mayMove) {
+        this.mayMove = mayMove;
+    }
+
+
     @Override
     public int describeContents() {
         return 0;
@@ -160,6 +174,7 @@ public class PlaceInfoModel implements SelectDialogFragment.Selectable {
         dest.writeInt(this.availQuantity);
         dest.writeInt(this.maySplit);
         dest.writeInt(this.mayUnpack);
+        dest.writeInt(this.mayMove);
     }
 
     public PlaceInfoModel() {
@@ -175,6 +190,7 @@ public class PlaceInfoModel implements SelectDialogFragment.Selectable {
         this.availQuantity = in.readInt();
         this.maySplit = in.readInt();
         this.mayUnpack = in.readInt();
+        this.mayMove = in.readInt();
     }
 
     public static final Creator<PlaceInfoModel> CREATOR = new Creator<PlaceInfoModel>() {

@@ -129,7 +129,9 @@ public class InfoLpnFragment extends BaseFragment<InfoLpnIView, InfoLpnVM, InfoL
     public void refreshFab() {
         getBinding().fabSplit.setEnabled(getViewModel().isFabItemVisible());
         getBinding().fabUnPack.setEnabled(getViewModel().isFabItemVisible()
-        && getViewModel().getLpnInfoModel().getMayUnpack()==1);
+                && getViewModel().getLpnInfoModel().getMayUnpack()==1);
+        getBinding().fabMove.setEnabled(getViewModel().isMoveEnabled());
+
     }
 
     private void gotNewLpn(String s) {
@@ -207,7 +209,8 @@ public class InfoLpnFragment extends BaseFragment<InfoLpnIView, InfoLpnVM, InfoL
 
     @Override
     public void showMove(String lpn) {
-        mActivity.addFragment(MoveLpnFragment.getInstance(lpn));
+        boolean delivery = getViewModel().getLpnInfoModel().getLpnContext().equals("На приёмке");
+        mActivity.addFragment(MoveLpnFragment.getInstance(lpn, delivery));
     }
 
     @Override
@@ -244,9 +247,9 @@ public class InfoLpnFragment extends BaseFragment<InfoLpnIView, InfoLpnVM, InfoL
 
     @Override
     public void showPrint(String lpn, ArrayList<PlaceInfoModel> positions) {
-        if (positions == null || positions.size()==0) return;
-
-        if (positions.size()==1) {
+        if (positions == null || positions.size()==0) {
+            mActivity.addFragment(PrintLpnFragment.getInstance(lpn));
+        }else if (positions.size()==1) {
             mActivity.addFragment(PrintLpnFragment.getInstance(positions.get(0)));
         } else {
             SelectPositionFragment.Builder builder = new SelectPositionFragment.Builder();

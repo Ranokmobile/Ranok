@@ -58,6 +58,10 @@ public class LpnInfoModel {
     @ColumnInfo(name="mayUnpack")
     int mayUnpack;
 
+    @SerializedName("mayMove")
+    @ColumnInfo(name="mayMove")
+    int mayMove;
+
     public String getCreation() {
         return createdBy + " (" + creationDate + ")";
     }
@@ -183,6 +187,14 @@ public class LpnInfoModel {
 
     public void setMayUnpack(int mayUnpack) {
         this.mayUnpack = mayUnpack;
+    }
+
+    public int getMayMove() {
+        return mayMove;
+    }
+
+    public void setMayMove(int mayMove) {
+        this.mayMove = mayMove;
     }
 }
 /*

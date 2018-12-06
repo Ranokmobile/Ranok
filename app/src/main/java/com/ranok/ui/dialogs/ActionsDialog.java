@@ -21,6 +21,7 @@ import com.ranok.R;
 import com.ranok.databinding.ActionsDialogFragmentBinding;
 import com.ranok.models.ActionModel;
 import com.ranok.network.models.PlaceInfoModel;
+import com.ranok.network.models.PosInReceiptModel;
 
 import java.util.ArrayList;
 
@@ -33,6 +34,9 @@ public class ActionsDialog extends DialogFragment  {
 
     @State
     PlaceInfoModel item;
+
+    @State
+    PosInReceiptModel itemReciept;
 
     @State
     String header;
@@ -49,12 +53,24 @@ public class ActionsDialog extends DialogFragment  {
         return actionsDialog;
     }
 
+
+    public static ActionsDialog getInstance(ArrayList<ActionModel> actions, String header, PosInReceiptModel itemReciept){
+        ActionsDialog actionsDialog = new ActionsDialog();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("LIST", actions);
+        bundle.putString("HEADER", header);
+        bundle.putParcelable("ITEMRECIEPT", itemReciept);
+        actionsDialog.setArguments(bundle);
+        return actionsDialog;
+    }
+
     public void processClick(int id){
         if (getTargetFragment() != null) {
             Intent intent = new Intent();
             intent.putExtra("id", id);
             intent.putExtra("HEADER", header);
             intent.putExtra("ITEM", item);
+            intent.putExtra("ITEMRECIEPT", itemReciept);
             getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
         }
         dismiss();
@@ -69,6 +85,7 @@ public class ActionsDialog extends DialogFragment  {
             actions = args.getParcelableArrayList("LIST");
             header = args.getString("HEADER");
             item = args.getParcelable("ITEM");
+            itemReciept = args.getParcelable("ITEMRECIEPT");
         }
         if (savedInstanceState != null){
             StateHelperActionsDialog.onRestoreInstanceState(this,savedInstanceState);

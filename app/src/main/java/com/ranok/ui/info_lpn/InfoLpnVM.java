@@ -162,6 +162,11 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
         return (lpnInfoModel != null && lpnInfoModel.isLpnDelivered());
     }
 
+    public boolean isMoveEnabled(){
+        return (lpnInfoModel != null && lpnInfoModel.getMayMove()==1);
+    }
+
+
 
     private void processResponse(LpnInfoResponse response) {
         hideLoader();
@@ -183,6 +188,8 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
         notifyChange();
         getViewOptional().refreshFab();
     }
+
+
 
     public void moveClick(View v){
         getViewOptional().showMove(searchVM.getInputText());

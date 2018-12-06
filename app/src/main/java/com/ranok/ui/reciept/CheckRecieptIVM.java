@@ -78,6 +78,12 @@ public class CheckRecieptIVM extends BaseViewModel<CheckRecieptIView>
                 .map(i->i.label).toList().subscribe(strings -> qualities = strings)
         );
         searchSourceLpnVM = new SearchLpnWidgetVM(SEARCH_WIDGET_SOURCE_LPN_TAG, this);
+
+        if (arguments != null && arguments.getString("lpn") != null) {
+            lpn = arguments.getString("lpn");
+            searchSourceLpnVM.onTextChanged(lpn, 0, 0, 0);
+            startSearch();
+        }
     }
 
     @Override
@@ -128,6 +134,7 @@ public class CheckRecieptIVM extends BaseViewModel<CheckRecieptIView>
         if (acceptListResponse.data.getAcceptList() == null
                 || acceptListResponse.data.getAcceptList().size()==0) {
             model =null;
+            showToast("НЗ поступления не найден");
         } else {
             model = acceptListResponse.data.getAcceptList().get(0);
         }

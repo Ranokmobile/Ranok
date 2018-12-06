@@ -6,4 +6,5 @@ import com.ranok.ui.base.BaseIView;
 
 public interface RecieptChooseOrderIView extends BaseIView {
     void showProcessing(RecieptListModel position);
+    void startScanBarcode();
 }

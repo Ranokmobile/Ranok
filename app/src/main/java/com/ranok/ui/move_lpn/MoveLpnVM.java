@@ -21,6 +21,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import ranok.annotation.State;
 
+import static com.ranok.ui.move_lpn.MoveLpnFragment.DELIVERY;
 import static com.ranok.ui.move_lpn.MoveLpnFragment.LPN;
 import static com.ranok.ui.move_lpn.MoveLpnFragment.PACK;
 import static com.ranok.ui.move_lpn.MoveLpnFragment.SPLIT;
@@ -42,6 +43,9 @@ public class MoveLpnVM extends BaseViewModel<MoveLpnIView> {
 
     @State
     PackToLpnRequest packToLpnRequest;
+
+    @State
+    boolean isDelivery;
 
     @State
     boolean transaction;
@@ -79,7 +83,14 @@ public class MoveLpnVM extends BaseViewModel<MoveLpnIView> {
                 packToLpnRequest = arguments.getParcelable(PACK);
                 transaction = true;
             }
+            if (arguments.containsKey(DELIVERY)){
+                isDelivery = arguments.getBoolean(DELIVERY);
+            }
+        }
 
+        if (isDelivery) {
+            model.setSelectedAim(1);
+                    //selectedAimViewId
         }
 
         searchSourceLpnVM = new SearchLpnWidgetVM(SEARCH_WIDGET_SOURCE_PLN_TAG, v -> {
@@ -95,6 +106,15 @@ public class MoveLpnVM extends BaseViewModel<MoveLpnIView> {
         if (lpn != null && !lpn.isEmpty() && !transaction){
             searchSourceLpnVM.onTextChanged(lpn,0,0,0);
         }
+    }
+
+
+    public boolean isDelivery() {
+        return isDelivery;
+    }
+
+    public boolean isCanSelectType() {
+        return !isDelivery;
     }
 
 
@@ -116,9 +136,9 @@ public class MoveLpnVM extends BaseViewModel<MoveLpnIView> {
 
     public void gotBarcode(String barcode, SearchWidgets item){
         switch (item){
-            case SOURCE_LPN: searchSourceLpnVM.onTextChanged(barcode,0,0,0);
+            case SOURCE_LPN: searchSourceLpnVM.onTextChanged(StringUtils.formatFromLpn(barcode),0,0,0);
             break;
-            case TARGET_LPN: searchAimLpnVM.onTextChanged(barcode,0,0,0);
+            case TARGET_LPN: searchAimLpnVM.onTextChanged(StringUtils.formatFromLpn(barcode),0,0,0);
             break;
             case TARGET_PLACE: searchAimPlaceVM.onTextChanged(barcode,0,0,0);
             break;

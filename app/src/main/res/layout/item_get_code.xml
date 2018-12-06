@@ -67,7 +67,7 @@
             android:imeOptions="actionSearch"
             android:maxLength="@{viewModel.maxTextLength}"
             android:singleLine="true"
-            mask:allowed_chars="1234567890"
+            mask:allowed_chars="L1234567890"
             mask:mask="@{viewModel.mask, default= '#'}"
             android:text="@{viewModel.inputText}"
             android:onTextChanged="@{viewModel::onTextChanged}"
@@ -75,6 +75,30 @@
             app:layout_constraintEnd_toStartOf="@+id/ibBarcode"
             app:layout_constraintStart_toEndOf="@+id/ivSearchHint"
             app:layout_constraintTop_toTopOf="parent"/>
+
+        <!--<EditText-->
+            <!--android:id="@+id/etCode"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_marginBottom="1dp"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:layout_marginTop="1dp"-->
+            <!--android:focusable="true"-->
+            <!--android:gravity="center"-->
+            <!--android:inputType="number"-->
+            <!--android:imeOptions="actionSearch"-->
+            <!--android:maxLength="@{viewModel.maxTextLength}"-->
+            <!--android:singleLine="true"-->
+            <!--mask:allowed_chars="L$1234567890"-->
+            <!--android:text="@{viewModel.inputText}"-->
+            <!--android:onTextChanged="@{viewModel::onTextChanged}"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintEnd_toStartOf="@+id/ibBarcode"-->
+            <!--app:layout_constraintStart_toEndOf="@+id/ivSearchHint"-->
+            <!--app:layout_constraintTop_toTopOf="parent"/>-->
+
+
 
         <ImageButton
             android:id="@+id/ibSearch"

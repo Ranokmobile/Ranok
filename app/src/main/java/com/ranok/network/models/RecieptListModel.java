@@ -51,6 +51,10 @@ public class RecieptListModel implements Parcelable {
     @ColumnInfo(name="orderName")
     String orderName;
 
+    @SerializedName("barcodes")
+    @ColumnInfo(name="barcodes")
+    String barcodes;
+
 
     public int getMaxQtySymbols(){
         return String.valueOf(availQuantity).length();
@@ -70,7 +74,8 @@ public class RecieptListModel implements Parcelable {
 
     public String getName(){
         return lineNumber + ") " + itemCode + " - " + prodCode + "; " + itemName
-                + "[" + String.valueOf(availQuantity) + "/" +   String.valueOf(totalQuantity)+ "]";
+                + "[" + String.valueOf(availQuantity) + "/" +   String.valueOf(totalQuantity)+ "]"
+                + barcodes;
     }
 
     public int getLineNumber() {
@@ -153,6 +158,14 @@ public class RecieptListModel implements Parcelable {
         this.lots = lots;
     }
 
+    public String getBarcodes() {
+        return barcodes;
+    }
+
+    public void setBarcodes(String barcodes) {
+        this.barcodes = barcodes;
+    }
+
 
     @Override
     public int describeContents() {
@@ -172,6 +185,7 @@ public class RecieptListModel implements Parcelable {
         dest.writeInt(this.availQuantity);
         dest.writeString(this.lots);
         dest.writeString(this.orderName);
+        dest.writeString(this.barcodes);
     }
 
     public RecieptListModel() {
@@ -189,9 +203,10 @@ public class RecieptListModel implements Parcelable {
         this.availQuantity = in.readInt();
         this.lots = in.readString();
         this.orderName = in.readString();
+        this.barcodes = in.readString();
     }
 
-    public static final Parcelable.Creator<RecieptListModel> CREATOR = new Parcelable.Creator<RecieptListModel>() {
+    public static final Creator<RecieptListModel> CREATOR = new Creator<RecieptListModel>() {
         @Override
         public RecieptListModel createFromParcel(Parcel source) {
             return new RecieptListModel(source);

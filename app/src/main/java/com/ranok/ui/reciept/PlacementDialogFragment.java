@@ -36,7 +36,7 @@ public class PlacementDialogFragment extends DialogFragment {
         builder.setMessage("Провести размещение НЗ " + lpn + " ?")
                 .setPositiveButton("Да", (dialog, id) -> {
                     dialog.dismiss();
-                    ((BaseActivity)getActivity()).addFragment(MoveLpnFragment.getInstance(lpn));
+                    ((BaseActivity)getActivity()).addFragment(MoveLpnFragment.getInstance(lpn, true));
                 })
                 .setNegativeButton("Нет", (dialog, id) -> dialog.dismiss());
         return builder.create();

@@ -62,7 +62,7 @@ public class PackLpnFragment extends BaseFragment<PackLpnIView, PackLpnVM, PackL
     @Override
     public void showMoveFragment(PackToLpnRequest packToLpnRequest) {
         //mActivity.getSupportFragmentManager().popBackStackImmediate();
-        mActivity.addFragment(MoveLpnFragment.getInstance(null, packToLpnRequest));
+        mActivity.addFragment(MoveLpnFragment.getInstance(null, false, packToLpnRequest));
     }
 
     @Nullable

@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.ranok.R;
-import com.ranok.network.models.PlaceInfoModel;
 import com.ranok.network.request.PrintLpnRequest;
 import com.ranok.network.response.LpnOperationResponse;
 import com.ranok.ui.base.BaseViewModel;
@@ -17,8 +16,6 @@ import ranok.annotation.State;
 
 
 public class PrintLpnVM extends BaseViewModel<PrintLpnIView> {
-    @State
-    PlaceInfoModel model;
 
     @State
     String lpn="";
@@ -27,14 +24,6 @@ public class PrintLpnVM extends BaseViewModel<PrintLpnIView> {
         return lpn;
     }
 
-    public String getFullPosition(){
-        if (model!=null) return model.getItemCode()+" - "+model.getLot() ;
-        else return "";
-    }
-
-    public PlaceInfoModel getModel() {
-        return model;
-    }
 
     private String inputQty;
 
@@ -46,9 +35,6 @@ public class PrintLpnVM extends BaseViewModel<PrintLpnIView> {
         this.inputQty = inputQty;
     }
 
-    public String getQty(){
-        return String.valueOf(model.getAvailQuantity());
-    }
 
     @Override
     public void onCreate(@Nullable Bundle arguments, @Nullable Bundle savedInstanceState) {
@@ -56,7 +42,6 @@ public class PrintLpnVM extends BaseViewModel<PrintLpnIView> {
         if (savedInstanceState != null) StateHelperPrintLpnVM.onRestoreInstanceState(this, savedInstanceState);
         if (arguments != null) {
             lpn = arguments.getString("lpn");
-            model = arguments.getParcelable("position");
         }
     }
 
@@ -70,7 +55,7 @@ public class PrintLpnVM extends BaseViewModel<PrintLpnIView> {
         showLoader();
         if (v.getId() == R.id.btnGo){
             compositeDisposable.add( //
-                    netApi.printLpn(new PrintLpnRequest(model.getLpn()))
+                    netApi.printLpn(new PrintLpnRequest(lpn))
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(this::processResponse, this::processError)

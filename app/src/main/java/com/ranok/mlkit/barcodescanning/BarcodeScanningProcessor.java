@@ -49,7 +49,8 @@ public class BarcodeScanningProcessor extends VisionProcessorBase<List<FirebaseV
     barcodeScanCallback = callback;
     detector = FirebaseVision.getInstance().getVisionBarcodeDetector(
             new FirebaseVisionBarcodeDetectorOptions.Builder()
-            .setBarcodeFormats(FirebaseVisionBarcode.FORMAT_EAN_13, FirebaseVisionBarcode.FORMAT_EAN_8)
+            .setBarcodeFormats(FirebaseVisionBarcode.FORMAT_EAN_13, FirebaseVisionBarcode.FORMAT_EAN_8
+            , FirebaseVisionBarcode.FORMAT_CODE_128)
             .build()
     );
 

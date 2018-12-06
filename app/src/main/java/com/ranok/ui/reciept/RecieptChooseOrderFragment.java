@@ -1,5 +1,7 @@
 package com.ranok.ui.reciept;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import com.ranok.BR;
 import com.ranok.R;
 import com.ranok.databinding.RecieptChooseOrderFragmentBinding;
+import com.ranok.mlkit.LivePreviewActivity;
 import com.ranok.network.models.RecieptListModel;
 import com.ranok.ui.base.BaseFragment;
 import com.ranok.utils.Utils;
@@ -56,6 +59,20 @@ public class RecieptChooseOrderFragment extends BaseFragment<RecieptChooseOrderI
         et.setOnEditorActionListener(this);
     }
 
+    @Override
+    public void startScanBarcode() {
+        startActivityForResult(new Intent(getActivity(), LivePreviewActivity.class), 1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            String barcode = data.getStringExtra("barcode");
+            //getViewModel().gotBarcode(barcode);
+            getBinding().search.setQuery(barcode, false);
+        }
+    }
 
     @Override
     public void showProcessing(RecieptListModel position) {

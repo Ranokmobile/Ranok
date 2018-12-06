@@ -25,7 +25,14 @@ public class PrintLpnFragment extends BaseFragment<PrintLpnIView, PrintLpnVM, Pr
         PrintLpnFragment fragment = new PrintLpnFragment();
         Bundle bundle = new Bundle();
         bundle.putString("lpn", position.getLpn());
-        bundle.putParcelable("position", position);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    public static PrintLpnFragment getInstance(String lpn){
+        PrintLpnFragment fragment = new PrintLpnFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("lpn", lpn);
         fragment.setArguments(bundle);
         return fragment;
     }

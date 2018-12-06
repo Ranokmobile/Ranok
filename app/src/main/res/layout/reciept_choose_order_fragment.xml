@@ -49,14 +49,32 @@
             android:layout_height="wrap_content"
             bind:viewModel="@{viewModel.searchVM}" />
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <android.support.v7.widget.SearchView
             android:id="@+id/search"
             android:clickable="true"
             android:focusable="true"
             app:onQueryTextListener="@{viewModel.listener}"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content" />
-        <!--android:onQueryTextChange="@{viewModel::onQueryTextChange}"-->
+
+         <ImageButton
+            android:id="@+id/ibBarcode"
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:cropToPadding="false"
+            android:elevation="3dp"
+            android:focusable="false"
+            android:scaleType="centerCrop"
+            android:onClick="@{viewModel::onClick}"
+            app:srcCompat="@drawable/barcode" />
+
+        </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"

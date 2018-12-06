@@ -32,6 +32,11 @@ public abstract class BaseActivity<T extends BaseIView, R extends BaseViewModel<
     public void showLoader(int hashCode) {
 //            loaderDialogs.put(hashCode, new LoaderDialog(this));
 //            loaderDialogs.get(hashCode).show();
+        if (loaderDialog != null) {
+            if (loaderDialog.isShowing()) {
+                return;
+            }
+        }
         if (loaderDialog == null){
             loaderDialog  = new LoaderDialog(this);
             loaderDialog.show();

@@ -27,7 +27,13 @@ public class CheckRecieptFragment extends BaseFragment<CheckRecieptIView, CheckR
 
     private static final int SCAN_REQUEST_CODE = 1, DIALOG_REQUEST_CODE = 2;
 
-
+    public static CheckRecieptFragment getInstance(String lpn){
+        CheckRecieptFragment fragment = new CheckRecieptFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("lpn", lpn);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
 
     @Override
@@ -95,9 +101,10 @@ public class CheckRecieptFragment extends BaseFragment<CheckRecieptIView, CheckR
 
     @Override
     public void showPlacementDialog(String lpn) {
-        PlacementDialogFragment dialog =  PlacementDialogFragment.getInstance(lpn);
+/*        PlacementDialogFragment dialog =  PlacementDialogFragment.getInstance(lpn);
         dialog.setTargetFragment(this, DIALOG_REQUEST_CODE);
         dialog.show(mActivity.getSupportFragmentManager(), "");
+        */
     }
 
     @Nullable

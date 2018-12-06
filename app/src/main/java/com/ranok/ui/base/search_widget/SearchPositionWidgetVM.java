@@ -11,11 +11,12 @@ public class SearchPositionWidgetVM extends BaseSearchWidgetVM {
     }
 
     public SearchPositionWidgetVM(String screenTag, SearchWidgetCallbacks callbacks) {
-        super(13, screenTag, callbacks,"#############");
+        super(15, screenTag, callbacks,"###############");
     }
 
     @Override
     protected boolean isInputCorrect() {
+        if (getInputText() == null) return false;
         if (ItemType.ITEM_CODE.pattern.matcher(getInputText()).matches()){
             itemType = ItemType.ITEM_CODE;
             return true;

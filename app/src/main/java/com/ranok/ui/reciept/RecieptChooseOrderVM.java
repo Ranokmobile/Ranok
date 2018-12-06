@@ -77,6 +77,15 @@ public class RecieptChooseOrderVM extends BaseViewModel<RecieptChooseOrderIView>
                 startSearch();
                 break;
         }
+
+    }
+
+    public void onClick(View v)    {
+        getViewOptional().startScanBarcode();
+    }
+
+    public void gotBarcode(String barcode){
+
     }
 
     public void startSearch() {

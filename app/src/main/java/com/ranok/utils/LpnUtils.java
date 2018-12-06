@@ -5,7 +5,7 @@ import com.ranok.network.models.PlaceInfoModel;
 public class LpnUtils {
 
     public static boolean isMoveEnabled(PlaceInfoModel item) {
-        return item.getAvailQuantity() >= 1 && !(item.getLpn() == null || item.getLpn().isEmpty());
+        return item.getMayMove()==1 && item.getAvailQuantity() >= 1 && !(item.getLpn() == null || item.getLpn().isEmpty());
     }
 
     public static boolean isSplitEnabled(PlaceInfoModel item) {

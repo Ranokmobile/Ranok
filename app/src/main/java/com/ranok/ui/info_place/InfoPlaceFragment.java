@@ -126,7 +126,7 @@ public class InfoPlaceFragment extends BaseFragment<InfoPlaceIView, InfoPlaceVM,
     private void processAction(int id, PlaceInfoModel item) {
         Actions action = Actions.getById(id);
         switch (action) {
-            case MOVE: mActivity.addFragment(MoveLpnFragment.getInstance(item.getLpn()));
+            case MOVE: mActivity.addFragment(MoveLpnFragment.getInstance(item.getLpn(), false));
                 break;
             case PACK:  mActivity.addFragment(PackLpnFragment.getInstance(item));
                 break;

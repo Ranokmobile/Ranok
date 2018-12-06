@@ -11,6 +11,7 @@ public enum Actions {
     LPN_INFO(6, R.drawable.ic_information_variant, "Информация о НЗ" ),
     POSITION_INFO(7, R.drawable.ic_information_variant, "Информация о позиции" ),
     PLACE_INFO(8, R.drawable.ic_information_variant, "Информация о ячейке" ),
+    RECIEPT(9, R.drawable.ic_information_variant, "Контроль поступления" ),
     UNKNOWN(-1, -1, "");
     private int id, drawableId;
     private String text;

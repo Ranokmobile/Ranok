@@ -30,30 +30,33 @@ public class MoveLpnFragment extends BaseFragment<MoveLpnIView, MoveLpnVM, MoveL
         implements MoveLpnIView, TextView.OnEditorActionListener  {
 
     public static final int INPUT_PLACE_DIALOG_CODE = 2;
-    public static final String LPN = "LPN", SPLIT = "SPLIT", PACK = "PACK";
+    public static final String LPN = "LPN", SPLIT = "SPLIT", PACK = "PACK", DELIVERY = "DELIVERY";
 
-    public static MoveLpnFragment getInstance(String sourceLpn, SplitLpnRequest splitLpnRequest){
+    public static MoveLpnFragment getInstance(String sourceLpn, boolean isDelivery, SplitLpnRequest splitLpnRequest){
         MoveLpnFragment fragment = new MoveLpnFragment();
         Bundle bundle = new Bundle();
         bundle.putString(LPN, sourceLpn);
         bundle.putParcelable(SPLIT, splitLpnRequest);
+        bundle.putBoolean(DELIVERY, isDelivery);
         fragment.setArguments(bundle);
         return fragment;
     }
 
-    public static MoveLpnFragment getInstance(String sourceLpn, PackToLpnRequest packToLpnRequest){
+    public static MoveLpnFragment getInstance(String sourceLpn, boolean isDelivery, PackToLpnRequest packToLpnRequest){
         MoveLpnFragment fragment = new MoveLpnFragment();
         Bundle bundle = new Bundle();
         bundle.putString(LPN, sourceLpn);
         bundle.putParcelable(PACK, packToLpnRequest);
+        bundle.putBoolean(DELIVERY, isDelivery);
         fragment.setArguments(bundle);
         return fragment;
     }
 
-    public static MoveLpnFragment getInstance(String sourceLpn){
+    public static MoveLpnFragment getInstance(String sourceLpn, boolean isDelivery){
         MoveLpnFragment fragment = new MoveLpnFragment();
         Bundle bundle = new Bundle();
         bundle.putString(LPN, sourceLpn);
+        bundle.putBoolean(DELIVERY, isDelivery);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -61,7 +64,8 @@ public class MoveLpnFragment extends BaseFragment<MoveLpnIView, MoveLpnVM, MoveL
 
     @Override
     protected String getScreenTitle() {
-        return "Перемещение НЗ";
+        return  !getViewModel().isDelivery() ? "Перемещение НЗ" : "Размещение НЗ";
+        //return "Перемещение НЗ";
     }
 
     @Override
@@ -77,6 +81,9 @@ public class MoveLpnFragment extends BaseFragment<MoveLpnIView, MoveLpnVM, MoveL
         et = getBinding().searchItemAimPlace.etCode;
         et.setImeOptions(EditorInfo.IME_ACTION_DONE );
         et.setOnEditorActionListener(this);
+        //getBinding().rbFullLpn.toggle();
+        //getBinding().rbToPlace.toggle();
+        getBinding().rGroupType.check(R.id.rbToPlace);
     }
 
     @Override

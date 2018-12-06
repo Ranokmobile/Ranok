@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ReceiptInfoVM extends BaseViewModel<ReceiptInfoIView> {
+public class ReceiptInfoVM extends BaseViewModel<ReceiptInfoIView>
+        implements RecyclerBindingAdapter.OnItemClickListener<PosInReceiptModel>{
 
     private RecyclerBindingAdapter<PosInReceiptModel> adapter
             = new RecyclerBindingAdapter<>(R.layout.item_position_in_receipt, BR.viewModel, new ArrayList<>());
@@ -25,8 +26,14 @@ public class ReceiptInfoVM extends BaseViewModel<ReceiptInfoIView> {
     }
 
     @Override
+    public void onItemClick(int position, PosInReceiptModel item) {
+        getViewOptional().showMenu(item);
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle arguments, @Nullable Bundle savedInstanceState) {
         super.onCreate(arguments, savedInstanceState);
+        adapter.setOnItemClickListener(this);
         compositeDisposable.add(RxPosInfo.getInstance().getEvents().subscribe(this::gotNewData));
     }
 
