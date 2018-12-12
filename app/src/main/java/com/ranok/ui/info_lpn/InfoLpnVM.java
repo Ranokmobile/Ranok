@@ -119,7 +119,10 @@ public class InfoLpnVM extends BaseViewModel<InfoLpnIView> implements SearchWidg
 
     public void startSearch() {
         if (searchVM.getInputText() == null) return;
-        String searchStr = StringUtils.formatToLpn(searchVM.getInputText());
+        String searchStr = searchVM.getInputText();
+        if (!searchStr.startsWith("L")) {
+            searchStr = StringUtils.formatToLpn(searchVM.getInputText());
+        }
         searchByCode(searchStr);
     }
 
