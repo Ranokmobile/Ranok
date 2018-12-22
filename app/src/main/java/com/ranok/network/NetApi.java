@@ -42,7 +42,7 @@ public interface NetApi {
     //String URL = "http://dreadnought:8080/Conveyor/api/parcelScan/";
     //String URL = "http://192.168.15.168:8080/Conveyor/api/parcelScan/";
     //String URL = "http://192.168.15.70:8080/Conveyor/api/parcelScan/";
-    //  String URL = "http://192.168.15.211:8080/Conveyor/api/parcelScan/"; //local
+    //  String URL = "http://192.168.17.143:8080/Conveyor/api/parcelScan/"; //local
     //String URL = "http://ebs-dev.localdomain:8008/Conveyor/api/parcelScan/";
 
     @POST("login")

@@ -79,7 +79,7 @@ public class SplitLpnVM extends BaseViewModel<SplitLpnIView> {
             return;
         }
         int qty = Integer.parseInt(inputQty);
-        if (qty <= 0 || qty >= model.getAvailQuantity()) {
+        if (qty <= 0 || qty >= model.getSysQuantity() || qty > model.getAvailQuantity()) {
             getViewOptional().showSnakeBar("Некоректное количество");
             return;
         }
